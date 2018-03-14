@@ -4,12 +4,20 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backround"
     >
 
     <GridView
         android:id="@+id/gridView_frag1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:numColumns="auto_fit"
+        android:stretchMode="spacingWidthUniform"
+        android:horizontalSpacing="5dp"
+        android:columnWidth="120dp"
+        android:gravity="center"
+        android:verticalSpacing="5dp"
+        >
 
     </GridView>
 

@@ -27,7 +27,7 @@ public class Fragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment2,container,false);
         WebView webView = (WebView) view.findViewById(R.id.webview);
-        webView.loadUrl("localhost:8080");
+        webView.loadUrl("172.22.37.227:8080");
         return view;
     }
 
