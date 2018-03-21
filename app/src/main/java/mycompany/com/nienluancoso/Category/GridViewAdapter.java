@@ -1,4 +1,4 @@
-package mycompany.com.nienluancoso;
+package mycompany.com.nienluancoso.Category;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import mycompany.com.nienluancoso.Home.AgriObject;
+import mycompany.com.nienluancoso.R;
 
 /**
  * Created by buimi on 3/13/2018.
@@ -59,8 +62,8 @@ public class GridViewAdapter extends BaseAdapter {
         } else viewHolder = (ViewHolder) view.getTag();
 
         //Add data for View
-        viewHolder.mImageView.setClipToOutline(true);
-        Glide.with(mContext).load("http://169.254.62.221:8080/a/img/gao.jpg").into(viewHolder.mImageView);
+       // viewHolder.mImageView.setClipToOutline(true);
+        Glide.with(mContext).load("http://192.168.1.0:80/a/img/gao.jpg").into(viewHolder.mImageView);
 
         viewHolder.mNameAgri.setText(mAgriObjectList.get(i).getNAME_AGRI());
         viewHolder.mPrice.setText(mAgriObjectList.get(i).getPRICE_AGRI() + " VND");

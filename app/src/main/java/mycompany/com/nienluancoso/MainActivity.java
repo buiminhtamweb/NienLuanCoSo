@@ -7,6 +7,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import mycompany.com.nienluancoso.Category.Fragment2;
+import mycompany.com.nienluancoso.Home.Fragment1;
+import mycompany.com.nienluancoso.User.Fragment3;
+
 public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

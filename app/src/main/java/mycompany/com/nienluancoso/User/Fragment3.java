@@ -1,4 +1,4 @@
-package mycompany.com.nienluancoso;
+package mycompany.com.nienluancoso.User;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import mycompany.com.nienluancoso.R;
 
 /**
  * Created by buimi on 1/29/2018.
