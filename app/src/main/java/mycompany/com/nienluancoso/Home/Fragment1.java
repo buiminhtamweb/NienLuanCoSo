@@ -3,6 +3,8 @@ package mycompany.com.nienluancoso.Home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +57,14 @@ public class Fragment1 extends Fragment {
         recyclerViewHot = (RecyclerView) view.findViewById(R.id.recycler_view_hot);
         recyclerViewNew = (RecyclerView) view.findViewById(R.id.recycler_view_new);
 
+        recylerViewAdapter = new RecylerViewAdapter(getContext(), mAgriObjectListHot);
+//                mGridView.setAdapter(mGridViewAdapter);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        recyclerViewNew.setLayoutManager(mLayoutManager);
+        recyclerViewNew.setItemAnimator(new DefaultItemAnimator());
+
+        recyclerViewNew.setAdapter(recylerViewAdapter);
+
         return view;
     }
 
@@ -65,30 +75,9 @@ public class Fragment1 extends Fragment {
                 .build();
         Api api = retrofit.create(Api.class);
 
-        Call<List<AgriObject>> call = api.getHotAgri();
+        Call<List<AgriObject>> call = api.getNewAgri();
 
         call.enqueue(new Callback<List<AgriObject>>() {
-            @Override
-            public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
-                mAgriObjectListHot = response.body();
-                Log.e("logg", mAgriObjectListHot.get(1).getNAME_AGRI());
-
-//                mGridViewAdapter = new GridViewAdapter(getContext(), mAgriObjectListHot);
-//
-//                mGridView.setAdapter(mGridViewAdapter);
-
-                recyclerViewHot.setAdapter(new RecylerViewAdapter(getContext(), mAgriObjectListHot));
-            }
-
-            @Override
-            public void onFailure(Call<List<AgriObject>> call, Throwable t) {
-
-            }
-        });
-
-        Call<List<AgriObject>> callNew = api.getNewAgri();
-
-        callNew.enqueue(new Callback<List<AgriObject>>() {
             @Override
             public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
                 mAgriObjectListNew = response.body();
@@ -96,9 +85,11 @@ public class Fragment1 extends Fragment {
 
 //                mGridViewAdapter = new GridViewAdapter(getContext(), mAgriObjectListHot);
 //
-//                mGridView.setAdapter(mGridViewAdapter);
 
-                recyclerViewNew.setAdapter(new RecylerViewAdapter(getContext(), mAgriObjectListNew));
+
+
+
+                recylerViewAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -106,5 +97,22 @@ public class Fragment1 extends Fragment {
 
             }
         });
+
+//        Call<List<AgriObject>> callNew = api.getNewAgri();
+//
+//        callNew.enqueue(new Callback<List<AgriObject>>() {
+//            @Override
+//            public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
+//                mAgriObjectListNew = response.body();
+//                Log.e("logg", mAgriObjectListNew.get(1).getNAME_AGRI());
+//
+//                recyclerViewNew.setAdapter(new RecylerViewAdapter(getContext(), mAgriObjectListNew));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<AgriObject>> call, Throwable t) {
+//
+//            }
+//        });
     }
 }
