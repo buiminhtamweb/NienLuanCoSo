@@ -63,14 +63,10 @@ public class GridViewAdapter extends BaseAdapter {
 
         //Add data for View
        // viewHolder.mImageView.setClipToOutline(true);
-        Glide.with(mContext).load("http://192.168.1.0:80/a/img/gao.jpg").into(viewHolder.mImageView);
+        Glide.with(mContext).load("http://192.168.1.100:80/a/img/gao.jpg").into(viewHolder.mImageView);
 
         viewHolder.mNameAgri.setText(mAgriObjectList.get(i).getNAME_AGRI());
         viewHolder.mPrice.setText(mAgriObjectList.get(i).getPRICE_AGRI() + " VND");
-
-//        Log.e("logg", "getView: " + mAgriObjectList.get(i).getNAME_AGRI());
-
-        //Set even Click
 
 
         return view;

@@ -43,18 +43,18 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Glide.with(mContext).load("http://192.168.1.0:80/a/img/gao.jpg").into(viewHolder.mImageView);
+        Glide.with(mContext).load("http://192.168.43.161:80/a/img/gao.jpg").into(holder.mImageView);
 
-        viewHolder.mNameAgri.setText(mAgriObjectList.get(i).getNAME_AGRI());
-        viewHolder.mPrice.setText(mAgriObjectList.get(i).getPRICE_AGRI() + " VND");
+        holder.mNameAgri.setText(mAgriObjectList.get(position).getNAME_AGRI());
+        holder.mPrice.setText(mAgriObjectList.get(position).getPRICE_AGRI() + " VND");
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mAgriObjectList.size();
     }
 
 
@@ -62,13 +62,12 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mImageView;
-        private TextView mNameAgri;
-        private TextView mPrice;
+        public ImageView mImageView;
+        public TextView mNameAgri;
+        public TextView mPrice;
 
         public ViewHolder(View view) {
             super(view);
-
             mImageView = (ImageView) view.findViewById(R.id.image_view);
             mNameAgri = (TextView) view.findViewById(R.id.tv_name_agri);
             mPrice = (TextView) view.findViewById(R.id.tv_price_agri);

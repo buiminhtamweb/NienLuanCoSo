@@ -3,8 +3,13 @@ package mycompany.com.nienluancoso.Data;
 import java.util.List;
 
 import mycompany.com.nienluancoso.Home.AgriObject;
+import mycompany.com.nienluancoso.UserObject;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by buimi on 3/13/2018.
@@ -12,7 +17,7 @@ import retrofit2.http.GET;
 
 public interface Api {
 
-    String BASE_URL = "http://192.168.1.100:80/a/";
+    String BASE_URL = "http://192.168.43.161:80/a/";
 
     @GET("getKind.php")
     Call<List<AgriObject>> getKind();
@@ -26,5 +31,12 @@ public interface Api {
     @GET("getNewAgri.php")
     Call<List<AgriObject>> getNewAgri();
 
+    @GET("getHotAgri.php")
+    Call<List<AgriObject>> getArgiWithKind(@Query("kind") String kind);
+
+    @POST("SignIn")
+    @FormUrlEncoded
+    Call<String> login(@Field("user") String user,
+                           @Field("pass") String pass);
 
 }

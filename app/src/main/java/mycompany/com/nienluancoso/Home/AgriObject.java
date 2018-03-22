@@ -6,11 +6,20 @@ package mycompany.com.nienluancoso.Home;
 
 public class AgriObject {
 
+
     private int ID_AGRI;
     private int ID_KIND;
     private String NAME_AGRI;
     private String IMG_URL_AGRI;
     private float PRICE_AGRI;
+
+    public AgriObject(int ID_AGRI, int ID_KIND, String NAME_AGRI, String IMG_URL_AGRI, float PRICE_AGRI) {
+        this.ID_AGRI = ID_AGRI;
+        this.ID_KIND = ID_KIND;
+        this.NAME_AGRI = NAME_AGRI;
+        this.IMG_URL_AGRI = IMG_URL_AGRI;
+        this.PRICE_AGRI = PRICE_AGRI;
+    }
 
     public int getID_AGRI() {
         return ID_AGRI;

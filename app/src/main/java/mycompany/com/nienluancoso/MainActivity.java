@@ -1,5 +1,6 @@
 package mycompany.com.nienluancoso;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 
 import mycompany.com.nienluancoso.Category.Fragment2;
 import mycompany.com.nienluancoso.Home.Fragment1;
+import mycompany.com.nienluancoso.Order.OrderActivity;
 import mycompany.com.nienluancoso.User.Fragment3;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +27,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard:
                     mViewPager.setCurrentItem(1,true);
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_order:
+                    Intent intent = new Intent(getBaseContext(), OrderActivity.class);
+                    startActivity(intent);
+                    return true;
+                case R.id.navigation_user:
                     mViewPager.setCurrentItem(2,true);
                     return true;
             }

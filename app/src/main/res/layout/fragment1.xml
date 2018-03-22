@@ -4,6 +4,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     android:background="@color/backround">
 
     <!--<GridView-->
@@ -21,41 +22,39 @@
     <!--</GridView>-->
 
     <TextView
-        android:textSize="20sp"
-        android:textColor="@color/colorPrimaryDark"
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sản phẩm mới" />
-
+        android:text="Sản phẩm mới"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="27dp"
+        tools:ignore="MissingConstraints" />
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_hot"
+        android:id="@+id/recycler_view_new"
         android:layout_width="match_parent"
-        android:layout_height="400px"
-        android:scrollbars="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="0dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="500px"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
         android:text="Sản phẩm hot"
-        android:textSize="20sp"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view_hot"
-        tools:layout_editor_absoluteX="35dp"
-        tools:ignore="MissingConstraints" />
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_new"
+        tools:layout_editor_absoluteX="0dp" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_new"
+        android:id="@+id/recycler_view_hot"
         android:layout_width="match_parent"
-        android:layout_height="400px"
-        android:scrollbars="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 

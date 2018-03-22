@@ -2,6 +2,7 @@ package mycompany.com.nienluancoso.Home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,20 +31,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Fragment1 extends Fragment {
 
-    private GridView mGridView;
-    private GridViewAdapter mGridViewAdapter;
     private List<AgriObject> mAgriObjectListHot = new ArrayList<>();
     private List<AgriObject> mAgriObjectListNew = new ArrayList<>();
 
     public Fragment1() {
     }
 
-    public static Fragment newIntance() {
-        return new Fragment1();
-    }
-
-
-    RecylerViewAdapter recylerViewAdapter;
+    RecylerViewAdapter recylerViewAdapter,recylerViewAdapterHot;
     RecyclerView recyclerViewHot,recyclerViewNew;
 
     @Nullable
@@ -51,20 +45,30 @@ public class Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment1,
                 container, false);
-        getData();
 
-//        mGridView = (GridView) view.findViewById(R.id.gridView_frag1);
-        recyclerViewHot = (RecyclerView) view.findViewById(R.id.recycler_view_hot);
         recyclerViewNew = (RecyclerView) view.findViewById(R.id.recycler_view_new);
+        recyclerViewHot = (RecyclerView) view.findViewById(R.id.recycler_view_hot);
 
-        recylerViewAdapter = new RecylerViewAdapter(getContext(), mAgriObjectListHot);
-//                mGridView.setAdapter(mGridViewAdapter);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewNew.setLayoutManager(mLayoutManager);
-        recyclerViewNew.setItemAnimator(new DefaultItemAnimator());
+
+        RecyclerView.LayoutManager mLayoutManagerHot = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        recyclerViewHot.setLayoutManager(mLayoutManagerHot);
+
+        recylerViewAdapter = new RecylerViewAdapter(getContext(), mAgriObjectListNew);
+        recylerViewAdapterHot = new RecylerViewAdapter(getContext(), mAgriObjectListHot);
+
 
         recyclerViewNew.setAdapter(recylerViewAdapter);
+        recyclerViewHot.setAdapter(recylerViewAdapterHot);
 
+
+
+
+
+        getData();
         return view;
     }
 
@@ -80,13 +84,16 @@ public class Fragment1 extends Fragment {
         call.enqueue(new Callback<List<AgriObject>>() {
             @Override
             public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
-                mAgriObjectListNew = response.body();
-                Log.e("logg", mAgriObjectListNew.get(1).getNAME_AGRI());
 
-//                mGridViewAdapter = new GridViewAdapter(getContext(), mAgriObjectListHot);
-//
+                mAgriObjectListNew.clear();
+                if (response != null) {
+                    for (int i=0; i<response.body().size(); i++ ){
+                        mAgriObjectListNew.add(response.body().get(i));
+                        Log.e("Home", mAgriObjectListNew.get(i).getNAME_AGRI());
+                    }
 
 
+                }
 
 
                 recylerViewAdapter.notifyDataSetChanged();
@@ -94,25 +101,39 @@ public class Fragment1 extends Fragment {
 
             @Override
             public void onFailure(Call<List<AgriObject>> call, Throwable t) {
+                Snackbar snackbar = Snackbar
+                        .make(recyclerViewHot, "Lỗi ! Không thể truy cập đến server", Snackbar.LENGTH_LONG);
 
+                snackbar.show();
             }
         });
 
-//        Call<List<AgriObject>> callNew = api.getNewAgri();
-//
-//        callNew.enqueue(new Callback<List<AgriObject>>() {
-//            @Override
-//            public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
-//                mAgriObjectListNew = response.body();
-//                Log.e("logg", mAgriObjectListNew.get(1).getNAME_AGRI());
-//
-//                recyclerViewNew.setAdapter(new RecylerViewAdapter(getContext(), mAgriObjectListNew));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<AgriObject>> call, Throwable t) {
-//
-//            }
-//        });
+        Call<List<AgriObject>> callHot = api.getHotAgri();
+
+        callHot.enqueue(new Callback<List<AgriObject>>() {
+            @Override
+            public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
+                mAgriObjectListHot.clear();
+                if (response != null) {
+                    for (int i=0; i<response.body().size(); i++ ){
+                        mAgriObjectListHot.add(response.body().get(i));
+                        Log.e("Home", mAgriObjectListHot.get(i).getNAME_AGRI());
+                    }
+
+
+                }
+
+
+                recylerViewAdapterHot.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<AgriObject>> call, Throwable t) {
+                Snackbar snackbar = Snackbar
+                        .make(recyclerViewHot, "Lỗi ! Không thể truy cập đến server", Snackbar.LENGTH_LONG);
+
+                snackbar.show();
+            }
+        });
     }
 }
