@@ -58,6 +58,13 @@ public class Fragment2 extends Fragment {
         View view = inflater.inflate(R.layout.fragment2,container,false);
 
         mKindList = (ListView)view.findViewById(R.id.listview_kind);
+
+        mKindList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+        mKindList.setSelector(R.drawable.selector_listview);
+
+
+
         mAgriList = (GridView) view.findViewById(R.id.gridview_ds_sp);
 
         initRetrofit();
@@ -70,6 +77,10 @@ public class Fragment2 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("Cate_KindList", "onClick: "+ position );
+//                mKindList.setItemChecked(position,true);
+//                mKindList.setItemChecked(position,true);
+
+
                 //getArgiWithKind(String.valueOf(position));
             }
         });

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ListView
         android:id="@+id/listview_kind"
         android:layout_width="80dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/shadows">
+
     </ListView>
 
     <GridView
@@ -18,6 +18,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginBottom="0dp"
+        android:columnWidth="120dp"
+        android:gravity="center"
+        android:horizontalSpacing="1dp"
+        android:numColumns="2"
+        android:stretchMode="spacingWidthUniform"
+        android:verticalSpacing="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/listview_kind">
 
