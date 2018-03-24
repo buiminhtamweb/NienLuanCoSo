@@ -34,7 +34,6 @@
             android:theme="@style/AppTheme" >
 
         </activity>
-        <activity android:name=".Order.OrderActivity" />
         <activity
             android:name=".Signin.LoginActivity"
             android:label="@string/title_activity_login">

@@ -2,8 +2,6 @@ package mycompany.com.nienluancoso.Data;
 
 import java.util.List;
 
-import mycompany.com.nienluancoso.Home.AgriObject;
-import mycompany.com.nienluancoso.UserObject;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

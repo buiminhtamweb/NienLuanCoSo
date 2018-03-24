@@ -2,13 +2,11 @@ package mycompany.com.nienluancoso.Category;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -16,10 +14,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import mycompany.com.nienluancoso.Data.Api;
-import mycompany.com.nienluancoso.Home.AgriObject;
+import mycompany.com.nienluancoso.Data.AgriObject;
 import mycompany.com.nienluancoso.R;
 import retrofit2.Call;
 import retrofit2.Callback;

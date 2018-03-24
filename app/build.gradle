@@ -38,5 +38,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     compile 'de.hdodenhof:circleimageview:2.2.0'
 
+    compile 'com.ss.bannerslider:bannerslider:1.8.0'
+
 
 }

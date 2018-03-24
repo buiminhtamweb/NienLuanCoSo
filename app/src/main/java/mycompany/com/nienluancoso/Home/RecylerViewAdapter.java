@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import mycompany.com.nienluancoso.Data.AgriObject;
 import mycompany.com.nienluancoso.R;
 
 /**

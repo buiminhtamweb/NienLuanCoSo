@@ -1,4 +1,4 @@
-package mycompany.com.nienluancoso.Home;
+package mycompany.com.nienluancoso.Data;
 
 /**
  * Created by buimi on 3/13/2018.

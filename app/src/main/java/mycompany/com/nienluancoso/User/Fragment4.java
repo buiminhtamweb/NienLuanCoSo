@@ -13,22 +13,17 @@ import mycompany.com.nienluancoso.R;
  * Created by buimi on 1/29/2018.
  */
 
-public class Fragment3 extends Fragment {
+public class Fragment4 extends Fragment {
 
 
 
-    public Fragment3() {
+    public Fragment4() {
     }
-
-    public static Fragment newIntance(){
-        return new Fragment3();
-    }
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment3,container,false);
+        View view = inflater.inflate(R.layout.fragment4,container,false);
 
         return view;
     }
