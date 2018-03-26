@@ -54,7 +54,7 @@ public class Fragment1 extends Fragment {
         recyclerViewHot = (RecyclerView) view.findViewById(R.id.recycler_view_hot);
 
         bannerSlider = (BannerSlider) view.findViewById(R.id.banner_slider);
-        List<Banner> banners=new ArrayList<>();
+        List<Banner> banners = new ArrayList<>();
         //add banner using image url
         //banners.add(new RemoteBanner("Put banner image url here ..."));
         //add banner using resource drawable
@@ -68,16 +68,13 @@ public class Fragment1 extends Fragment {
         recyclerViewNew.setLayoutManager(mLayoutManager);
 
         RecyclerView.LayoutManager mLayoutManagerHot = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-
         recyclerViewHot.setLayoutManager(mLayoutManagerHot);
 
         recylerViewAdapter = new RecylerViewAdapter(getContext(), mAgriObjectListNew);
         recylerViewAdapterHot = new RecylerViewAdapter(getContext(), mAgriObjectListHot);
 
-
         recyclerViewNew.setAdapter(recylerViewAdapter);
         recyclerViewHot.setAdapter(recylerViewAdapterHot);
-
 
         getData();
         return view;
@@ -102,25 +99,17 @@ public class Fragment1 extends Fragment {
                         mAgriObjectListNew.add(response.body().get(i));
                         Log.e("Home", mAgriObjectListNew.get(i).getNAME_AGRI());
                     }
-
-
                 }
-
-
                 recylerViewAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onFailure(Call<List<AgriObject>> call, Throwable t) {
                 Snackbar snackbar = Snackbar
                         .make(bannerSlider, "Lỗi ! Không thể truy cập đến server", Snackbar.LENGTH_LONG);
-
                 snackbar.show();
             }
         });
-
         Call<List<AgriObject>> callHot = api.getHotAgri();
-
         callHot.enqueue(new Callback<List<AgriObject>>() {
             @Override
             public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
@@ -130,11 +119,7 @@ public class Fragment1 extends Fragment {
                         mAgriObjectListHot.add(response.body().get(i));
                         Log.e("Home", mAgriObjectListHot.get(i).getNAME_AGRI());
                     }
-
-
                 }
-
-
                 recylerViewAdapterHot.notifyDataSetChanged();
             }
 

@@ -52,24 +52,28 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_toEndOf="@+id/img_agri"
-        android:padding="8dp">
+        >
 
         <ImageView
+            android:padding="5dp"
             android:background="@color/colorPrimary"
             android:id="@+id/img_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_edit_black_24dp" />
+            app:srcCompat="@drawable/ic_edit_black_24dp"
+            android:contentDescription="TODO" />
 
         <ImageView
+            android:padding="5dp"
             android:layout_marginStart="1dp"
             android:background="@color/colorPrimary"
             android:id="@+id/img_delete"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_delete_black_24dp" />
+            app:srcCompat="@drawable/ic_delete_black_24dp"
+            android:contentDescription="TODO" />
     </LinearLayout>
 
 
