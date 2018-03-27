@@ -39,6 +39,32 @@
             android:label="@string/title_activity_login">
 
         </activity>
+
+        <activity android:name=".User.YeuThichActivity">
+
+        </activity>
+
+        <activity android:name=".Signin.TaoTaiKhoanMoiActivity"
+            android:label="Đăng ký">
+
+        </activity>
+
+        <activity android:name=".Signin.ThemThongTinDKActivity"
+            android:label="Đăng ký">
+
+        </activity>
+
+        <activity android:name=".User.CaiDatTKActivity"
+            android:label="Cài đặt tài khoản">
+
+        </activity>
+
+        <activity android:name=".User.LichSuDHActivity"
+            android:label="Lịch sử đặt hàng">
+
+        </activity>
+
+
     </application>
 
 </manifest>

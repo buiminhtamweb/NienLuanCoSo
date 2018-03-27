@@ -7,7 +7,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/backround"
     tools:context="mycompany.com.nienluancoso.Signin.LoginActivity">
 
     <!-- Login progress -->
@@ -83,15 +82,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/action_sign_in"
+                    android:text="Đăng nhập"
                     android:textStyle="bold" />
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:gravity="end"
-                    android:text="Bạn chưa có tài khoản?"
+
+                <Button
+                    android:layout_marginTop="1dp"
+                    android:text="Đăng ký"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:background="@color/colorPrimaryDark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:onClick="dangKy"/>
 
             </LinearLayout>
         </ScrollView>
@@ -100,7 +102,7 @@
     </LinearLayout>
 
     <Button
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:text="Bỏ qua"
         android:textColor="@color/white"
