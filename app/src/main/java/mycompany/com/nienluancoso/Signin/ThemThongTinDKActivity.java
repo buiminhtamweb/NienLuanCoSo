@@ -20,7 +20,7 @@ import mycompany.com.nienluancoso.R;
 public class ThemThongTinDKActivity extends AppCompatActivity {
 
     private CircleImageView mImgAnhDaiDien;
-    private EditText mEdtHoTen,mEdtSDT, mEdtDiaChi;
+    private EditText mEdtHoTen, mEdtSDT, mEdtDiaChi;
     private CheckBox mCheckNam, mCheckNu;
     private Button mBtnNgaySinh;
 
@@ -38,13 +38,10 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         mCheckNam = (CheckBox) findViewById(R.id.checkbox_nam);
         mCheckNu = (CheckBox) findViewById(R.id.checkbox_nu);
 
-
     }
 
     public void btnDangKy(View view) {
-
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
     }
 }

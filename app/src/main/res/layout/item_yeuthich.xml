@@ -54,14 +54,14 @@
         android:layout_toEndOf="@+id/img_agri">
 
         <ImageView
-            android:id="@+id/img_edit"
+            android:id="@+id/img_mua"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
             android:contentDescription="TODO"
             android:padding="5dp"
-            app:srcCompat="@drawable/ic_edit_black_24dp" />
+            app:srcCompat="@drawable/ic_add_shopping_cart_black_24dp" />
 
         <ImageView
             android:layout_weight="1"

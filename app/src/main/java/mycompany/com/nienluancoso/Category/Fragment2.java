@@ -74,11 +74,7 @@ public class Fragment2 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("Cate_KindList", "onClick: "+ position );
-//                mKindList.setItemChecked(position,true);
-//                mKindList.setItemChecked(position,true);
 
-
-                //getArgiWithKind(String.valueOf(position));
             }
         });
 

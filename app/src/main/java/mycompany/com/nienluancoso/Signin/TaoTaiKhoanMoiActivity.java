@@ -24,8 +24,8 @@ public class TaoTaiKhoanMoiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_taotaikhoanmoi);
 
         mEdtTenDangNhap = (EditText) findViewById(R.id.edt_tendangnhap);
-        mEdtMatKhau  = (EditText) findViewById(R.id.edt_mk);
-        mEdtNhapLaiMK  = (EditText) findViewById(R.id.edt_nhaplaimk);
+        mEdtMatKhau = (EditText) findViewById(R.id.edt_mk);
+        mEdtNhapLaiMK = (EditText) findViewById(R.id.edt_nhaplaimk);
     }
 
     public void btnTiepTuc(View view) {
