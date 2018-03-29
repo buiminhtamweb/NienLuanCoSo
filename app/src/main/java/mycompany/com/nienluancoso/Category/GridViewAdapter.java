@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +62,8 @@ public class GridViewAdapter extends BaseAdapter {
         } else viewHolder = (ViewHolder) view.getTag();
 
         //Add data for View
-       // viewHolder.mImageView.setClipToOutline(true);
-        Glide.with(mContext).load("http://192.168.1.100:80/a/img/gao.jpg").into(viewHolder.mImageView);
+        // viewHolder.mImageView.setClipToOutline(true);
+        Picasso.get().load("http://192.168.1.100:80/a/img/gao.jpg").into(viewHolder.mImageView);
 
         viewHolder.mNameAgri.setText(mAgriObjectList.get(i).getNAME_AGRI());
         viewHolder.mPrice.setText(mAgriObjectList.get(i).getPRICE_AGRI() + " VND");
