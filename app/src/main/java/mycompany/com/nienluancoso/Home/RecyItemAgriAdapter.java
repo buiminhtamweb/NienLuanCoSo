@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mycompany.com.nienluancoso.Data.AgriObject;
@@ -21,13 +20,13 @@ import mycompany.com.nienluancoso.R;
  * Created by Admin on 3/21/2018.
  */
 
-public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.ViewHolder> {
+public class RecyItemAgriAdapter extends RecyclerView.Adapter<RecyItemAgriAdapter.ViewHolder> {
 
 
     private Context mContext;
-    private List<AgriObject> mAgriObjectList = new ArrayList<>();
+    private List<AgriObject> mAgriObjectList;
 
-    public RecylerViewAdapter(Context mContext, List<AgriObject> mAgriObjectList) {
+    public RecyItemAgriAdapter(Context mContext, List<AgriObject> mAgriObjectList) {
         this.mContext = mContext;
         this.mAgriObjectList = mAgriObjectList;
     }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,7 +41,7 @@ public class Fragment1 extends Fragment {
     int NUM_PAGES = 0;
     private List<AgriObject> mAgriObjectListHot = new ArrayList<>();
     private List<AgriObject> mAgriObjectListNew = new ArrayList<>();
-    private RecylerViewAdapter recylerViewAdapter, recylerViewAdapterHot;
+    private RecyItemAgriAdapter recyItemAgriAdapter, recyItemAgriAdapterHot;
     private RecyclerView recyclerViewHot, recyclerViewNew, recyclerViewSale;
     private Button mBtnSearch;
     private ViewPager mBannerSlider;
@@ -76,11 +75,11 @@ public class Fragment1 extends Fragment {
         RecyclerView.LayoutManager mLayoutManagerHot = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewHot.setLayoutManager(mLayoutManagerHot);
 
-        recylerViewAdapter = new RecylerViewAdapter(getContext(), mAgriObjectListNew);
-        recylerViewAdapterHot = new RecylerViewAdapter(getContext(), mAgriObjectListHot);
+        recyItemAgriAdapter = new RecyItemAgriAdapter(getContext(), mAgriObjectListNew);
+        recyItemAgriAdapterHot = new RecyItemAgriAdapter(getContext(), mAgriObjectListHot);
 
-        recyclerViewNew.setAdapter(recylerViewAdapter);
-        recyclerViewHot.setAdapter(recylerViewAdapterHot);
+        recyclerViewNew.setAdapter(recyItemAgriAdapter);
+        recyclerViewHot.setAdapter(recyItemAgriAdapterHot);
 
         getData();
         return view;
@@ -106,7 +105,7 @@ public class Fragment1 extends Fragment {
                         Log.e("Home", mAgriObjectListNew.get(i).getNAME_AGRI());
                     }
                 }
-                recylerViewAdapter.notifyDataSetChanged();
+                recyItemAgriAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -128,7 +127,7 @@ public class Fragment1 extends Fragment {
                         Log.e("Home", mAgriObjectListHot.get(i).getNAME_AGRI());
                     }
                 }
-                recylerViewAdapterHot.notifyDataSetChanged();
+                recyItemAgriAdapterHot.notifyDataSetChanged();
             }
 
             @Override

@@ -15,6 +15,7 @@ import mycompany.com.nienluancoso.R;
 public class LichSuDHActivity extends AppCompatActivity {
 
     private RecyclerView mRecyLichSuDatHang;
+    private RecyLichSuDatHangAdapter lichSuDatHangAdapter;
 
 
     @Override
@@ -22,11 +23,12 @@ public class LichSuDHActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lichsu_dhang);
 
-
-
         mRecyLichSuDatHang = (RecyclerView) findViewById(R.id.recycler_view_lichsu_dh);
         mRecyLichSuDatHang.setLayoutManager(new LinearLayoutManager(this));
+
+        lichSuDatHangAdapter = new RecyLichSuDatHangAdapter();
+        mRecyLichSuDatHang.setAdapter(lichSuDatHangAdapter);
+
+
     }
-
-
 }

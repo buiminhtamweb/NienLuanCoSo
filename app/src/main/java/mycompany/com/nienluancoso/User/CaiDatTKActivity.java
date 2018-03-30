@@ -1,5 +1,6 @@
 package mycompany.com.nienluancoso.User;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -60,7 +62,7 @@ public class CaiDatTKActivity extends AppCompatActivity {
         mBtnNamSinh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                doiNamSinh();
             }
         });
 
@@ -80,7 +82,17 @@ public class CaiDatTKActivity extends AppCompatActivity {
 
     }
 
-    private void doiMatKhau(){
+    private void doiNamSinh() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this);
+        datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                mBtnNamSinh.setText(datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear());
+            }
+        });
+    }
+
+    private void doiMatKhau() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 
@@ -106,7 +118,7 @@ public class CaiDatTKActivity extends AppCompatActivity {
 
     }
 
-    private void doiHoTen(){
+    private void doiHoTen() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 
@@ -131,7 +143,7 @@ public class CaiDatTKActivity extends AppCompatActivity {
 
     }
 
-    private void doiSDT(){
+    private void doiSDT() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 
@@ -156,7 +168,7 @@ public class CaiDatTKActivity extends AppCompatActivity {
 
     }
 
-    private void doiDiaChi(){
+    private void doiDiaChi() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 

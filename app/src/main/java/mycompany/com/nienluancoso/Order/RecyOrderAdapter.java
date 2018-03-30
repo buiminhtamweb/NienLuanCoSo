@@ -21,19 +21,19 @@ import mycompany.com.nienluancoso.R;
  * Created by Admin on 3/21/2018.
  */
 
-public class OrderRecyAdapter extends RecyclerView.Adapter<OrderRecyAdapter.ViewHolder> {
+public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.ViewHolder> {
 
 
     private Context mContext;
     private List<OrderOject> orderObjectList;
     private onClickListener onClickListener;
 
-    public OrderRecyAdapter(Context mContext, List<OrderOject> orderObjectList) {
+    public RecyOrderAdapter(Context mContext, List<OrderOject> orderObjectList) {
         this.mContext = mContext;
         this.orderObjectList = orderObjectList;
     }
 
-    public void setOnItemClickListener(OrderRecyAdapter.onClickListener onClickListener) {
+    public void setOnItemClickListener(RecyOrderAdapter.onClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 

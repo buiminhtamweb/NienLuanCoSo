@@ -39,8 +39,11 @@ public class Fragment4 extends Fragment {
         mBtnPhanHoi = (Button) view.findViewById(R.id.btn_phanhoi_ungdung);
 
 
+
+
         return view;
     }
+
 
     private void kiemTraDangNhap(){
 

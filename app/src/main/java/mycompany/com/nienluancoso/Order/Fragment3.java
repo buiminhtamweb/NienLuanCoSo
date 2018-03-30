@@ -25,7 +25,7 @@ import mycompany.com.nienluancoso.R;
 public class Fragment3 extends Fragment {
 
     String TAG = "OrderFrag";
-    private OrderRecyAdapter orderRecyAdapter;
+    private RecyOrderAdapter recyOrderAdapter;
     private List<OrderOject> orderOjects = new ArrayList<>();
     private RecyclerView recyclerView;
 
@@ -41,11 +41,11 @@ public class Fragment3 extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        orderRecyAdapter = new OrderRecyAdapter(getContext(), orderOjects);
+        recyOrderAdapter = new RecyOrderAdapter(getContext(), orderOjects);
 
-        recyclerView.setAdapter(orderRecyAdapter);
+        recyclerView.setAdapter(recyOrderAdapter);
 
-        orderRecyAdapter.setOnItemClickListener(new OrderRecyAdapter.onClickListener() {
+        recyOrderAdapter.setOnItemClickListener(new RecyOrderAdapter.onClickListener() {
             @Override
             public void onItemClick(int position) {
 

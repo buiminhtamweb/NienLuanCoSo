@@ -10,6 +10,7 @@ public class HoaDonObject {
     private String ID;
     private String NGAYMUA;
     private String NGUOIBAN;
+    private String TONGTIEN;
     private List<OrderOject> NONGSANMUA;
 
     public HoaDonObject(String ID, String NGAYMUA, String NGUOIBAN, List<OrderOject> NONGSANMUA) {
@@ -17,6 +18,10 @@ public class HoaDonObject {
         this.NGAYMUA = NGAYMUA;
         this.NGUOIBAN = NGUOIBAN;
         this.NONGSANMUA = NONGSANMUA;
+    }
+
+    public void setTONGTIEN(String TONGTIEN) {
+        this.TONGTIEN = TONGTIEN;
     }
 
     public String getID() {
@@ -49,5 +54,9 @@ public class HoaDonObject {
 
     public void setNONGSANMUA(List<OrderOject> NONGSANMUA) {
         this.NONGSANMUA = NONGSANMUA;
+    }
+
+    public String getTONGTIEN() {
+        return TONGTIEN;
     }
 }
