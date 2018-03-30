@@ -27,7 +27,6 @@ public class ChiTietNSActivity extends AppCompatActivity{
     private RecylerViewAdapter recylerViewAdapter ;
     private List<AgriObject> agriObjects  = new ArrayList<>();
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +39,10 @@ public class ChiTietNSActivity extends AppCompatActivity{
         mChitiet = (TextView) findViewById(R.id.tv_nd_chitiet_ns);
         mRecyViewNSMuaNhieu = (RecyclerView) findViewById(R.id.recycler_view_hot);
 
+        //Nong san mua nhieu
         mRecyViewNSMuaNhieu.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         recylerViewAdapter = new RecylerViewAdapter(this, agriObjects);
         mRecyViewNSMuaNhieu.setAdapter(recylerViewAdapter);
-
-
-
 
     }
 }

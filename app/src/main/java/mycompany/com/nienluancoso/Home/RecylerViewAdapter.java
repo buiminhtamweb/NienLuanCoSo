@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Glide.with(mContext).load("http://192.168.43.161:80/a/img/gao.jpg").into(holder.mImageView);
+        Picasso.get().load("http://192.168.43.161:80/a/img/gao.jpg").into(holder.mImageView);
 
         holder.mNameAgri.setText(mAgriObjectList.get(position).getNAME_AGRI());
         holder.mPrice.setText(mAgriObjectList.get(position).getPRICE_AGRI() + " VND");
@@ -57,9 +57,6 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
     public int getItemCount() {
         return mAgriObjectList.size();
     }
-
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

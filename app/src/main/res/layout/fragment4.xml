@@ -128,6 +128,7 @@
             tools:ignore="RtlSymmetry" />
 
         <Button
+            android:layout_marginTop="1dp"
             android:id="@+id/btn_phanhoi_ungdung"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

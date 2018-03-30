@@ -10,9 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mycompany.com.nienluancoso.Data.OrderOject;
@@ -26,16 +25,16 @@ public class OrderRecyAdapter extends RecyclerView.Adapter<OrderRecyAdapter.View
 
 
     private Context mContext;
-    private List<OrderOject> orderOjectList = new ArrayList<>();
+    private List<OrderOject> orderObjectList;
     private onClickListener onClickListener;
+
+    public OrderRecyAdapter(Context mContext, List<OrderOject> orderObjectList) {
+        this.mContext = mContext;
+        this.orderObjectList = orderObjectList;
+    }
 
     public void setOnItemClickListener(OrderRecyAdapter.onClickListener onClickListener) {
         this.onClickListener = onClickListener;
-    }
-
-    public OrderRecyAdapter(Context mContext, List<OrderOject> orderOjectList) {
-        this.mContext = mContext;
-        this.orderOjectList = orderOjectList;
     }
 
     @NonNull
@@ -49,20 +48,37 @@ public class OrderRecyAdapter extends RecyclerView.Adapter<OrderRecyAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Glide.with(mContext).load("http://192.168.43.161:80/a/img/gao.jpg").into(holder.mImageView);
+        Picasso.get().load("http://192.168.43.161:80/a/img/gao.jpg").into(holder.mImageView);
 
-        holder.mNameAgri.setText(orderOjectList.get(position).getNAME_AGRI());
-        holder.mPrice.setText(orderOjectList.get(position).getPRICE_AGRI() + " VND");
-        holder.mSoLuongMua.setText("Số lượng mua: " + convertGamView(orderOjectList.get(position).getSoLuongMua()));
+        holder.mNameAgri.setText(orderObjectList.get(position).getNAME_AGRI());
+        holder.mPrice.setText(orderObjectList.get(position).getPRICE_AGRI() + " VND");
+        holder.mSoLuongMua.setText("Số lượng mua: " + convertGamView(orderObjectList.get(position).getSoLuongMua()));
 
     }
 
     @Override
     public int getItemCount() {
-        return orderOjectList.size();
+        return orderObjectList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    //Chuyển đổi đơn vị Gam -> Kg
+    private String convertGamView(int gam) {
+        if (gam > 1000) {
+            return Float.valueOf(gam) / 1000 + " Kg";
+        } else return gam + " Gam";
+
+    }
+
+
+    public interface onClickListener {
+        void onItemClick(int position);
+
+        void onEditClick(int position);
+
+        void onDeleteClick(int position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mImageView, mEdit, mDelete;
         private TextView mNameAgri, mPrice, mSoLuongMua;
@@ -75,7 +91,6 @@ public class OrderRecyAdapter extends RecyclerView.Adapter<OrderRecyAdapter.View
             mNameAgri = (TextView) view.findViewById(R.id.tv_tensp);
             mPrice = (TextView) view.findViewById(R.id.tv_gia);
             mSoLuongMua = (TextView) view.findViewById(R.id.tv_soluong_mua);
-
 
 
             mEdit.setOnClickListener(new View.OnClickListener() {
@@ -99,21 +114,6 @@ public class OrderRecyAdapter extends RecyclerView.Adapter<OrderRecyAdapter.View
             });
 
         }
-    }
-
-
-    //Chuyển đổi đơn vị Gam -> Kg
-    private String convertGamView(int gam) {
-        if (gam > 1000) {
-            return Float.valueOf(gam)/1000 + " Kg";
-        } else return gam + " Gam";
-
-    }
-
-    public interface onClickListener {
-        void onItemClick(int position);
-        void onEditClick(int position);
-        void onDeleteClick(int position);
     }
 
 

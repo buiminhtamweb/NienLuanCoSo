@@ -1,5 +1,6 @@
 package mycompany.com.nienluancoso.Order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mycompany.com.nienluancoso.Data.OrderOject;
+import mycompany.com.nienluancoso.DetailAgri.ChiTietNSActivity;
 import mycompany.com.nienluancoso.R;
 
 /**
@@ -22,11 +24,10 @@ import mycompany.com.nienluancoso.R;
 
 public class Fragment3 extends Fragment {
 
+    String TAG = "OrderFrag";
     private OrderRecyAdapter orderRecyAdapter;
     private List<OrderOject> orderOjects = new ArrayList<>();
     private RecyclerView recyclerView;
-
-    String TAG = "OrderFrag";
 
     @Nullable
     @Override
@@ -47,18 +48,21 @@ public class Fragment3 extends Fragment {
         orderRecyAdapter.setOnItemClickListener(new OrderRecyAdapter.onClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.e(TAG, "onItemClick: "+ position );
+
+                Log.e(TAG, "onItemClick: " + position);
+                Intent intent = new Intent(getContext(), ChiTietNSActivity.class);
+                startActivity(intent);
             }
 
             @Override
             public void onEditClick(int position) {
-                Log.e(TAG, "onEditClick: "+ position );
+                Log.e(TAG, "onEditClick: " + position);
 
             }
 
             @Override
             public void onDeleteClick(int position) {
-                Log.e(TAG, "onDeleteClick: "+ position );
+                Log.e(TAG, "onDeleteClick: " + position);
 
             }
         });
