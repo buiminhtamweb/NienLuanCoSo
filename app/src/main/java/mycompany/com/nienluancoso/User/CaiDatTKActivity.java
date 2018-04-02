@@ -83,13 +83,26 @@ public class CaiDatTKActivity extends AppCompatActivity {
     }
 
     private void doiNamSinh() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this);
-        datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        //Tham chieu layout
+        final View dialogView = inflater.inflate(R.layout.dialog_datepicker, null);
+        dialogBuilder.setView(dialogView);
+
+        final DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
+
+        dialogBuilder.setTitle("Đổi mật khẩu");
+        dialogBuilder.setMessage("Đổi mật khẩu");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
                 mBtnNamSinh.setText(datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear());
             }
         });
+        dialogBuilder.setNegativeButton("Cancel", null);
+        AlertDialog b = dialogBuilder.create();
+        b.show();
     }
 
     private void doiMatKhau() {

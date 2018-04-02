@@ -124,7 +124,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/primaryColor"
                 android:text="Đăng ký"
                 android:textColor="@color/white"
                 android:onClick="btnDangKy"/>

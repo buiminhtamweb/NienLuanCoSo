@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sản phẩm mới"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/primaryColor"
                 android:textSize="20sp" />
 
 
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:text="Sản phẩm hot"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/primaryColor"
                 android:textSize="20sp" />
 
             <android.support.v7.widget.RecyclerView
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:text="Sản phẩm đang giảm giá"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/primaryColor"
                 android:textSize="20sp" />
 
             <android.support.v7.widget.RecyclerView

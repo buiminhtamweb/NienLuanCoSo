@@ -91,9 +91,7 @@ public class Fragment1 extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api = retrofit.create(Api.class);
-
         Call<List<AgriObject>> call = api.getNewAgri();
-
         call.enqueue(new Callback<List<AgriObject>>() {
             @Override
             public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {

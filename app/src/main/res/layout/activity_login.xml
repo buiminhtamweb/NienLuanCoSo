@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,27 +7,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="mycompany.com.nienluancoso.Signin.LoginActivity">
-
-    <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
     <LinearLayout
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <TextView
-            android:gravity="center"
-            android:textSize="40sp"
-            android:text="LOGO"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="LOGO"
+            android:textSize="40sp" />
 
         <ScrollView
             android:id="@+id/login_form"
@@ -75,25 +65,25 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
-                    android:background="@color/colorPrimaryDark"
-                    android:textColor="@color/white"
                     android:id="@+id/email_sign_in_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:background="@color/primaryDarkColor"
                     android:text="Đăng nhập"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <Button
-                    android:layout_marginTop="1dp"
-                    android:text="Đăng ký"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:background="@color/colorPrimaryDark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="dangKy"/>
+                    android:layout_marginTop="1dp"
+                    android:background="@color/primaryDarkColor"
+                    android:onClick="dangKy"
+                    android:text="Đăng ký"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </ScrollView>
@@ -102,15 +92,13 @@
     </LinearLayout>
 
     <Button
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:text="Bỏ qua"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:background="@color/no_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="skipSignin"/>
-
-
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/no_color"
+        android:onClick="skipSignin"
+        android:text="Bỏ qua"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 </RelativeLayout>

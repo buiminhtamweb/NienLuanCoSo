@@ -2,6 +2,7 @@ package mycompany.com.nienluancoso.Data;
 
 import java.util.List;
 
+import mycompany.com.nienluancoso.Constant;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -15,10 +16,10 @@ import retrofit2.http.Query;
 
 public interface Api {
 
-    String BASE_URL = "http://192.168.43.161:80/a/";
+    String BASE_URL = Constant.HOST;
 
     @GET("getKind.php")
-    Call<List<AgriObject>> getKind();
+    Call<List<KindObject>> getKind();
 
     @GET("getAllAgri.php")
     Call<List<AgriObject>> getAllAgri();
@@ -29,12 +30,16 @@ public interface Api {
     @GET("getNewAgri.php")
     Call<List<AgriObject>> getNewAgri();
 
-    @GET("getHotAgri.php")
-    Call<List<AgriObject>> getArgiWithKind(@Query("kind") String kind);
+    @POST("getHotAgri.php")
+    Call<List<AgriObject>> getArgiWithKind(@Field("USERNAME_CUS") String kind);
 
-    @POST("SignIn")
+    @POST("signin_dangnhap.php")
     @FormUrlEncoded
-    Call<String> login(@Field("user") String user,
-                           @Field("pass") String pass);
+    Call<String> login(@Field("USERNAME_CUS") String user,
+                           @Field("PASSWORD_CUS") String pass);
+
+    @POST("signin_checkUserName.php")
+    @FormUrlEncoded
+    Call<String> checkUserName(@Field("USERNAME_CUS") String userName);
 
 }
