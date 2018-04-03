@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         intent = new Intent(this, MainActivity.class);
+        mProcessDialog = new ProgressDialog(LoginActivity.this);
+        mProcessDialog.setMessage("Đang đăng nhập...");
 
         //Check Data Sign In
         mSPre = getSharedPreferences(Constant.SPRE_NAME, MODE_PRIVATE);
@@ -55,6 +57,9 @@ public class LoginActivity extends AppCompatActivity {
         if (mSPre.getBoolean(Constant.IS_SIGNIN, false)) {
             mUsername = mSPre.getString(Constant.USERNAME_CUS, "");
             mPasswd = mSPre.getString(Constant.PASSWORD_CUS, "");
+            //Show process Dialog
+            mProcessDialog.show();
+
             processLogin(mUsername, mPasswd);
         }
 
@@ -80,6 +85,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isNotNull()) {
+
+                    mProcessDialog.show();
+
                     processLogin(mUserNameView.getText().toString(), mPasswordView.getText().toString());
                 }
             }
@@ -116,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
+
         return password.length() > 2;
     }
 
@@ -146,21 +154,15 @@ public class LoginActivity extends AppCompatActivity {
                     mSP_Edit.commit();
 
 
-//                    try {
-//                        mProcessDialog =  new ProgressDialog(LoginActivity.this);
-//                        mProcessDialog.setMessage("Đang đăng nhập...");
-//                        mProcessDialog.show();
-//                        Thread.sleep(5000);
-//                        if (mProcessDialog.isShowing()) {
-//                            mProcessDialog.dismiss();
-//                        }
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//
-//                    }
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
 
+                    }
 
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(getBaseContext(), "Sai tên đăng nhập hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                 }
@@ -186,6 +188,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mProcessDialog.isShowing()) {
+            mProcessDialog.dismiss();
+        }
+    }
 }
 

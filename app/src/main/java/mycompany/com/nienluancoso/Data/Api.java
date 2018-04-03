@@ -42,4 +42,10 @@ public interface Api {
     @FormUrlEncoded
     Call<String> checkUserName(@Field("USERNAME_CUS") String userName);
 
+    @POST("user_uploadimage.php")
+    Call<String> uploadImage(@Field("image") String image, @Field("filename") String filename);
+
+
+
+
 }

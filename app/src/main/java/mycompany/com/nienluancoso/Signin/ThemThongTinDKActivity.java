@@ -1,8 +1,10 @@
 package mycompany.com.nienluancoso.Signin;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
@@ -29,19 +33,29 @@ import com.loopj.android.http.Base64;
 import com.loopj.android.http.RequestParams;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
+import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 import mycompany.com.nienluancoso.Constant;
-import mycompany.com.nienluancoso.MainActivity;
+import mycompany.com.nienluancoso.Data.Api;
 import mycompany.com.nienluancoso.R;
 import mycompany.com.nienluancoso.UserObject;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by Admin on 3/27/2018.
  */
 
 public class ThemThongTinDKActivity extends AppCompatActivity {
+
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
+    private static final String TAG = "ThemTT_DK";
 
     private static int RESULT_LOAD_IMG = 1;
     //UpLoad Image
@@ -51,10 +65,14 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     String imgPath, fileName;
     Bitmap bitmap;
     UserObject userObject;
+    String userName, passWD;
+    Intent intent;
     private CircleImageView mImgAnhDaiDien;
     private EditText mEdtHoTen, mEdtSDT, mEdtDiaChi;
     private CheckBox mCheckNam, mCheckNu;
     private Button mBtnNamSinh;
+    private Retrofit retrofit;
+    private Api api;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,12 +93,14 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         // Set Cancelable as False
         prgDialog.setCancelable(false);
 
+        checkPermission();
+        initRetrofit();
 
         //Lấy dự liệu Intent từ Tạo TK
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String userName = extras.getString("USERNAME_CUS");
-            String passWD = extras.getString("PASSWORD_CUS");
+            userName = extras.getString("USERNAME_CUS");
+            passWD = extras.getString("PASSWORD_CUS");
 
         }
 
@@ -88,7 +108,6 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 loadImagefromGallery();
-
             }
         });
         mBtnNamSinh.setOnClickListener(new View.OnClickListener() {
@@ -126,18 +145,21 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     //Sự kiện của nút Đăng ký
     public void btnDangKy(View view) {
 
-        if (mEdtHoTen.getText().toString().equals("") && mBtnNamSinh.getText().toString().equals("") && (!mCheckNam.isChecked() || !mCheckNu.isChecked()) && mEdtSDT.getText().toString().equals("") && mEdtDiaChi.getText().toString().equals("")) {
+        if (mEdtHoTen.getText().toString().equals("") && mBtnNamSinh.getText().toString().equals("") && mEdtSDT.getText().toString().equals("") && mEdtDiaChi.getText().toString().equals("")) {
             if (mEdtHoTen.getText().toString().equals("")) mEdtHoTen.setError("Bạn chưa nhập tên");
-            if (mBtnNamSinh.getText().toString().equals("")) mBtnNamSinh.setError("Bạn chưa chọn năm sinh");
+            if (mBtnNamSinh.getText().toString().equals(""))
+                mBtnNamSinh.setError("Bạn chưa chọn năm sinh");
             if (!mCheckNam.isChecked() || !mCheckNu.isChecked())
                 mCheckNu.setError("Bạn chưa chọn năm sinh");
-            if (mEdtSDT.getText().toString().equals("")) mEdtSDT.setError("Bạn chưa nhập số điện thoại");
-            if (mEdtDiaChi.getText().toString().equals("")) mEdtDiaChi.setError("Bạn chưa chọn năm sinh");
+            if (mEdtSDT.getText().toString().equals(""))
+                mEdtSDT.setError("Bạn chưa nhập số điện thoại");
+            if (mEdtDiaChi.getText().toString().equals(""))
+                mEdtDiaChi.setError("Bạn chưa chọn năm sinh");
         } else {
             uploadImage();
 
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
         }
     }
 
@@ -180,9 +202,9 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
                 Time today = new Time(Time.getCurrentTimezone());
 //                String fileNameSegments[] = imgPath.split("/");
 //                fileName = fileNameSegments[fileNameSegments.length - 1];
-
-                fileName = today.toString();
-                Log.i("THEM_TT_DK", "onActivityResult: " + fileName);
+                Date currentTime = Calendar.getInstance().getTime();
+                fileName = currentTime.getTime() + userName + ".jpg";
+                Log.e(TAG, "onActivityResult: " + fileName);
                 // Put file name in Async Http Post Param which will used in Php web app
                 params.put("filename", fileName);
 
@@ -201,8 +223,7 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     public void uploadImage() {
         // When Image is selected from Gallery
         if (imgPath != null && !imgPath.isEmpty()) {
-            prgDialog.setMessage("Converting Image to Binary Data");
-            prgDialog.show();
+            Log.e(TAG, "uploadImage: Converting Image to Binary Data");
             // Convert image to String using Base64
             encodeImagetoString();
             // When Image is not selected from Gallery
@@ -240,7 +261,7 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String msg) {
-                prgDialog.setMessage("Calling Upload");
+                Log.e(TAG, "onPostExecute: Calling Upload ");
                 // Put converted Image string into Async Http Post param
                 params.put("image", encodedString);
                 // Trigger Image upload
@@ -252,7 +273,13 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     public void triggerImageUpload() {
         makeHTTPCall();
     }
-
+    private void initRetrofit() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(Api.BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
+    }
     // Make Http call to upload Image to Php server
     public void makeHTTPCall() {
         prgDialog.setMessage("Invoking Php");
@@ -264,13 +291,8 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         // Hide Progress Dialog
                         prgDialog.hide();
-                        Toast.makeText(getApplicationContext(), responseBody.toString(),
-                                Toast.LENGTH_LONG).show();
-
-
-
+                        Log.e(TAG, "onSuccess: Đã up thành công");
                     }
-
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                         // Hide Progress Dialog
@@ -296,13 +318,22 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
                                     .show();
                         }
                     }
-
-
                 });
     }
 
-    private void upLoadToDB(){
+    private void upLoadToDB() {
+        Call<String> call = api.uploadImage(encodedString, fileName);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.e(TAG, "onResponse: " + response.body());
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -312,6 +343,62 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         // Dismiss the progress bar when application is closed
         if (prgDialog != null) {
             prgDialog.dismiss();
+        }
+    }
+
+    private void checkPermission() {
+//        int permissionCheck = ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.WRITE_CALENDAR);
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
 
