@@ -42,8 +42,16 @@ public interface Api {
     @FormUrlEncoded
     Call<String> checkUserName(@Field("USERNAME_CUS") String userName);
 
-    @POST("user_uploadimage.php")
-    Call<String> uploadImage(@Field("image") String image, @Field("filename") String filename);
+    @POST("signin_dangky.php")
+    @FormUrlEncoded
+    Call<String> taoTaiKhoan_KH(@Field("USERNAME_CUS") String userName,
+                                @Field("PASSWORD_CUS") String passwd,
+                                @Field("FULLNAME_CUS") String fullName,
+                                @Field("SEX") String sex,
+                                @Field("BIRTHDAY") String birthDay,
+                                @Field("IMG_URL_CUS") String imgUrl,
+                                @Field("TEL_CUS") String tel,
+                                @Field("ADDRESS_CUS") String address);
 
 
 

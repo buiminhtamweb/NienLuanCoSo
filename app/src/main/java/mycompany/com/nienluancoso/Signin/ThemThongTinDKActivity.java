@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -40,6 +41,7 @@ import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 import mycompany.com.nienluancoso.Constant;
 import mycompany.com.nienluancoso.Data.Api;
+import mycompany.com.nienluancoso.MainActivity;
 import mycompany.com.nienluancoso.R;
 import mycompany.com.nienluancoso.UserObject;
 import retrofit2.Call;
@@ -90,8 +92,11 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         mBtnNamSinh = (Button) findViewById(R.id.btn_namsinh);
 
         prgDialog = new ProgressDialog(this);
+        prgDialog.setMessage("Loading...");
         // Set Cancelable as False
         prgDialog.setCancelable(false);
+
+        intent = new Intent(this, MainActivity.class);
 
         checkPermission();
         initRetrofit();
@@ -131,7 +136,6 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         final DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
 
         dialogBuilder.setTitle("Chọn năm sinh");
-        dialogBuilder.setMessage("Chọn năm sinh");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 mBtnNamSinh.setText(datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear());
@@ -145,21 +149,25 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     //Sự kiện của nút Đăng ký
     public void btnDangKy(View view) {
 
-        if (mEdtHoTen.getText().toString().equals("") && mBtnNamSinh.getText().toString().equals("") && mEdtSDT.getText().toString().equals("") && mEdtDiaChi.getText().toString().equals("")) {
+        if (mEdtHoTen.getText().toString().equals("") || mBtnNamSinh.getText().toString().equals("01/01/1970") || (!mCheckNam.isChecked() || !mCheckNu.isChecked()) || mEdtSDT.getText().toString().equals("") || mEdtDiaChi.getText().toString().equals("")) {
             if (mEdtHoTen.getText().toString().equals("")) mEdtHoTen.setError("Bạn chưa nhập tên");
-            if (mBtnNamSinh.getText().toString().equals(""))
+            else mBtnNamSinh.setError(null);
+            if (mBtnNamSinh.getText().toString().equals("01/01/1970"))
                 mBtnNamSinh.setError("Bạn chưa chọn năm sinh");
+            else mBtnNamSinh.setError(null);
             if (!mCheckNam.isChecked() || !mCheckNu.isChecked())
-                mCheckNu.setError("Bạn chưa chọn năm sinh");
+                mCheckNu.setError("Bạn chưa chọn giới tính");
+            else mBtnNamSinh.setError(null);
             if (mEdtSDT.getText().toString().equals(""))
                 mEdtSDT.setError("Bạn chưa nhập số điện thoại");
+            else mBtnNamSinh.setError(null);
             if (mEdtDiaChi.getText().toString().equals(""))
-                mEdtDiaChi.setError("Bạn chưa chọn năm sinh");
+                mEdtDiaChi.setError("Bạn chưa nhập địa chỉ");
+            else mBtnNamSinh.setError(null);
         } else {
-            uploadImage();
 
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
+            prgDialog.show();
+            uploadImage();
         }
     }
 
@@ -273,6 +281,7 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     public void triggerImageUpload() {
         makeHTTPCall();
     }
+
     private void initRetrofit() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(Api.BASE_URL)
@@ -280,23 +289,33 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
                 .build();
         api = retrofit.create(Api.class);
     }
+
     // Make Http call to upload Image to Php server
     public void makeHTTPCall() {
-        prgDialog.setMessage("Invoking Php");
         AsyncHttpClient client = new AsyncHttpClient();
         // Don't forget to change the IP address to your LAN address. Port no as well.
         client.post(Constant.HOST_IMAGE,
                 params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        // Hide Progress Dialog
-                        prgDialog.hide();
                         Log.e(TAG, "onSuccess: Đã up thành công");
+
+                        String gioiTinh = "";
+                        if (mCheckNam.isChecked()) gioiTinh = "Nam";
+                        else if (mCheckNu.isChecked()) gioiTinh = "Nữ";
+
+                        upLoadToDB(userName,
+                                passWD,
+                                mEdtHoTen.getText().toString(),
+                                gioiTinh,
+                                mBtnNamSinh.getText().toString(),
+                                Constant.IMAGE_SOURCE + fileName,
+                                mEdtSDT.getText().toString(),
+                                mEdtDiaChi.getText().toString());
                     }
+
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        // Hide Progress Dialog
-                        prgDialog.hide();
                         // When Http response code is '404'
                         if (statusCode == 404) {
                             Toast.makeText(getApplicationContext(),
@@ -321,12 +340,22 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
                 });
     }
 
-    private void upLoadToDB() {
-        Call<String> call = api.uploadImage(encodedString, fileName);
+    private void upLoadToDB(String userName, String passwd, String fullName, String sex, String birthDay, String imgUrl, String tel, String address) {
+        Log.e(TAG, "upLoadToDB: " + userName + passwd + fullName + sex + birthDay + imgUrl + tel + address);
+        Call<String> call = api.taoTaiKhoan_KH(userName, passwd, fullName, sex, birthDay, imgUrl, tel, address);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.e(TAG, "onResponse: " + response.body());
+                if (response.body().equals("true")) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+
+                    }
+                    taoTKThanhCong();
+                }
             }
 
             @Override
@@ -400,6 +429,19 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+
+    private void taoTKThanhCong() {
+
+        SharedPreferences mSPre = getSharedPreferences(Constant.SPRE_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor mSP_Edit;
+        mSP_Edit = mSPre.edit();
+        mSP_Edit.putString(Constant.USERNAME_CUS, userName);
+        mSP_Edit.putString(Constant.PASSWORD_CUS, passWD);
+        mSP_Edit.putBoolean(Constant.IS_SIGNIN, true);
+        mSP_Edit.commit();
+        startActivity(intent);
     }
 
 
