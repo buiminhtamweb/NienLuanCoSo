@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import mycompany.com.nienluancoso.Constant;
 import mycompany.com.nienluancoso.Data.AgriObject;
 import mycompany.com.nienluancoso.R;
 
@@ -24,7 +24,7 @@ public class GridViewAdapter extends BaseAdapter {
 
 
     private Context mContext;
-    private List<AgriObject> mAgriObjectList = new ArrayList<>();
+    private List<AgriObject> mAgriObjectList;
     private LayoutInflater mLayoutInflater;
 
     public GridViewAdapter(Context mContext, List<AgriObject> mAgriObjectList) {
@@ -63,7 +63,7 @@ public class GridViewAdapter extends BaseAdapter {
 
         //Add data for View
         // viewHolder.mImageView.setClipToOutline(true);
-        Picasso.get().load("http://192.168.1.100:80/a/img/gao.jpg").into(viewHolder.mImageView);
+        Picasso.get().load(Constant.IMAGE_SOURCE + mAgriObjectList.get(i).getIMG_URL_AGRI()).into(viewHolder.mImageView);
 
         viewHolder.mNameAgri.setText(mAgriObjectList.get(i).getNAME_AGRI());
         viewHolder.mPrice.setText(mAgriObjectList.get(i).getPRICE_AGRI() + " VND");

@@ -30,8 +30,15 @@ public interface Api {
     @GET("getNewAgri.php")
     Call<List<AgriObject>> getNewAgri();
 
-    @POST("getHotAgri.php")
-    Call<List<AgriObject>> getArgiWithKind(@Field("USERNAME_CUS") String kind);
+
+
+    @GET("getAllAgri.php")
+    Call<List<AgriObject>> getDetailAgric();
+
+    @POST("getArgiWithKind.php")
+    @FormUrlEncoded
+    Call<List<AgriObject>> getArgiWithKind(@Field("ID_KIND") String kind);
+
 
     @POST("signin_dangnhap.php")
     @FormUrlEncoded

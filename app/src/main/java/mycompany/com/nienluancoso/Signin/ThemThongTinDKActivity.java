@@ -138,7 +138,7 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         dialogBuilder.setTitle("Chọn năm sinh");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                mBtnNamSinh.setText(datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear());
+                mBtnNamSinh.setText(datePicker.getYear() + "-" + datePicker.getMonth() + "-" + datePicker.getDayOfMonth());
             }
         });
         dialogBuilder.setNegativeButton("Cancel", null);
@@ -309,7 +309,7 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
                                 mEdtHoTen.getText().toString(),
                                 gioiTinh,
                                 mBtnNamSinh.getText().toString(),
-                                Constant.IMAGE_SOURCE + fileName,
+                                fileName,
                                 mEdtSDT.getText().toString(),
                                 mEdtDiaChi.getText().toString());
                     }

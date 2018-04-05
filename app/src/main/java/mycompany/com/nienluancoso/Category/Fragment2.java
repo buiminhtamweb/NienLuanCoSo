@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -17,6 +16,7 @@ import java.util.List;
 
 import mycompany.com.nienluancoso.Data.AgriObject;
 import mycompany.com.nienluancoso.Data.Api;
+import mycompany.com.nienluancoso.Data.KindObject;
 import mycompany.com.nienluancoso.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,21 +30,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Fragment2 extends Fragment {
 
+    private final static String TAG = "Category";
     List<AgriObject> mAgriObjectList = new ArrayList<>();
-    String[] kindData = {"Gạo", "Lúa", "Rau", "Củ", "Quả", "Trái Cây"};
+    List<KindObject> kindData = new ArrayList<>();
     private ListView mKindList;
     private GridView mAgriList;
     private GridViewAdapter mGridViewAdapter;
+    private LVKindAdapter mLvKindAdapter;
     private Api api;
     private Retrofit retrofit;
-
-
-    public Fragment2() {
-    }
-
-    public static Fragment newIntance() {
-        return new Fragment2();
-    }
 
     @Nullable
     @Override
@@ -52,23 +46,39 @@ public class Fragment2 extends Fragment {
         View view = inflater.inflate(R.layout.fragment2, container, false);
 
         mKindList = (ListView) view.findViewById(R.id.listview_kind);
-
         mKindList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
         mKindList.setSelector(R.drawable.selector_listview);
 
+
+        //Danh sách nông sản theo loại
         mAgriList = (GridView) view.findViewById(R.id.gridview_ds_sp);
+        mGridViewAdapter = new GridViewAdapter(getContext(), mAgriObjectList);
+        mAgriList.setAdapter(mGridViewAdapter);
+        mAgriList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.e(TAG, "onClick: ID_AGRI =  " + l);
+            }
+        });
 
         initRetrofit();
+        getKind();
+        getAllArgi();
 
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, kindData);
-
-        mKindList.setAdapter(arrayAdapter);
+        //danh sách loại nông sản
+        mLvKindAdapter = new LVKindAdapter(getContext(), kindData);
+        mKindList.setAdapter(mLvKindAdapter);
         mKindList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("Cate_KindList", "onClick: " + position);
+                Log.e(TAG, "onClick: ID_KIND =  " + id);
+
+                if (id == 0){
+                    getAllArgi();
+                }else {
+                    getArgiWithKind(id + "");
+                }
+
 
             }
         });
@@ -84,6 +94,32 @@ public class Fragment2 extends Fragment {
         api = retrofit.create(Api.class);
     }
 
+    private void getKind() {
+        Call<List<KindObject>> call = api.getKind();
+        call.enqueue(new Callback<List<KindObject>>() {
+            @Override
+            public void onResponse(Call<List<KindObject>> call, Response<List<KindObject>> response) {
+
+                kindData.clear();
+                kindData.add(new KindObject("0","Tất cả"));
+                if (response != null) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        kindData.add(response.body().get(i));
+                        Log.e(TAG, kindData.get(i).getNAMEKIND());
+                    }
+                }
+
+                mLvKindAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<KindObject>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
     private void getArgiWithKind(String kind) {
 
 
@@ -97,10 +133,9 @@ public class Fragment2 extends Fragment {
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
                         mAgriObjectList.add(response.body().get(i));
-                        Log.e("Home", mAgriObjectList.get(i).getNAME_AGRI());
+                        Log.e(TAG, mAgriObjectList.get(i).getNAME_AGRI());
                     }
                 }
-
 
                 mGridViewAdapter.notifyDataSetChanged();
             }
@@ -111,6 +146,31 @@ public class Fragment2 extends Fragment {
             }
         });
 
+    }
+
+    private void getAllArgi(){
+        Call<List<AgriObject>> call = api.getAllAgri();
+
+        call.enqueue(new Callback<List<AgriObject>>() {
+            @Override
+            public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
+
+                mAgriObjectList.clear();
+                if (response != null) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        mAgriObjectList.add(response.body().get(i));
+                        Log.e(TAG, mAgriObjectList.get(i).getNAME_AGRI());
+                    }
+                }
+
+                mGridViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<AgriObject>> call, Throwable t) {
+
+            }
+        });
     }
 
 }

@@ -15,6 +15,14 @@ public class KindObject {
     @Expose
     private String nAMEKIND;
 
+    public KindObject() {
+    }
+
+    public KindObject(String iDKIND, String nAMEKIND) {
+        this.iDKIND = iDKIND;
+        this.nAMEKIND = nAMEKIND;
+    }
+
     public String getIDKIND() {
         return iDKIND;
     }
