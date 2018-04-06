@@ -182,6 +182,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
 
     private void themVaoGioHangThanhCong() {
 
+
     }
 
 
