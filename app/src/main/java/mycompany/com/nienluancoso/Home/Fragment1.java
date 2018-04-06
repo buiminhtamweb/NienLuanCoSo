@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import mycompany.com.nienluancoso.Data.AgriObject;
+import mycompany.com.nienluancoso.Data.AgriObjectItem;
 import mycompany.com.nienluancoso.Data.Api;
 import mycompany.com.nienluancoso.R;
 import retrofit2.Call;
@@ -39,8 +39,8 @@ public class Fragment1 extends Fragment {
 
     int currentPage = 0;
     int NUM_PAGES = 0;
-    private List<AgriObject> mAgriObjectListHot = new ArrayList<>();
-    private List<AgriObject> mAgriObjectListNew = new ArrayList<>();
+    private List<AgriObjectItem> mAgriObjectItemListHot = new ArrayList<>();
+    private List<AgriObjectItem> mAgriObjectItemListNew = new ArrayList<>();
     private RecyItemAgriAdapter recyItemAgriAdapter, recyItemAgriAdapterHot;
     private RecyclerView recyclerViewHot, recyclerViewNew, recyclerViewSale;
     private Button mBtnSearch;
@@ -75,8 +75,8 @@ public class Fragment1 extends Fragment {
         RecyclerView.LayoutManager mLayoutManagerHot = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewHot.setLayoutManager(mLayoutManagerHot);
 
-        recyItemAgriAdapter = new RecyItemAgriAdapter(getContext(), mAgriObjectListNew);
-        recyItemAgriAdapterHot = new RecyItemAgriAdapter(getContext(), mAgriObjectListHot);
+        recyItemAgriAdapter = new RecyItemAgriAdapter(getContext(), mAgriObjectItemListNew);
+        recyItemAgriAdapterHot = new RecyItemAgriAdapter(getContext(), mAgriObjectItemListHot);
 
         recyclerViewNew.setAdapter(recyItemAgriAdapter);
         recyclerViewHot.setAdapter(recyItemAgriAdapterHot);
@@ -91,45 +91,45 @@ public class Fragment1 extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api = retrofit.create(Api.class);
-        Call<List<AgriObject>> call = api.getNewAgri();
-        call.enqueue(new Callback<List<AgriObject>>() {
+        Call<List<AgriObjectItem>> call = api.getNewAgri();
+        call.enqueue(new Callback<List<AgriObjectItem>>() {
             @Override
-            public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
+            public void onResponse(Call<List<AgriObjectItem>> call, Response<List<AgriObjectItem>> response) {
 
-                mAgriObjectListNew.clear();
+                mAgriObjectItemListNew.clear();
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        mAgriObjectListNew.add(response.body().get(i));
-                        Log.e("Home", mAgriObjectListNew.get(i).getNAME_AGRI());
+                        mAgriObjectItemListNew.add(response.body().get(i));
+                        Log.e("Home", mAgriObjectItemListNew.get(i).getNAME_AGRI());
                     }
                 }
                 recyItemAgriAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<AgriObject>> call, Throwable t) {
+            public void onFailure(Call<List<AgriObjectItem>> call, Throwable t) {
 //                Snackbar snackbar = Snackbar
 //                        .make(mBtnSearch, "Lỗi ! Không thể truy cập đến server", Snackbar.LENGTH_LONG);
 //                snackbar.show();
                 Toast.makeText(getContext(),"Lỗi ! Không thể truy cập đến server", Toast.LENGTH_SHORT).show();
             }
         });
-        Call<List<AgriObject>> callHot = api.getHotAgri();
-        callHot.enqueue(new Callback<List<AgriObject>>() {
+        Call<List<AgriObjectItem>> callHot = api.getHotAgri();
+        callHot.enqueue(new Callback<List<AgriObjectItem>>() {
             @Override
-            public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
-                mAgriObjectListHot.clear();
+            public void onResponse(Call<List<AgriObjectItem>> call, Response<List<AgriObjectItem>> response) {
+                mAgriObjectItemListHot.clear();
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        mAgriObjectListHot.add(response.body().get(i));
-                        Log.e("Home", mAgriObjectListHot.get(i).getNAME_AGRI());
+                        mAgriObjectItemListHot.add(response.body().get(i));
+                        Log.e("Home", mAgriObjectItemListHot.get(i).getNAME_AGRI());
                     }
                 }
                 recyItemAgriAdapterHot.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<AgriObject>> call, Throwable t) {
+            public void onFailure(Call<List<AgriObjectItem>> call, Throwable t) {
                 Toast.makeText(getContext(),"Lỗi ! Không thể truy cập đến server", Toast.LENGTH_SHORT).show();
             }
         });

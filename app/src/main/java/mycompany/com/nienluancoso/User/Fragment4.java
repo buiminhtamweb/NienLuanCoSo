@@ -32,7 +32,7 @@ public class Fragment4 extends Fragment {
 
         linearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_tk);
         mBtnLichSuDatHang = (Button) view.findViewById(R.id.btn_lichsudathang);
-        mBtnYeuThich = (Button) view.findViewById(R.id.btn_danhsachyeuthich);
+        mBtnYeuThich = (Button) view.findViewById(R.id.btn_ds_dondathangdagcho);
         mBtnCaiDatTK = (Button) view.findViewById(R.id.btn_caidat_tk);
         mBtnCaiDat = (Button) view.findViewById(R.id.btn_caidat_app);
         mBtnHuongDanSuDung = (Button) view.findViewById(R.id.btn_huongdan_sudung);

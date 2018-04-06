@@ -1,12 +1,10 @@
 package mycompany.com.nienluancoso.Data;
 
-import mycompany.com.nienluancoso.Data.AgriObject;
-
 /**
  * Created by Admin on 3/23/2018.
  */
 
-public class OrderOject extends AgriObject{
+public class OrderOject extends AgriObjectItem {
 
     private int soLuongMua;
 

@@ -355,6 +355,7 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
 
                     }
                     taoTKThanhCong();
+
                 }
             }
 
@@ -442,6 +443,7 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         mSP_Edit.putBoolean(Constant.IS_SIGNIN, true);
         mSP_Edit.commit();
         startActivity(intent);
+        finish();
     }
 
 

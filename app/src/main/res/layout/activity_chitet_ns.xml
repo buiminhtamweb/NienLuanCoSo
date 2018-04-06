@@ -21,6 +21,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/btn_them_sp_giohang"
         android:layout_marginTop="?attr/actionBarSize"
         android:background="@color/backround_grey">
 
@@ -58,6 +59,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Loại: Gạo thơm" />
+
+                <TextView
+                    android:id="@+id/tv_sl_conlai"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Số lượng tồn kho: 1" />
 
                 <TextView
                     android:id="@+id/tv_gia"
@@ -109,7 +117,8 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view_hot"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp">
 
                 </android.support.v7.widget.RecyclerView>
@@ -120,14 +129,15 @@
     </ScrollView>
 
     <Button
-        android:gravity="start|center_vertical"
-        android:drawablePadding="20dp"
-        android:paddingStart="90dp"
-        android:drawableStart="@drawable/ic_add_shopping_cart_black_24dp"
+        android:id="@+id/btn_them_sp_giohang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/primaryDarkColor"
+        android:drawablePadding="20dp"
+        android:drawableStart="@drawable/ic_add_shopping_cart_black_24dp"
+        android:gravity="start|center_vertical"
+        android:paddingStart="90dp"
         android:text="Thêm vào giỏ hàng"
         android:textColor="@color/white"
         tools:ignore="RtlSymmetry" />

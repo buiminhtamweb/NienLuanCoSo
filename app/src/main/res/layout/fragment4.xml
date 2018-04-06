@@ -50,6 +50,20 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btn_ds_dondathangdagcho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:drawableStart="@drawable/ic_favorite_black_24dp"
+            android:drawablePadding="20dp"
+            android:gravity="left|center_vertical"
+            android:paddingStart="20dp"
+            android:text="Đơn dặt hàng đang chờ"
+            android:textAllCaps="false"
+            tools:ignore="RtlSymmetry" />
+
+        <Button
             android:id="@+id/btn_lichsudathang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,19 +76,7 @@
             android:textAllCaps="false"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
 
-        <Button
-            android:id="@+id/btn_danhsachyeuthich"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:background="@color/white"
-            android:drawableStart="@drawable/ic_favorite_black_24dp"
-            android:drawablePadding="20dp"
-            android:gravity="left|center_vertical"
-            android:paddingStart="20dp"
-            android:text="Danh sách yêu thích"
-            android:textAllCaps="false"
-            tools:ignore="RtlSymmetry" />
+
 
         <Button
             android:id="@+id/btn_caidat_tk"

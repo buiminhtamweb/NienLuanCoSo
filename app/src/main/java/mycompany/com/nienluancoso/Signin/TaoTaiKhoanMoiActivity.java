@@ -82,6 +82,7 @@ public class TaoTaiKhoanMoiActivity extends AppCompatActivity {
                         intent.putExtra("USERNAME_CUS", userName);
                         intent.putExtra("PASSWORD_CUS", passWd);
                         startActivity(intent);
+                        finish();
                     }
             }
             @Override
@@ -118,6 +119,7 @@ public class TaoTaiKhoanMoiActivity extends AppCompatActivity {
         super.onStop();
         if (mProcessDialog.isShowing()) {
             mProcessDialog.dismiss();
+
         }
     }
 

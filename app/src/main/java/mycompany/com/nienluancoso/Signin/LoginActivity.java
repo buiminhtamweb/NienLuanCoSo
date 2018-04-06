@@ -186,6 +186,7 @@ public class LoginActivity extends AppCompatActivity {
     public void dangKy(View view) {
         Intent intent = new Intent(this, TaoTaiKhoanMoiActivity.class);
         startActivity(intent);
+
     }
 
     @Override
@@ -193,6 +194,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStop();
         if (mProcessDialog.isShowing()) {
             mProcessDialog.dismiss();
+
         }
     }
 }

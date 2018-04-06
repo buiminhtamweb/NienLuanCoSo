@@ -14,7 +14,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import mycompany.com.nienluancoso.Data.AgriObject;
+import mycompany.com.nienluancoso.Data.AgriObjectItem;
 import mycompany.com.nienluancoso.Data.Api;
 import mycompany.com.nienluancoso.Data.KindObject;
 import mycompany.com.nienluancoso.R;
@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Fragment2 extends Fragment {
 
     private final static String TAG = "Category";
-    List<AgriObject> mAgriObjectList = new ArrayList<>();
+    List<AgriObjectItem> mAgriObjectItemList = new ArrayList<>();
     List<KindObject> kindData = new ArrayList<>();
     private ListView mKindList;
     private GridView mAgriList;
@@ -52,7 +52,7 @@ public class Fragment2 extends Fragment {
 
         //Danh sách nông sản theo loại
         mAgriList = (GridView) view.findViewById(R.id.gridview_ds_sp);
-        mGridViewAdapter = new GridViewAdapter(getContext(), mAgriObjectList);
+        mGridViewAdapter = new GridViewAdapter(getContext(), mAgriObjectItemList);
         mAgriList.setAdapter(mGridViewAdapter);
         mAgriList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -123,17 +123,17 @@ public class Fragment2 extends Fragment {
     private void getArgiWithKind(String kind) {
 
 
-        Call<List<AgriObject>> call = api.getArgiWithKind(kind);
+        Call<List<AgriObjectItem>> call = api.getArgiWithKind(kind);
 
-        call.enqueue(new Callback<List<AgriObject>>() {
+        call.enqueue(new Callback<List<AgriObjectItem>>() {
             @Override
-            public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
+            public void onResponse(Call<List<AgriObjectItem>> call, Response<List<AgriObjectItem>> response) {
 
-                mAgriObjectList.clear();
+                mAgriObjectItemList.clear();
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        mAgriObjectList.add(response.body().get(i));
-                        Log.e(TAG, mAgriObjectList.get(i).getNAME_AGRI());
+                        mAgriObjectItemList.add(response.body().get(i));
+                        Log.e(TAG, mAgriObjectItemList.get(i).getNAME_AGRI());
                     }
                 }
 
@@ -141,7 +141,7 @@ public class Fragment2 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<AgriObject>> call, Throwable t) {
+            public void onFailure(Call<List<AgriObjectItem>> call, Throwable t) {
 
             }
         });
@@ -149,17 +149,17 @@ public class Fragment2 extends Fragment {
     }
 
     private void getAllArgi(){
-        Call<List<AgriObject>> call = api.getAllAgri();
+        Call<List<AgriObjectItem>> call = api.getAllAgri();
 
-        call.enqueue(new Callback<List<AgriObject>>() {
+        call.enqueue(new Callback<List<AgriObjectItem>>() {
             @Override
-            public void onResponse(Call<List<AgriObject>> call, Response<List<AgriObject>> response) {
+            public void onResponse(Call<List<AgriObjectItem>> call, Response<List<AgriObjectItem>> response) {
 
-                mAgriObjectList.clear();
+                mAgriObjectItemList.clear();
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        mAgriObjectList.add(response.body().get(i));
-                        Log.e(TAG, mAgriObjectList.get(i).getNAME_AGRI());
+                        mAgriObjectItemList.add(response.body().get(i));
+                        Log.e(TAG, mAgriObjectItemList.get(i).getNAME_AGRI());
                     }
                 }
 
@@ -167,7 +167,7 @@ public class Fragment2 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<AgriObject>> call, Throwable t) {
+            public void onFailure(Call<List<AgriObjectItem>> call, Throwable t) {
 
             }
         });

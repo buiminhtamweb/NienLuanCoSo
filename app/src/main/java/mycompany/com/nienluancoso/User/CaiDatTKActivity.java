@@ -94,7 +94,6 @@ public class CaiDatTKActivity extends AppCompatActivity {
         final DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
 
         dialogBuilder.setTitle("Đổi mật khẩu");
-        dialogBuilder.setMessage("Đổi mật khẩu");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 mBtnNamSinh.setText(datePicker.getDayOfMonth() + "/" + datePicker.getMonth() + "/" + datePicker.getYear());
@@ -119,7 +118,6 @@ public class CaiDatTKActivity extends AppCompatActivity {
 
 
         dialogBuilder.setTitle("Đổi mật khẩu");
-        dialogBuilder.setMessage("Đổi mật khẩu");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //do something with edt.getText().toString();
@@ -142,7 +140,6 @@ public class CaiDatTKActivity extends AppCompatActivity {
         EditText mEdtHoTen = (EditText) dialogView.findViewById(R.id.edt_hoten);
 
         dialogBuilder.setTitle("Đổi họ tên");
-        dialogBuilder.setMessage("Đổi họ tên");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //do something with edt.getText().toString();
@@ -167,7 +164,6 @@ public class CaiDatTKActivity extends AppCompatActivity {
         EditText mEdtSDT = (EditText) dialogView.findViewById(R.id.edt_sdt);
 
         dialogBuilder.setTitle("Đổi Số điện thoại");
-        dialogBuilder.setMessage("Đổi Số điện thoại");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //do something with edt.getText().toString();
@@ -192,7 +188,6 @@ public class CaiDatTKActivity extends AppCompatActivity {
         EditText mEdtHoTen = (EditText) dialogView.findViewById(R.id.edt_diachi);
 
         dialogBuilder.setTitle("Đổi địa chỉ");
-        dialogBuilder.setMessage("Đổi địa chỉ");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //do something with edt.getText().toString();
