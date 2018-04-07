@@ -105,7 +105,6 @@ public class Fragment2 extends Fragment {
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
                         kindData.add(response.body().get(i));
-                        Log.e(TAG, kindData.get(i).getNAMEKIND());
                     }
                 }
 
@@ -159,7 +158,7 @@ public class Fragment2 extends Fragment {
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
                         mAgriItemObjectList.add(response.body().get(i));
-                        Log.e(TAG, mAgriItemObjectList.get(i).getNAME_AGRI());
+//                        Log.e(TAG, mAgriItemObjectList.get(i).getNAME_AGRI());
                     }
                 }
 

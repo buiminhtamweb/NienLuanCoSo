@@ -33,6 +33,7 @@ import mycompany.com.nienluancoso.Data.AgriItemObject;
 import mycompany.com.nienluancoso.Data.Api;
 import mycompany.com.nienluancoso.Data.Local.DatabaseHelper;
 import mycompany.com.nienluancoso.Home.RecyItemAgriAdapter;
+import mycompany.com.nienluancoso.MainActivity;
 import mycompany.com.nienluancoso.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -186,16 +187,19 @@ public class ChiTietNSActivity extends AppCompatActivity {
     private void nhapSoLuongSNMua() {
 
         String arr[] = {"Gam", "Kg"};
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final LayoutInflater inflater = this.getLayoutInflater();
 
         //Tham chieu layout
         final View dialogView = inflater.inflate(R.layout.dialog_donvi_tinh, null);
         dialogBuilder.setView(dialogView);
 
         final EditText mEdtSoluongMua = (EditText) dialogView.findViewById(R.id.edt_soLuong_mua);
-        Spinner spin = (Spinner) dialogView.findViewById(R.id.spinner_donvi_tinh);
+        final Spinner spin = (Spinner) dialogView.findViewById(R.id.spinner_donvi_tinh);
+        Button btnOK = (Button) dialogView.findViewById(R.id.btn_ok);
+        Button btnHuy = (Button) dialogView.findViewById(R.id.btn_huy);
+
+
         //Gán Data source (arr) vào Adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arr);
         //phải gọi lệnh này để hiển thị danh sách cho Spinner
@@ -204,39 +208,44 @@ public class ChiTietNSActivity extends AppCompatActivity {
         spin.setAdapter(adapter);
         spin.setSelection(0);
 
-        //Chuyển đổi đơn vị tính theo Gam
-        if (spin.getSelectedItemPosition() == 1) {
-            soLuongMua = Integer.parseInt(mEdtSoluongMua.getText().toString() + "000");
-        } else {
-            soLuongMua = Integer.parseInt(mEdtSoluongMua.getText().toString());
-
-        }
-
-        //Kiểm tra số lượng mua cao hơn số lượng hàng tồn kho hay không
-
-
-
         dialogBuilder.setTitle("Nhập vào số lượng cần mua");
-        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
 
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        //Sự kiện các nút trên Dialog
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Chuyển đổi đơn vị tính theo Gam
+                if (spin.getSelectedItemPosition() == 1) {
+                    soLuongMua = Integer.parseInt(mEdtSoluongMua.getText().toString() + "000");
+                } else {
+                    soLuongMua = Integer.parseInt(mEdtSoluongMua.getText().toString());
+
+                }
+                //Kiểm tra số lượng mua cao hơn số lượng hàng tồn kho hay không
                 if (soLuongMua > soLuongConLai)
                     mEdtSoluongMua.setError("Mặt hàng không đủ số lượng để bán");
                 else {
                     mEdtSoluongMua.setError(null);
                     themVaoGioHang(String.valueOf(soLuongMua));
                     Toast.makeText(ChiTietNSActivity.this, "Đã thêm thành công", Toast.LENGTH_SHORT).show();
+                    b.dismiss();
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    intent.putExtra(Constant.MAIN_POSITION, 2);
+                    startActivity(intent);
                     finish();
                 }
-
-
             }
         });
 
-
-        dialogBuilder.setNegativeButton("Cancel", null);
-        AlertDialog b = dialogBuilder.create();
-        b.show();
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+            }
+        });
 
     }
 
@@ -246,6 +255,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
            Date currentTime = Calendar.getInstance().getTime();
            dbaseHelper.insertOrder(currentTime.getTime()+"");
        }
+        Log.e(TAG, "themVaoGioHang: "+ mIdAgric );
        dbaseHelper.insertAgriOnOrder(mIdAgric,soLuongMua);
 
     }

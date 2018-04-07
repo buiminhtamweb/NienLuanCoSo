@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     // Database Name
     private static final String DATABASE_NAME = "Order_List";
+    private static final String TAG = "DatabaseHelper" ;
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -74,14 +77,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
         // Select All Query
-//        String selectQuery = "SELECT  * FROM " + DBOrderObject.TABLE_NAME + " LIMIT 1";
-//        Cursor cursor = db.rawQuery(selectQuery, null);
+        String selectQuery = "SELECT  * FROM " + DBOrderObject.TABLE_NAME + " LIMIT 1";
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
-        Cursor cursor = db.query(DBOrderObject.TABLE_NAME, null,"*",null
-                ,null,null,null,"1" );
+//        Cursor cursor = db.query(DBOrderObject.TABLE_NAME, null,"*",null
+//                ,null,null,null,"1" );
 
 
-        if (cursor != null) {
+        if (cursor.getCount()>0) {
             cursor.moveToFirst();
             // prepare note object
             DBOrderObject orderObject = new DBOrderObject(
@@ -101,19 +104,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + DBOrderObject.TABLE_NAME;
+        String selectQuery = "SELECT  * FROM " + DBAgricOrderObject.TABLE_NAME;
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor != null) {
+        if (cursor.getCount()>0) {
             cursor.moveToFirst();
-            // prepare note object
-            DBAgricOrderObject agricOrderObject = new DBAgricOrderObject(
-                    cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_ID_AGRI)),
-                    cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_NUM_OF_AGRI)));
-            // close the db connection
+            for (int i = 1; i <= cursor.getCount() ; i++) {
+                // prepare note object
+                DBAgricOrderObject agricOrderObject = new DBAgricOrderObject(
+                        cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_ID_AGRI)),
+                        cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_NUM_OF_AGRI)));
+                // close the db connection
 
-            agricOrderObjectList.add(agricOrderObject);
+
+                Log.e(TAG, "getAgricOnOrder: "+ cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_ID_AGRI)) );
+                agricOrderObjectList.add(agricOrderObject);
+                cursor.moveToNext();
+            }
+
             cursor.close();
             return agricOrderObjectList;
 
@@ -125,10 +134,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteAllOrder() {
         SQLiteDatabase db = this.getWritableDatabase();
         // Drop older table if existed
-        String sql = "DROP TABLE IF EXISTS ";
-        db.execSQL(sql + DBOrderObject.TABLE_NAME);
-        db.execSQL(sql + DBAgricOrderObject.CREATE_TABLE);
-        db.close();
+//        String sql = "DROP TABLE IF EXISTS ";
+//        db.execSQL(sql + DBOrderObject.TABLE_NAME);
+//        db.execSQL(sql + DBAgricOrderObject.CREATE_TABLE);
+//        db.close();
     }
 
     public void deleteAgricOnOrder(String idAgri) {

@@ -46,6 +46,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
+
+        //Chọn màn hình chính
+        int position = 0;
+        //Lấy dự liệu Intent từ Tạo TK
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            position = extras.getInt(Constant.MAIN_POSITION);
+            mViewPager.setCurrentItem(position);
+        }
     }
 
     private void initView(){

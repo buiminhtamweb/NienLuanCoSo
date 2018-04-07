@@ -2,7 +2,7 @@ package mycompany.com.nienluancoso.Data.Local;
 
 public class DBOrderObject {
 
-    public static final String TABLE_NAME = "ORDER";
+    public static final String TABLE_NAME = "ORDERS";
 
     public static final String COLUMN_ID_ORDER = "ID_ORDER";
     public static final String COLUMN_DATE_ORDER = "DATE_ORDER";

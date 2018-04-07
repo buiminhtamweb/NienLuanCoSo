@@ -24,12 +24,13 @@
         android:id="@+id/recycler_view_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btn_thanhtoan"
+        android:layout_above="@id/tv_tongtien_hd"
         android:layout_alignParentTop="true">
 
     </android.support.v7.widget.RecyclerView>
 
     <TextView
+        android:background="@color/white"
         android:id="@+id/tv_tongtien_hd"
         android:padding="8dp"
         android:gravity="center_vertical|right"

@@ -117,7 +117,7 @@ public class Fragment1 extends Fragment {
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
                         mAgriItemObjectListNew.add(response.body().get(i));
-                        Log.e("Home", mAgriItemObjectListNew.get(i).getNAME_AGRI());
+//                        Log.e("Home", mAgriItemObjectListNew.get(i).getNAME_AGRI());
                     }
                 }
                 recyItemAgriAdapterNew.notifyDataSetChanged();
@@ -141,7 +141,7 @@ public class Fragment1 extends Fragment {
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
                         mAgriItemObjectListHot.add(response.body().get(i));
-                        Log.e("Home", mAgriItemObjectListHot.get(i).getNAME_AGRI());
+//                        Log.e("Home", mAgriItemObjectListHot.get(i).getNAME_AGRI());
                     }
                 }
                 recyItemAgriAdapterHot.notifyDataSetChanged();
@@ -163,7 +163,7 @@ public class Fragment1 extends Fragment {
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
                         mAgriItemObjectListSale.add(response.body().get(i));
-                        Log.e("Home", mAgriItemObjectListSale.get(i).getNAME_AGRI());
+//                        Log.e("Home", mAgriItemObjectListSale.get(i).getNAME_AGRI());
                     }
                 }
                 recyItemAgriAdapterSale.notifyDataSetChanged();
@@ -245,6 +245,7 @@ public class Fragment1 extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), SearchActivity.class));
+                getActivity().finish();
             }
         });
         recyItemAgriAdapterNew.setOnClickListener(new RecyItemAgriAdapter.onClickListener() {
@@ -252,6 +253,7 @@ public class Fragment1 extends Fragment {
             public void onItemClick(int position, int idAgri) {
                 mIntent.putExtra("ID_AGRI",idAgri+"");
                 startActivity(mIntent);
+                getActivity().finish();
             }
         });
 
@@ -260,6 +262,7 @@ public class Fragment1 extends Fragment {
             public void onItemClick(int position, int idAgri) {
                 mIntent.putExtra("ID_AGRI",idAgri+"");
                 startActivity(mIntent);
+                getActivity().finish();
             }
         });
 
@@ -268,6 +271,7 @@ public class Fragment1 extends Fragment {
             public void onItemClick(int position, int idAgri) {
                 mIntent.putExtra("ID_AGRI",idAgri+"");
                 startActivity(mIntent);
+                getActivity().finish();
             }
         });
 

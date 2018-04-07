@@ -244,6 +244,7 @@ public class Fragment3 extends Fragment {
                         orderItemObjects.get(position).getSoLuongMua(),
                         orderItemObjects.get(position).getSoLuongConLai_AGRI());
 
+                loadData();
 
             }
 
@@ -258,7 +259,7 @@ public class Fragment3 extends Fragment {
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle("Chưa có sản phẩm đặt hàng");
                 }
 
-                recyOrderAdapter.notifyDataSetChanged();
+                loadData();
             }
         });
 
