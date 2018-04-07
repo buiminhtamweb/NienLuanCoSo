@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Hóa đơn"
+            app:titleTextColor="@color/white">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/recycler_view_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,14 +29,28 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/tv_tongtien_hd"
+        android:padding="8dp"
+        android:gravity="center_vertical|right"
+        android:textSize="25sp"
+        android:textColor="@color/red"
+        android:text="Tổng tiền: 5000 VND"
+        android:layout_above="@id/btn_thanhtoan"
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+
     <Button
         android:id="@+id/btn_thanhtoan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primaryDarkColor"
+        android:drawablePadding="20dp"
+        android:drawableStart="@drawable/ic_local_grocery_store_black_24dp"
+        android:gravity="start|center_vertical"
+        android:paddingStart="90dp"
         android:text="Tiến hành thanh toán"
-        android:layout_alignParentBottom="true" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>

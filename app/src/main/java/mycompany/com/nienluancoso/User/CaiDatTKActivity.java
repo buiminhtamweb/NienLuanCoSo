@@ -69,14 +69,14 @@ public class CaiDatTKActivity extends AppCompatActivity {
         mBtnSDT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                doiSDT();
             }
         });
 
         mBtnDiaChi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                doiDiaChi();
             }
         });
 

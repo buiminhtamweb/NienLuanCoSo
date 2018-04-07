@@ -33,7 +33,7 @@
             android:id="@+id/tv_gia"
             android:layout_width="194dp"
             android:layout_height="21dp"
-            android:text="Giá"
+            android:text="Giá sản phẩm: "
             android:textColor="@color/red"
             />
 
@@ -42,6 +42,8 @@
             android:layout_width="194dp"
             android:layout_height="21dp"
             android:text="Số lượng mua:" />
+
+
 
     </LinearLayout>
 

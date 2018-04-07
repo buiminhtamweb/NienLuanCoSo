@@ -13,22 +13,18 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import mycompany.com.nienluancoso.Data.OrderOject;
+import mycompany.com.nienluancoso.Constant;
+import mycompany.com.nienluancoso.Data.OrderItemObject;
 import mycompany.com.nienluancoso.R;
-
-/**
- * Created by Admin on 3/21/2018.
- */
 
 public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.ViewHolder> {
 
 
     private Context mContext;
-    private List<OrderOject> orderObjectList;
+    private List<OrderItemObject> orderObjectList;
     private onClickListener onClickListener;
 
-    public RecyOrderAdapter(Context mContext, List<OrderOject> orderObjectList) {
+    public RecyOrderAdapter(Context mContext, List<OrderItemObject> orderObjectList) {
         this.mContext = mContext;
         this.orderObjectList = orderObjectList;
     }
@@ -48,8 +44,7 @@ public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Picasso.get().load("http://192.168.43.161:80/a/img/gao.jpg").into(holder.mImageView);
-
+        Picasso.get().load(Constant.IMAGE_SOURCE + orderObjectList.get(position).getIMG_URL_AGRI()).into(holder.mImageView);
         holder.mNameAgri.setText(orderObjectList.get(position).getNAME_AGRI());
         holder.mPrice.setText(orderObjectList.get(position).getPRICE_AGRI() + " VND");
         holder.mSoLuongMua.setText("Số lượng mua: " + convertGamView(orderObjectList.get(position).getSoLuongMua()));
@@ -91,7 +86,6 @@ public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.View
             mNameAgri = (TextView) view.findViewById(R.id.tv_tensp);
             mPrice = (TextView) view.findViewById(R.id.tv_gia);
             mSoLuongMua = (TextView) view.findViewById(R.id.tv_soluong_mua);
-
 
             mEdit.setOnClickListener(new View.OnClickListener() {
                 @Override

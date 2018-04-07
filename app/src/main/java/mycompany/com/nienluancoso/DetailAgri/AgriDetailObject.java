@@ -4,7 +4,7 @@ package mycompany.com.nienluancoso.DetailAgri;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AgriObjectDetail {
+public class AgriDetailObject {
 
     @SerializedName("ID_AGRI")
     @Expose
@@ -24,9 +24,9 @@ public class AgriObjectDetail {
     @SerializedName("PRICE_AGRI")
     @Expose
     private String pRICEAGRI;
-    @SerializedName("QUANTUM_AGRI")
+    @SerializedName("AMOUNT_AGRI")
     @Expose
-    private String qUANTUMAGRI;
+    private String aMOUNTAGRI;
 
     public String getIDAGRI() {
         return iDAGRI;
@@ -76,12 +76,12 @@ public class AgriObjectDetail {
         this.pRICEAGRI = pRICEAGRI;
     }
 
-    public String getQUANTUMAGRI() {
-        return qUANTUMAGRI;
+    public String getAMOUNTAGRI() {
+        return aMOUNTAGRI;
     }
 
-    public void setQUANTUMAGRI(String qUANTUMAGRI) {
-        this.qUANTUMAGRI = qUANTUMAGRI;
+    public void setAMOUNTAGRI(String aMOUNTAGRI) {
+        this.aMOUNTAGRI = aMOUNTAGRI;
     }
 
 }

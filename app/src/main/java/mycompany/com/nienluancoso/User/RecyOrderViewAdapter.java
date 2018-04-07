@@ -13,7 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import mycompany.com.nienluancoso.Data.OrderOject;
+
+import mycompany.com.nienluancoso.Data.OrderItemObject;
 import mycompany.com.nienluancoso.R;
 
 /**
@@ -21,10 +22,10 @@ import mycompany.com.nienluancoso.R;
  */
 public class RecyOrderViewAdapter extends RecyclerView.Adapter<RecyOrderViewAdapter.ViewHolder> {
     private Context mContext;
-    private List<OrderOject> orderObjectList;
+    private List<OrderItemObject> orderObjectList;
     private onClickListener onClickListener;
 
-    public RecyOrderViewAdapter(Context mContext, List<OrderOject> orderObjectList) {
+    public RecyOrderViewAdapter(Context mContext, List<OrderItemObject> orderObjectList) {
         this.mContext = mContext;
         this.orderObjectList = orderObjectList;
     }
@@ -44,9 +45,9 @@ public class RecyOrderViewAdapter extends RecyclerView.Adapter<RecyOrderViewAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Picasso.get().load("http://192.168.43.161:80/a/img/gao.jpg").into(holder.mImageView);
-        holder.mNameAgri.setText(orderObjectList.get(position).getNAME_AGRI());
-        holder.mPrice.setText(orderObjectList.get(position).getPRICE_AGRI() + " VND");
-        holder.mSoLuongMua.setText("Số lượng mua: " + convertGamView(orderObjectList.get(position).getSoLuongMua()));
+//        holder.mNameAgri.setText(orderObjectList.get(position).getNAME_AGRI());
+//        holder.mPrice.setText(orderObjectList.get(position).getPRICE_AGRI() + " VND");
+//        holder.mSoLuongMua.setText("Số lượng mua: " + convertGamView(orderObjectList.get(position).getSoLuongMua()));
     }
 
     @Override

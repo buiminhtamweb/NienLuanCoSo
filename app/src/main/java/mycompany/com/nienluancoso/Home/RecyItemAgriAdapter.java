@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import mycompany.com.nienluancoso.Constant;
-import mycompany.com.nienluancoso.Data.AgriObjectItem;
+import mycompany.com.nienluancoso.Data.AgriItemObject;
 import mycompany.com.nienluancoso.R;
 
 /**
@@ -25,11 +25,12 @@ public class RecyItemAgriAdapter extends RecyclerView.Adapter<RecyItemAgriAdapte
 
 
     private Context mContext;
-    private List<AgriObjectItem> mAgriObjectItemList;
+    private List<AgriItemObject> mAgriItemObjectList;
+    private onClickListener onClickListener;
 
-    public RecyItemAgriAdapter(Context mContext, List<AgriObjectItem> mAgriObjectItemList) {
+    public RecyItemAgriAdapter(Context mContext, List<AgriItemObject> mAgriItemObjectList) {
         this.mContext = mContext;
-        this.mAgriObjectItemList = mAgriObjectItemList;
+        this.mAgriItemObjectList = mAgriItemObjectList;
     }
 
     @NonNull
@@ -46,19 +47,21 @@ public class RecyItemAgriAdapter extends RecyclerView.Adapter<RecyItemAgriAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//        Log.e("RecyItemAgriAdapter", "onBindViewHolder: " + Constant.IMAGE_SOURCE + mAgriObjectItemList.get(position).getIMG_URL_AGRI());
+//        Log.e("RecyItemAgriAdapter", "onBindViewHolder: " + Constant.IMAGE_SOURCE + mAgriItemObjectList.get(position).getIMG_URL_AGRI());
 
-        Picasso.get().load(Constant.IMAGE_SOURCE + mAgriObjectItemList.get(position).getIMG_URL_AGRI()).fit().centerCrop().into(holder.mImageView);
+        Picasso.get().load(Constant.IMAGE_SOURCE + mAgriItemObjectList.get(position).getIMG_URL_AGRI()).fit().centerCrop().into(holder.mImageView);
 
-        holder.mNameAgri.setText(mAgriObjectItemList.get(position).getNAME_AGRI());
-        holder.mPrice.setText(mAgriObjectItemList.get(position).getPRICE_AGRI() + " VND");
+        holder.mNameAgri.setText(mAgriItemObjectList.get(position).getNAME_AGRI());
+        holder.mPrice.setText(mAgriItemObjectList.get(position).getPRICE_AGRI() + " VND");
 
     }
 
     @Override
     public int getItemCount() {
-        return mAgriObjectItemList.size();
+        return mAgriItemObjectList.size();
     }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -71,6 +74,20 @@ public class RecyItemAgriAdapter extends RecyclerView.Adapter<RecyItemAgriAdapte
             mImageView = (ImageView) view.findViewById(R.id.image_view);
             mNameAgri = (TextView) view.findViewById(R.id.tv_name_agri);
             mPrice = (TextView) view.findViewById(R.id.tv_price_agri);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.onItemClick(getAdapterPosition(),mAgriItemObjectList.get(getAdapterPosition()).getID_AGRI());
+                }
+            });
         }
+    }
+
+    public interface onClickListener {
+        void onItemClick(int position, int idAgri);
+    }
+    public void setOnClickListener(RecyItemAgriAdapter.onClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 }

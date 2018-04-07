@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import mycompany.com.nienluancoso.Constant;
-import mycompany.com.nienluancoso.Data.AgriObjectItem;
+import mycompany.com.nienluancoso.Data.AgriItemObject;
 import mycompany.com.nienluancoso.R;
 
 /**
@@ -22,17 +22,17 @@ import mycompany.com.nienluancoso.R;
 
 public class GridViewAdapter extends BaseAdapter {
 
-    private List<AgriObjectItem> mAgriObjectItemList;
+    private List<AgriItemObject> mAgriItemObjectList;
     private LayoutInflater mLayoutInflater;
 
-    public GridViewAdapter(Context mContext, List<AgriObjectItem> mAgriObjectItemList) {
-        this.mAgriObjectItemList = mAgriObjectItemList;
+    public GridViewAdapter(Context mContext, List<AgriItemObject> mAgriItemObjectList) {
+        this.mAgriItemObjectList = mAgriItemObjectList;
         this.mLayoutInflater = LayoutInflater.from(mContext);
     }
 
     @Override
     public int getCount() {
-        return mAgriObjectItemList.size();
+        return mAgriItemObjectList.size();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return mAgriObjectItemList.get(i).getID_AGRI();
+        return mAgriItemObjectList.get(i).getID_AGRI();
     }
 
     @Override
@@ -60,10 +60,10 @@ public class GridViewAdapter extends BaseAdapter {
 
         //Add data for View
         // viewHolder.mImageView.setClipToOutline(true);
-        Picasso.get().load(Constant.IMAGE_SOURCE + mAgriObjectItemList.get(i).getIMG_URL_AGRI()).into(viewHolder.mImageView);
+        Picasso.get().load(Constant.IMAGE_SOURCE + mAgriItemObjectList.get(i).getIMG_URL_AGRI()).into(viewHolder.mImageView);
 
-        viewHolder.mNameAgri.setText(mAgriObjectItemList.get(i).getNAME_AGRI());
-        viewHolder.mPrice.setText(mAgriObjectItemList.get(i).getPRICE_AGRI() + " VND");
+        viewHolder.mNameAgri.setText(mAgriItemObjectList.get(i).getNAME_AGRI());
+        viewHolder.mPrice.setText(mAgriItemObjectList.get(i).getPRICE_AGRI() + " VND");
 
 
         return view;

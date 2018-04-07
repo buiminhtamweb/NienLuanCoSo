@@ -35,31 +35,37 @@
 
         </activity>
 
-        <activity android:name=".User.YeuThichActivity">
+        <activity android:name=".User.YeuThichActivity"
+            android:parentActivityName=".MainActivity">
 
         </activity>
 
         <activity android:name=".Signin.TaoTaiKhoanMoiActivity"
-            android:label="Đăng ký">
+            android:label="Đăng ký"
+            android:parentActivityName=".Signin.LoginActivity">
 
         </activity>
 
         <activity android:name=".Signin.ThemThongTinDKActivity"
-            android:label="Đăng ký">
+            android:label="Đăng ký"
+            android:parentActivityName=".Signin.TaoTaiKhoanMoiActivity">
 
         </activity>
 
         <activity android:name=".User.CaiDatTKActivity"
-            android:label="Cài đặt tài khoản">
+            android:label="Cài đặt tài khoản"
+            android:parentActivityName=".MainActivity">
 
         </activity>
 
         <activity android:name=".User.LichSuDHActivity"
-            android:label="Lịch sử đặt hàng">
+            android:label="Lịch sử đặt hàng"
+            android:parentActivityName=".MainActivity">
 
         </activity>
 
-        <activity android:name=".DetailAgri.ChiTietNSActivity">
+        <activity android:name=".DetailAgri.ChiTietNSActivity"
+            android:parentActivityName=".MainActivity">
 
         </activity>
 

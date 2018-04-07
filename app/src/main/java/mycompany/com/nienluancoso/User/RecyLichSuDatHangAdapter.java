@@ -6,15 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.List;
-
-import mycompany.com.nienluancoso.Data.HoaDonObject;
 import mycompany.com.nienluancoso.R;
 
 public class RecyLichSuDatHangAdapter extends RecyclerView.Adapter<RecyLichSuDatHangAdapter.ViewHolder> {
 
-    private List<HoaDonObject> hoaDonObjects;
 
     @NonNull
     @Override
@@ -26,16 +21,18 @@ public class RecyLichSuDatHangAdapter extends RecyclerView.Adapter<RecyLichSuDat
 
         return viewHolder;
     }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mMaHoaDon.setText(hoaDonObjects.get(position).getID());
-        holder.mNguoiBan.setText(hoaDonObjects.get(position).getNGUOIBAN());
-        holder.mNgayBan.setText(hoaDonObjects.get(position).getNGAYMUA());
-        holder.mTongTien.setText(hoaDonObjects.get(position).getTONGTIEN());
+//        holder.mMaHoaDon.setText(hoaDonObjects.get(position).getID());
+//        holder.mNguoiBan.setText(hoaDonObjects.get(position).getNGUOIBAN());
+//        holder.mNgayBan.setText(hoaDonObjects.get(position).getNGAYMUA());
+//        holder.mTongTien.setText(hoaDonObjects.get(position).getTONGTIEN());
     }
+
     @Override
     public int getItemCount() {
-        return hoaDonObjects.size();
+        return -1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

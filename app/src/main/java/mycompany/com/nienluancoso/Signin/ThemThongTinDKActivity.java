@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,7 +44,6 @@ import mycompany.com.nienluancoso.Constant;
 import mycompany.com.nienluancoso.Data.Api;
 import mycompany.com.nienluancoso.MainActivity;
 import mycompany.com.nienluancoso.R;
-import mycompany.com.nienluancoso.UserObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,7 +66,6 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     RequestParams params = new RequestParams();
     String imgPath, fileName;
     Bitmap bitmap;
-    UserObject userObject;
     String userName, passWD;
     Intent intent;
     private CircleImageView mImgAnhDaiDien;
@@ -80,6 +79,8 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_themthongtindk);
+
+        toolbarView();
 
         mImgAnhDaiDien = (CircleImageView) findViewById(R.id.img_anhdaidien);
         mEdtHoTen = (EditText) findViewById(R.id.edt_hoten);
@@ -444,6 +445,14 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         mSP_Edit.commit();
         startActivity(intent);
         finish();
+    }
+
+    private void toolbarView(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
     }
 
 

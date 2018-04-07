@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import mycompany.com.nienluancoso.Data.AgriObjectItem;
+import mycompany.com.nienluancoso.Data.AgriItemObject;
 import mycompany.com.nienluancoso.Home.RecyItemAgriAdapter;
 import mycompany.com.nienluancoso.R;
 
@@ -23,7 +23,7 @@ public class SearchActivity extends AppCompatActivity{
     private TextView mTenNS, mLoaiNS, mGia, mChitiet;
     private RecyclerView mRecyViewNSMuaNhieu;
     private RecyItemAgriAdapter recyItemAgriAdapter;
-    private List<AgriObjectItem> agriObjectItems = new ArrayList<>();
+    private List<AgriItemObject> agriItemObjects = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity{
 
         //Nong san mua nhieu
         mRecyViewNSMuaNhieu.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        recyItemAgriAdapter = new RecyItemAgriAdapter(this, agriObjectItems);
+        recyItemAgriAdapter = new RecyItemAgriAdapter(this, agriItemObjects);
         mRecyViewNSMuaNhieu.setAdapter(recyItemAgriAdapter);
 
     }

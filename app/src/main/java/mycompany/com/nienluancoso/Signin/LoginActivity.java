@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         intent = new Intent(this, MainActivity.class);
-        mProcessDialog = new ProgressDialog(LoginActivity.this);
+        mProcessDialog = new ProgressDialog(this);
         mProcessDialog.setMessage("Đang đăng nhập...");
 
         //Check Data Sign In
@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
 
@@ -164,6 +164,9 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
+
+                    mSP_Edit = mSPre.edit();
+                    mSP_Edit.clear().commit();
                     Toast.makeText(getBaseContext(), "Sai tên đăng nhập hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                 }
             }

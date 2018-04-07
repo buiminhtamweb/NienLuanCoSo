@@ -16,12 +16,12 @@ import mycompany.com.nienluancoso.R;
  * Created by buimi on 3/13/2018.
  */
 
-public class LVKindAdapter extends BaseAdapter {
+public class LvKindAdapter extends BaseAdapter {
 
     private List<KindObject> kindObjects;
     private LayoutInflater mLayoutInflater;
 
-    public LVKindAdapter(Context mContext, List<KindObject> mAgriObjectList) {
+    public LvKindAdapter(Context mContext, List<KindObject> mAgriObjectList) {
         this.kindObjects = mAgriObjectList;
         this.mLayoutInflater = LayoutInflater.from(mContext);
     }

@@ -1,5 +1,6 @@
 package mycompany.com.nienluancoso.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -22,9 +23,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import mycompany.com.nienluancoso.Data.AgriObjectItem;
+import mycompany.com.nienluancoso.Data.AgriItemObject;
 import mycompany.com.nienluancoso.Data.Api;
+import mycompany.com.nienluancoso.DetailAgri.ChiTietNSActivity;
 import mycompany.com.nienluancoso.R;
+import mycompany.com.nienluancoso.Search.SearchActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,12 +42,15 @@ public class Fragment1 extends Fragment {
 
     int currentPage = 0;
     int NUM_PAGES = 0;
-    private List<AgriObjectItem> mAgriObjectItemListHot = new ArrayList<>();
-    private List<AgriObjectItem> mAgriObjectItemListNew = new ArrayList<>();
-    private RecyItemAgriAdapter recyItemAgriAdapter, recyItemAgriAdapterHot;
+    private List<AgriItemObject> mAgriItemObjectListHot = new ArrayList<>();
+    private List<AgriItemObject> mAgriItemObjectListNew = new ArrayList<>();
+    private List<AgriItemObject> mAgriItemObjectListSale = new ArrayList<>();
+    private RecyItemAgriAdapter recyItemAgriAdapterNew, recyItemAgriAdapterHot, recyItemAgriAdapterSale;
     private RecyclerView recyclerViewHot, recyclerViewNew, recyclerViewSale;
     private Button mBtnSearch;
     private ViewPager mBannerSlider;
+    private Intent mIntent;
+
     private BannerSliderAdapter mBannerSliderAdapter;
 
     public Fragment1() {
@@ -62,6 +68,8 @@ public class Fragment1 extends Fragment {
         mBtnSearch = (Button) view.findViewById(R.id.btn_search);
 
 
+
+        mIntent = new Intent(getActivity(), ChiTietNSActivity.class);
         mBannerSlider = (ViewPager) view.findViewById(R.id.banner_slider);
 //        mBannerSliderAdapter = new BannerSliderAdapter(getContext());
 //        mBannerSlider.setAdapter(mBannerSliderAdapter);
@@ -69,19 +77,26 @@ public class Fragment1 extends Fragment {
         initImageSlider(view);
 
 
+        //Set LayoutManager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewNew.setLayoutManager(mLayoutManager);
-
         RecyclerView.LayoutManager mLayoutManagerHot = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewHot.setLayoutManager(mLayoutManagerHot);
+        RecyclerView.LayoutManager mLayoutManagerSale = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewSale.setLayoutManager(mLayoutManagerSale);
 
-        recyItemAgriAdapter = new RecyItemAgriAdapter(getContext(), mAgriObjectItemListNew);
-        recyItemAgriAdapterHot = new RecyItemAgriAdapter(getContext(), mAgriObjectItemListHot);
+        //Set Adapter
+        recyItemAgriAdapterNew = new RecyItemAgriAdapter(getContext(), mAgriItemObjectListNew);
+        recyItemAgriAdapterHot = new RecyItemAgriAdapter(getContext(), mAgriItemObjectListHot);
+        recyItemAgriAdapterSale = new RecyItemAgriAdapter(getContext(), mAgriItemObjectListSale);
 
-        recyclerViewNew.setAdapter(recyItemAgriAdapter);
+        recyclerViewNew.setAdapter(recyItemAgriAdapterNew);
         recyclerViewHot.setAdapter(recyItemAgriAdapterHot);
+        recyclerViewSale.setAdapter(recyItemAgriAdapterSale);
 
         getData();
+        evenClick();
+
         return view;
     }
 
@@ -91,46 +106,71 @@ public class Fragment1 extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api = retrofit.create(Api.class);
-        Call<List<AgriObjectItem>> call = api.getNewAgri();
-        call.enqueue(new Callback<List<AgriObjectItem>>() {
-            @Override
-            public void onResponse(Call<List<AgriObjectItem>> call, Response<List<AgriObjectItem>> response) {
 
-                mAgriObjectItemListNew.clear();
+        //Load Nông sản mới nhập
+        Call<List<AgriItemObject>> callNew = api.getSaleAgri();
+        callNew.enqueue(new Callback<List<AgriItemObject>>() {
+            @Override
+            public void onResponse(Call<List<AgriItemObject>> call, Response<List<AgriItemObject>> response) {
+
+                mAgriItemObjectListNew.clear();
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        mAgriObjectItemListNew.add(response.body().get(i));
-                        Log.e("Home", mAgriObjectItemListNew.get(i).getNAME_AGRI());
+                        mAgriItemObjectListNew.add(response.body().get(i));
+                        Log.e("Home", mAgriItemObjectListNew.get(i).getNAME_AGRI());
                     }
                 }
-                recyItemAgriAdapter.notifyDataSetChanged();
+                recyItemAgriAdapterNew.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<AgriObjectItem>> call, Throwable t) {
+            public void onFailure(Call<List<AgriItemObject>> call, Throwable t) {
 //                Snackbar snackbar = Snackbar
 //                        .make(mBtnSearch, "Lỗi ! Không thể truy cập đến server", Snackbar.LENGTH_LONG);
 //                snackbar.show();
-                Toast.makeText(getContext(),"Lỗi ! Không thể truy cập đến server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Lỗi ! Không thể truy cập đến server", Toast.LENGTH_SHORT).show();
             }
         });
-        Call<List<AgriObjectItem>> callHot = api.getHotAgri();
-        callHot.enqueue(new Callback<List<AgriObjectItem>>() {
+
+        //Load Nông sản hot
+        Call<List<AgriItemObject>> callHot = api.getHotAgri();
+        callHot.enqueue(new Callback<List<AgriItemObject>>() {
             @Override
-            public void onResponse(Call<List<AgriObjectItem>> call, Response<List<AgriObjectItem>> response) {
-                mAgriObjectItemListHot.clear();
+            public void onResponse(Call<List<AgriItemObject>> call, Response<List<AgriItemObject>> response) {
+                mAgriItemObjectListHot.clear();
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        mAgriObjectItemListHot.add(response.body().get(i));
-                        Log.e("Home", mAgriObjectItemListHot.get(i).getNAME_AGRI());
+                        mAgriItemObjectListHot.add(response.body().get(i));
+                        Log.e("Home", mAgriItemObjectListHot.get(i).getNAME_AGRI());
                     }
                 }
                 recyItemAgriAdapterHot.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<AgriObjectItem>> call, Throwable t) {
-                Toast.makeText(getContext(),"Lỗi ! Không thể truy cập đến server", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<AgriItemObject>> call, Throwable t) {
+                Toast.makeText(getContext(), "Lỗi ! Không thể truy cập đến server", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        ////Load Nông sản giảm giá
+        Call<List<AgriItemObject>> callSale = api.getSaleAgri();
+        callSale.enqueue(new Callback<List<AgriItemObject>>() {
+            @Override
+            public void onResponse(Call<List<AgriItemObject>> call, Response<List<AgriItemObject>> response) {
+                mAgriItemObjectListSale.clear();
+                if (response != null) {
+                    for (int i = 0; i < response.body().size(); i++) {
+                        mAgriItemObjectListSale.add(response.body().get(i));
+                        Log.e("Home", mAgriItemObjectListSale.get(i).getNAME_AGRI());
+                    }
+                }
+                recyItemAgriAdapterSale.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<AgriItemObject>> call, Throwable t) {
             }
         });
     }
@@ -198,6 +238,40 @@ public class Fragment1 extends Fragment {
 
             }
         });
+    }
+
+    private void evenClick(){
+        mBtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), SearchActivity.class));
+            }
+        });
+        recyItemAgriAdapterNew.setOnClickListener(new RecyItemAgriAdapter.onClickListener() {
+            @Override
+            public void onItemClick(int position, int idAgri) {
+                mIntent.putExtra("ID_AGRI",idAgri+"");
+                startActivity(mIntent);
+            }
+        });
+
+        recyItemAgriAdapterHot.setOnClickListener(new RecyItemAgriAdapter.onClickListener() {
+            @Override
+            public void onItemClick(int position, int idAgri) {
+                mIntent.putExtra("ID_AGRI",idAgri+"");
+                startActivity(mIntent);
+            }
+        });
+
+        recyItemAgriAdapterSale.setOnClickListener(new RecyItemAgriAdapter.onClickListener() {
+            @Override
+            public void onItemClick(int position, int idAgri) {
+                mIntent.putExtra("ID_AGRI",idAgri+"");
+                startActivity(mIntent);
+            }
+        });
+
+
     }
 
 

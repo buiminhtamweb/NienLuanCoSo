@@ -14,7 +14,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import mycompany.com.nienluancoso.Data.AgriObjectItem;
+import mycompany.com.nienluancoso.Data.AgriItemObject;
 import mycompany.com.nienluancoso.Data.Api;
 import mycompany.com.nienluancoso.Data.KindObject;
 import mycompany.com.nienluancoso.R;
@@ -31,12 +31,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Fragment2 extends Fragment {
 
     private final static String TAG = "Category";
-    List<AgriObjectItem> mAgriObjectItemList = new ArrayList<>();
+    List<AgriItemObject> mAgriItemObjectList = new ArrayList<>();
     List<KindObject> kindData = new ArrayList<>();
     private ListView mKindList;
     private GridView mAgriList;
     private GridViewAdapter mGridViewAdapter;
-    private LVKindAdapter mLvKindAdapter;
+    private LvKindAdapter mLvKindAdapter;
     private Api api;
     private Retrofit retrofit;
 
@@ -52,7 +52,7 @@ public class Fragment2 extends Fragment {
 
         //Danh sách nông sản theo loại
         mAgriList = (GridView) view.findViewById(R.id.gridview_ds_sp);
-        mGridViewAdapter = new GridViewAdapter(getContext(), mAgriObjectItemList);
+        mGridViewAdapter = new GridViewAdapter(getContext(), mAgriItemObjectList);
         mAgriList.setAdapter(mGridViewAdapter);
         mAgriList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,7 +66,7 @@ public class Fragment2 extends Fragment {
         getAllArgi();
 
         //danh sách loại nông sản
-        mLvKindAdapter = new LVKindAdapter(getContext(), kindData);
+        mLvKindAdapter = new LvKindAdapter(getContext(), kindData);
         mKindList.setAdapter(mLvKindAdapter);
         mKindList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -123,17 +123,17 @@ public class Fragment2 extends Fragment {
     private void getArgiWithKind(String kind) {
 
 
-        Call<List<AgriObjectItem>> call = api.getArgiWithKind(kind);
+        Call<List<AgriItemObject>> call = api.getArgiWithKind(kind);
 
-        call.enqueue(new Callback<List<AgriObjectItem>>() {
+        call.enqueue(new Callback<List<AgriItemObject>>() {
             @Override
-            public void onResponse(Call<List<AgriObjectItem>> call, Response<List<AgriObjectItem>> response) {
+            public void onResponse(Call<List<AgriItemObject>> call, Response<List<AgriItemObject>> response) {
 
-                mAgriObjectItemList.clear();
+                mAgriItemObjectList.clear();
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        mAgriObjectItemList.add(response.body().get(i));
-                        Log.e(TAG, mAgriObjectItemList.get(i).getNAME_AGRI());
+                        mAgriItemObjectList.add(response.body().get(i));
+                        Log.e(TAG, mAgriItemObjectList.get(i).getNAME_AGRI());
                     }
                 }
 
@@ -141,7 +141,7 @@ public class Fragment2 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<AgriObjectItem>> call, Throwable t) {
+            public void onFailure(Call<List<AgriItemObject>> call, Throwable t) {
 
             }
         });
@@ -149,17 +149,17 @@ public class Fragment2 extends Fragment {
     }
 
     private void getAllArgi(){
-        Call<List<AgriObjectItem>> call = api.getAllAgri();
+        Call<List<AgriItemObject>> call = api.getAllAgri();
 
-        call.enqueue(new Callback<List<AgriObjectItem>>() {
+        call.enqueue(new Callback<List<AgriItemObject>>() {
             @Override
-            public void onResponse(Call<List<AgriObjectItem>> call, Response<List<AgriObjectItem>> response) {
+            public void onResponse(Call<List<AgriItemObject>> call, Response<List<AgriItemObject>> response) {
 
-                mAgriObjectItemList.clear();
+                mAgriItemObjectList.clear();
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        mAgriObjectItemList.add(response.body().get(i));
-                        Log.e(TAG, mAgriObjectItemList.get(i).getNAME_AGRI());
+                        mAgriItemObjectList.add(response.body().get(i));
+                        Log.e(TAG, mAgriItemObjectList.get(i).getNAME_AGRI());
                     }
                 }
 
@@ -167,7 +167,7 @@ public class Fragment2 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<AgriObjectItem>> call, Throwable t) {
+            public void onFailure(Call<List<AgriItemObject>> call, Throwable t) {
 
             }
         });

@@ -3,7 +3,8 @@ package mycompany.com.nienluancoso.Data;
 import java.util.List;
 
 import mycompany.com.nienluancoso.Constant;
-import mycompany.com.nienluancoso.DetailAgri.AgriObjectDetail;
+import mycompany.com.nienluancoso.Data.Local.AgricLiteObject;
+import mycompany.com.nienluancoso.DetailAgri.AgriDetailObject;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -22,31 +23,34 @@ public interface Api {
     Call<List<KindObject>> getKind();
 
     @GET("getAllAgri.php")
-    Call<List<AgriObjectItem>> getAllAgri();
+    Call<List<AgriItemObject>> getAllAgri();
 
     @GET("getHotAgri.php")
-    Call<List<AgriObjectItem>> getHotAgri();
+    Call<List<AgriItemObject>> getHotAgri();
 
     @GET("getNewAgri.php")
-    Call<List<AgriObjectItem>> getNewAgri();
+    Call<List<AgriItemObject>> getNewAgri();
 
+    @GET("getSaleAgri.php")
+    Call<List<AgriItemObject>> getSaleAgri();
 
-
-    @GET("getAllAgri.php")
-    Call<List<AgriObjectItem>> getDetailAgric();
 
     @POST("getArgiWithKind.php")
     @FormUrlEncoded
-    Call<List<AgriObjectItem>> getArgiWithKind(@Field("ID_KIND") String kind);
+    Call<List<AgriItemObject>> getArgiWithKind(@Field("ID_KIND") String kind);
 
     @POST("getDetailAgric.php")
     @FormUrlEncoded
-    Call<AgriObjectDetail> getArgiDetail(@Field("ID_AGRI") String idAgric);
+    Call<AgriDetailObject> getArgiDetail(@Field("ID_AGRI") String idAgric);
+
+    @POST("getAgricLite.php")
+    @FormUrlEncoded
+    Call<AgricLiteObject> getArgiLite(@Field("ID_AGRI") String idAgric);
 
     @POST("signin_dangnhap.php")
     @FormUrlEncoded
     Call<String> login(@Field("USERNAME_CUS") String user,
-                           @Field("PASSWORD_CUS") String pass);
+                       @Field("PASSWORD_CUS") String pass);
 
     @POST("signin_checkUserName.php")
     @FormUrlEncoded
