@@ -133,11 +133,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteAllOrder() {
         SQLiteDatabase db = this.getWritableDatabase();
-        // Drop older table if existed
-//        String sql = "DROP TABLE IF EXISTS ";
-//        db.execSQL(sql + DBOrderObject.TABLE_NAME);
-//        db.execSQL(sql + DBAgricOrderObject.CREATE_TABLE);
-//        db.close();
+        db.execSQL("delete from "+ DBOrderObject.TABLE_NAME);
+        db.execSQL("delete from "+ DBAgricOrderObject.TABLE_NAME);
+        db.close();
     }
 
     public void deleteAgricOnOrder(String idAgri) {

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -87,7 +86,6 @@ public class Fragment3 extends Fragment {
         mRecyOrder.setAdapter(recyOrderAdapter);
 
 
-
         initRetrofit();
         loadData();
 
@@ -103,7 +101,7 @@ public class Fragment3 extends Fragment {
         dbOrderObject = dbaseHelper.getOrder();
 
 
-        if (null != dbOrderObject.getID_ORDER()) {
+        if (null != dbOrderObject) {
             mToolbar.setSubtitle("Mã đơn hàng: " + dbOrderObject.getID_ORDER());
         } else {
             mToolbar.setSubtitle("Chưa có sản phẩm đặt hàng");
@@ -113,40 +111,40 @@ public class Fragment3 extends Fragment {
 
         dbAgricOrderObjects = dbaseHelper.getAgricOnOrder();
 
+        if (null != dbAgricOrderObjects) {
+            for (int i = 0; i < dbAgricOrderObjects.size(); i++) {
 
-        for (int i = 0; i < dbAgricOrderObjects.size(); i++) {
+                //Thêm ID và Số lượng từ CSDL local
+                final OrderItemObject orderItemObject = new OrderItemObject();
+                orderItemObject.setID_AGRI(Integer.parseInt(dbAgricOrderObjects.get(i).getID_AGRI()));
+                orderItemObject.setSoLuongMua(Integer.parseInt(dbAgricOrderObjects.get(i).getNUM_OF_AGRI()));
 
-            //Thêm ID và Số lượng từ CSDL local
-            final OrderItemObject orderItemObject = new OrderItemObject();
-            orderItemObject.setID_AGRI(Integer.parseInt(dbAgricOrderObjects.get(i).getID_AGRI()));
-            orderItemObject.setSoLuongMua(Integer.parseInt(dbAgricOrderObjects.get(i).getNUM_OF_AGRI()));
+                //Lấy dữ liệu tên ,
+                Call<AgricLiteObject> call = api.getArgiLite(dbAgricOrderObjects.get(i).getID_AGRI());
+                call.enqueue(new Callback<AgricLiteObject>() {
+                    @Override
+                    public void onResponse(Call<AgricLiteObject> call, Response<AgricLiteObject> response) {
+                        if (!response.body().equals("")) {
+                            orderItemObject.setIMG_URL_AGRI(response.body().getIMGURLAGRI());
+                            orderItemObject.setNAME_AGRI(response.body().getNAMEAGRI());
+                            orderItemObject.setPRICE_AGRI(Float.parseFloat(response.body().getPRICEAGRI()));
+                            orderItemObject.setSoLuongConLai_AGRI(Integer.parseInt(response.body().getAMOUNTAGRI()));
+                            orderItemObjects.add(orderItemObject);
+                            recyOrderAdapter.notifyDataSetChanged();
 
+                            mTvTongTienHD.setText("Tổng cộng: " + tongHoaDon() + " VND");
+                        }
 
-            //Lấy dữ liệu tên ,
-            Call<AgricLiteObject> call = api.getArgiLite(dbAgricOrderObjects.get(i).getID_AGRI());
-            call.enqueue(new Callback<AgricLiteObject>() {
-                @Override
-                public void onResponse(Call<AgricLiteObject> call, Response<AgricLiteObject> response) {
-                    if (!response.body().equals("")) {
-                        orderItemObject.setIMG_URL_AGRI(response.body().getIMGURLAGRI());
-                        orderItemObject.setNAME_AGRI(response.body().getNAMEAGRI());
-                        orderItemObject.setPRICE_AGRI(Float.parseFloat(response.body().getPRICEAGRI()));
-                        orderItemObject.setSoLuongConLai_AGRI(Integer.parseInt(response.body().getAMOUNTAGRI()));
-                        orderItemObjects.add(orderItemObject);
-                        recyOrderAdapter.notifyDataSetChanged();
-
-                        mTvTongTienHD.setText("Tổng cộng: " + tongHoaDon() + " VND");
                     }
 
-                }
+                    @Override
+                    public void onFailure(Call<AgricLiteObject> call, Throwable t) {
 
-                @Override
-                public void onFailure(Call<AgricLiteObject> call, Throwable t) {
-
-                }
-            });
-
+                    }
+                });
+            }
         }
+
 
     }
 
@@ -175,7 +173,7 @@ public class Fragment3 extends Fragment {
         LayoutInflater inflater = this.getLayoutInflater();
 
         //Tham chieu layout
-        final View dialogView = inflater.inflate(R.layout.dialog_doi_sdt, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_donvi_tinh, null);
         dialogBuilder.setView(dialogView);
 
         final EditText mEdtSoluongMua = (EditText) dialogView.findViewById(R.id.edt_soLuong_mua);
@@ -256,7 +254,8 @@ public class Fragment3 extends Fragment {
                 //Nếu không còn sản phẩm nào trong giỏ hàng thì sẽ xóa bỏ tất cả dữ liệu
                 if (null == dbaseHelper.getAgricOnOrder()) {
                     dbaseHelper.deleteAllOrder();
-                    ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle("Chưa có sản phẩm đặt hàng");
+                    mToolbar.setSubtitle("Chưa có sản phẩm đặt hàng");
+                    mTvTongTienHD.setText("Tổng cộng: " + 0 + " VND");
                 }
 
                 loadData();
@@ -273,7 +272,11 @@ public class Fragment3 extends Fragment {
         });
     }
 
-    private void upLoadOrder(){
+    private void upLoadOrder() {
+
+
+
+
 
     }
 

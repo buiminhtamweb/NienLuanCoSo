@@ -1,5 +1,6 @@
 package mycompany.com.nienluancoso.Order;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 import mycompany.com.nienluancoso.Constant;
 import mycompany.com.nienluancoso.Data.OrderItemObject;
 import mycompany.com.nienluancoso.R;
@@ -41,13 +43,16 @@ public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.View
         return new ViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Picasso.get().load(Constant.IMAGE_SOURCE + orderObjectList.get(position).getIMG_URL_AGRI()).into(holder.mImageView);
+        Picasso.get().load(Constant.IMAGE_SOURCE + orderObjectList.get(position).getIMG_URL_AGRI()).fit().centerCrop().into(holder.mImageView);
         holder.mNameAgri.setText(orderObjectList.get(position).getNAME_AGRI());
-        holder.mPrice.setText(orderObjectList.get(position).getPRICE_AGRI() + " VND");
+        holder.mPrice.setText("Đơn giá: " + orderObjectList.get(position).getPRICE_AGRI() + " VND");
         holder.mSoLuongMua.setText("Số lượng mua: " + convertGamView(orderObjectList.get(position).getSoLuongMua()));
+        holder.mThanhTien.setText("Thành tiền: " + thanhTien(orderObjectList.get(position).getSoLuongMua(),
+                                                            orderObjectList.get(position).getPRICE_AGRI()));
 
     }
 
@@ -64,6 +69,10 @@ public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.View
 
     }
 
+    private String thanhTien(int slGamMua, float donGia) {
+        return (donGia / 1000) * slGamMua + " VND";
+    }
+
 
     public interface onClickListener {
         void onItemClick(int position);
@@ -76,7 +85,7 @@ public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mImageView, mEdit, mDelete;
-        private TextView mNameAgri, mPrice, mSoLuongMua;
+        private TextView mNameAgri, mPrice, mSoLuongMua, mThanhTien;
 
         public ViewHolder(final View view) {
             super(view);
@@ -86,6 +95,7 @@ public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.View
             mNameAgri = (TextView) view.findViewById(R.id.tv_tensp);
             mPrice = (TextView) view.findViewById(R.id.tv_gia);
             mSoLuongMua = (TextView) view.findViewById(R.id.tv_soluong_mua);
+            mThanhTien = (TextView) view.findViewById(R.id.tv_thanhtien);
 
             mEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
