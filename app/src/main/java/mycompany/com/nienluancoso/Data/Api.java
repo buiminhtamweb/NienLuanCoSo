@@ -1,5 +1,7 @@
 package mycompany.com.nienluancoso.Data;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import mycompany.com.nienluancoso.Constant;
@@ -30,8 +32,8 @@ public interface Api {
     @GET("getHotAgri.php")
     Call<List<AgriItemObject>> getHotAgri();
 
-    @GET("getNewAgri.php")
-    Call<List<AgriItemObject>> getNewAgri();
+    @GET("getCheapAgri.php")
+    Call<List<AgriItemObject>> getCheapAgri();
 
     @GET("getSaleAgri.php")
     Call<List<AgriItemObject>> getSaleAgri();
@@ -79,5 +81,9 @@ public interface Api {
     @POST("order_viewOrderList.php")
     @FormUrlEncoded
     Call<List<OrderObject>> getOrderProcessing(@Field("USERNAME_CUS") String user);
+
+    @POST("\torder_addNewOrder.php")
+    @FormUrlEncoded
+    Call<String> uploadOrder(@Field("DON_HANG")String json);
 
 }

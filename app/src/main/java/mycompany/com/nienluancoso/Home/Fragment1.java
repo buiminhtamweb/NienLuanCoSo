@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +39,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Fragment1 extends Fragment {
 
+
+    //Chuyển trang QC ViewPager
     int currentPage = 0;
     int NUM_PAGES = 0;
+
+
+    private List<AgriItemObject> mAgriItemListCheap = new ArrayList<>();
     private List<AgriItemObject> mAgriItemObjectListHot = new ArrayList<>();
-    private List<AgriItemObject> mAgriItemObjectListNew = new ArrayList<>();
     private List<AgriItemObject> mAgriItemObjectListSale = new ArrayList<>();
-    private RecyItemAgriAdapter recyItemAgriAdapterNew, recyItemAgriAdapterHot, recyItemAgriAdapterSale;
-    private RecyclerView recyclerViewHot, recyclerViewNew, recyclerViewSale;
+    private RecyItemAgriAdapter recyItemAgriAdapterCheap, recyItemAgriAdapterHot, recyItemAgriAdapterSale;
+    private RecyclerView recyclerViewHot, recyclerViewCheap, recyclerViewSale;
     private Button mBtnSearch;
     private ViewPager mBannerSlider;
     private Intent mIntent;
@@ -62,7 +65,7 @@ public class Fragment1 extends Fragment {
         View view = inflater.inflate(R.layout.fragment1,
                 container, false);
 
-        recyclerViewNew = (RecyclerView) view.findViewById(R.id.recycler_view_new);
+        recyclerViewCheap = (RecyclerView) view.findViewById(R.id.recycler_view_cheap);
         recyclerViewHot = (RecyclerView) view.findViewById(R.id.recycler_view_hot);
         recyclerViewSale = (RecyclerView) view.findViewById(R.id.recycler_view_sale);
         mBtnSearch = (Button) view.findViewById(R.id.btn_search);
@@ -79,18 +82,18 @@ public class Fragment1 extends Fragment {
 
         //Set LayoutManager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewNew.setLayoutManager(mLayoutManager);
+        recyclerViewCheap.setLayoutManager(mLayoutManager);
         RecyclerView.LayoutManager mLayoutManagerHot = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewHot.setLayoutManager(mLayoutManagerHot);
         RecyclerView.LayoutManager mLayoutManagerSale = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewSale.setLayoutManager(mLayoutManagerSale);
 
         //Set Adapter
-        recyItemAgriAdapterNew = new RecyItemAgriAdapter(getContext(), mAgriItemObjectListNew);
+        recyItemAgriAdapterCheap = new RecyItemAgriAdapter(getContext(), mAgriItemListCheap);
         recyItemAgriAdapterHot = new RecyItemAgriAdapter(getContext(), mAgriItemObjectListHot);
         recyItemAgriAdapterSale = new RecyItemAgriAdapter(getContext(), mAgriItemObjectListSale);
 
-        recyclerViewNew.setAdapter(recyItemAgriAdapterNew);
+        recyclerViewCheap.setAdapter(recyItemAgriAdapterCheap);
         recyclerViewHot.setAdapter(recyItemAgriAdapterHot);
         recyclerViewSale.setAdapter(recyItemAgriAdapterSale);
 
@@ -108,19 +111,19 @@ public class Fragment1 extends Fragment {
         Api api = retrofit.create(Api.class);
 
         //Load Nông sản mới nhập
-        Call<List<AgriItemObject>> callNew = api.getSaleAgri();
+        Call<List<AgriItemObject>> callNew = api.getCheapAgri();
         callNew.enqueue(new Callback<List<AgriItemObject>>() {
             @Override
             public void onResponse(Call<List<AgriItemObject>> call, Response<List<AgriItemObject>> response) {
 
-                mAgriItemObjectListNew.clear();
+                mAgriItemListCheap.clear();
                 if (response != null) {
                     for (int i = 0; i < response.body().size(); i++) {
-                        mAgriItemObjectListNew.add(response.body().get(i));
+                        mAgriItemListCheap.add(response.body().get(i));
 //                        Log.e("Home", mAgriItemObjectListNew.get(i).getNAME_AGRI());
                     }
                 }
-                recyItemAgriAdapterNew.notifyDataSetChanged();
+                recyItemAgriAdapterCheap.notifyDataSetChanged();
             }
 
             @Override
@@ -248,7 +251,7 @@ public class Fragment1 extends Fragment {
                 getActivity().finish();
             }
         });
-        recyItemAgriAdapterNew.setOnClickListener(new RecyItemAgriAdapter.onClickListener() {
+        recyItemAgriAdapterCheap.setOnClickListener(new RecyItemAgriAdapter.onClickListener() {
             @Override
             public void onItemClick(int position, int idAgri) {
                 mIntent.putExtra("ID_AGRI",idAgri+"");

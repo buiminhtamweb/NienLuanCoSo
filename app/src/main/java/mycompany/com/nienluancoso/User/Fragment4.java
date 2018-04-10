@@ -23,9 +23,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class Fragment4 extends Fragment {
 
 
-
     LinearLayout linearLayout;
-    private Button mBtnYeuThich, mBtnLichSuDatHang, mBtnCaiDatTK, mBtnCaiDat, mBtnHuongDanSuDung, mBtnPhanHoi;
+    private Button mBtnOrderProcessing, mBtnBill, mBtnSettingAcc, mBtnCaiDat, mBtnPoliciesAndTerms, mBtnFeedback;
 
     public Fragment4() {
     }
@@ -33,44 +32,46 @@ public class Fragment4 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment4,container,false);
+        View view = inflater.inflate(R.layout.fragment4, container, false);
 
         linearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_tk);
-        mBtnLichSuDatHang = (Button) view.findViewById(R.id.btn_lichsudathang);
-        mBtnYeuThich = (Button) view.findViewById(R.id.btn_ds_dondathangdagcho);
-        mBtnCaiDatTK = (Button) view.findViewById(R.id.btn_caidat_tk);
-        mBtnCaiDat = (Button) view.findViewById(R.id.btn_caidat_app);
-        mBtnHuongDanSuDung = (Button) view.findViewById(R.id.btn_huongdan_sudung);
-        mBtnPhanHoi = (Button) view.findViewById(R.id.btn_phanhoi_ungdung);
+        mBtnBill = (Button) view.findViewById(R.id.btn_lichsudathang);
+        mBtnOrderProcessing = (Button) view.findViewById(R.id.btn_ds_dondathangdagcho);
+        mBtnSettingAcc = (Button) view.findViewById(R.id.btn_caidat_tk);
+//        mBtnCaiDat = (Button) view.findViewById(R.id.btn_caidat_app);
+        mBtnPoliciesAndTerms = (Button) view.findViewById(R.id.btn_huongdan_sudung);
+        mBtnFeedback = (Button) view.findViewById(R.id.btn_phanhoi_ungdung);
 
 
-        mBtnLichSuDatHang.setOnClickListener(new View.OnClickListener() {
+        //Sự kiện click
+        mBtnBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),BillActivity.class));
+                startActivity(new Intent(getContext(), BillActivity.class));
+            }
+        });
+
+        mBtnOrderProcessing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), OrderProcessingActivity.class));
             }
         });
 
 
         kiemTraDangNhap();
 
-
-
         return view;
     }
 
 
-    private void kiemTraDangNhap(){
+    private void kiemTraDangNhap() {
         SharedPreferences mSPre;
         mSPre = getActivity().getSharedPreferences(Constant.SPRE_NAME, MODE_PRIVATE);
-        if (mSPre.getString(Constant.USERNAME_CUS, "").equals("")){
+        if (mSPre.getString(Constant.USERNAME_CUS, "").equals("")) {
             linearLayout.setVisibility(View.GONE);
         }
-     }
-
-
-
-
+    }
 
 
 }

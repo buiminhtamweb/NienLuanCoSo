@@ -22,7 +22,8 @@
 
         android:id="@+id/recycler_view_dh_dangxuly"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
 
     </android.support.v7.widget.RecyclerView>
 

@@ -19,7 +19,7 @@ import mycompany.com.nienluancoso.R;
  * Created by Admin on 3/27/2018.
  */
 
-public class CaiDatTKActivity extends AppCompatActivity {
+public class SettingAccActivity extends AppCompatActivity {
 
     private CircleImageView mImgAnhDaiDien;
     private Button mBtnHoTen, mBtnDoiMK, mBtnNamSinh, mBtnSDT, mBtnDiaChi;

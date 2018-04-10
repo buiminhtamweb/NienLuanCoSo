@@ -33,7 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Admin on 3/27/2018.
  */
 
-public class DonHangDangXuLyActivity extends AppCompatActivity {
+public class OrderProcessingActivity extends AppCompatActivity {
 
     private RecyclerView mRecyOrderProcessing;
 
@@ -53,10 +53,21 @@ public class DonHangDangXuLyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orderprocessing);
 
+        //Lấy ID người dùng
+        mSPre = getSharedPreferences(Constant.SPRE_NAME, MODE_PRIVATE);
+        mUsername = mSPre.getString(Constant.USERNAME_CUS, "");
+
         mRecyOrderProcessing = (RecyclerView) findViewById(R.id.recycler_view_dh_dangxuly);
         mRecyOrderProcessing.setLayoutManager(new LinearLayoutManager(this));
         mOrderProcessAdapter = new RecyOrderProcessAdapter(mOrderProcessList);
         mRecyOrderProcessing.setAdapter(mOrderProcessAdapter);
+
+        mOrderProcessAdapter.setOnItemClickListener(new RecyOrderProcessAdapter.onClickListener() {
+            @Override
+            public void onItemClick(List<AgriOrderObject> agriOrderList) {
+                loadAgriOfOderList(agriOrderList);
+            }
+        });
 
 
         initRetrofit();
@@ -124,7 +135,7 @@ public class DonHangDangXuLyActivity extends AppCompatActivity {
         });
 
         Button btnHuy = (Button) dialogView.findViewById(R.id.btn_close);
-        dialogBuilder.setTitle("Danh sách nông sản đã mua");
+        dialogBuilder.setTitle("Danh sách nông sản đang xử lý");
 
 
         //Load dữ liệu danh sách nông sản đã dặt hàng

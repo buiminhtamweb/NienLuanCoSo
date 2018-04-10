@@ -342,7 +342,7 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     }
 
     private void upLoadToDB(String userName, String passwd, String fullName, String sex, String birthDay, String imgUrl, String tel, String address) {
-        Log.e(TAG, "upLoadToDB: " + userName + passwd + fullName + sex + birthDay + imgUrl + tel + address);
+//        Log.e(TAG, "upLoadToDB: " + userName + passwd + fullName + sex + birthDay + imgUrl + tel + address);
         Call<String> call = api.taoTaiKhoan_KH(userName, passwd, fullName, sex, birthDay, imgUrl, tel, address);
         call.enqueue(new Callback<String>() {
             @Override

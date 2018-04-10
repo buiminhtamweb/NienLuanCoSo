@@ -38,12 +38,12 @@
         android:textSize="25sp"
         android:textColor="@color/red"
         android:text="Tổng tiền: 0 VND"
-        android:layout_above="@id/btn_thanhtoan"
+        android:layout_above="@id/btn_dat_hang"
         android:layout_width="match_parent"
         android:layout_height="56dp" />
 
     <Button
-        android:id="@+id/btn_thanhtoan"
+        android:id="@+id/btn_dat_hang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

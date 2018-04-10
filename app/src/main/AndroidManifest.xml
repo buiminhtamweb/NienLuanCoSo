@@ -35,7 +35,7 @@
 
         </activity>
 
-        <activity android:name=".User.DonHangDangXuLyActivity"
+        <activity android:name=".User.OrderProcessingActivity"
             android:parentActivityName=".MainActivity">
 
         </activity>
@@ -52,7 +52,7 @@
 
         </activity>
 
-        <activity android:name=".User.CaiDatTKActivity"
+        <activity android:name=".User.SettingAccActivity"
             android:label="Cài đặt tài khoản"
             android:parentActivityName=".MainActivity">
 

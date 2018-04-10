@@ -138,7 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 // close the db connection
 
 
-                Log.e(TAG, "getAgricOnOrder: " + cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_ID_AGRI)));
+//                Log.e(TAG, "getAgricOnOrder: " + cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_ID_AGRI)));
                 agricOrderObjectList.add(agricOrderObject);
                 cursor.moveToNext();
             }

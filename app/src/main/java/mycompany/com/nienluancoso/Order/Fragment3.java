@@ -1,6 +1,5 @@
 package mycompany.com.nienluancoso.Order;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,10 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -65,6 +70,10 @@ public class Fragment3 extends Fragment {
 
     private DatabaseHelper dbaseHelper;
 
+    private int soLuongMua;
+    private int soLuongConLai;
+
+    private Button mBtnDatHang;
 
     @Nullable
     @Override
@@ -77,6 +86,7 @@ public class Fragment3 extends Fragment {
         //initView
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mTvTongTienHD = (TextView) view.findViewById(R.id.tv_tongtien_hd);
+        mBtnDatHang = (Button) view.findViewById(R.id.btn_dat_hang);
 
         //RecylerView Giỏ hàng
         mRecyOrder = (RecyclerView) view.findViewById(R.id.recycler_view_order);
@@ -100,11 +110,10 @@ public class Fragment3 extends Fragment {
 
         dbOrderObject = dbaseHelper.getOrder();
 
-
-        if (null != dbOrderObject) {
-            mToolbar.setSubtitle("Mã đơn hàng: " + dbOrderObject.getID_ORDER());
-        } else {
+        if (null == dbaseHelper.getAgricOnOrder()) {
+            dbaseHelper.deleteAllOrder();
             mToolbar.setSubtitle("Chưa có sản phẩm đặt hàng");
+            mTvTongTienHD.setText("Tổng cộng: " + 0 + " VND");
         }
 
         mUsername = mSPre.getString(Constant.USERNAME_CUS, "");
@@ -144,17 +153,11 @@ public class Fragment3 extends Fragment {
                 });
             }
         }
+        recyOrderAdapter.notifyDataSetChanged();
 
 
     }
 
-//    private float tongHoaDon() {
-//        float tongHD = 0;
-//        for (int i = 0; i < orderItemObjects.size(); i++) {
-//            tongHD += orderItemObjects.get(i).getTongGiaMua();
-//        }
-//        return tongHD;
-//    }
 
     private void initRetrofit() {
         retrofit = new Retrofit.Builder()
@@ -166,7 +169,6 @@ public class Fragment3 extends Fragment {
 
     private void capNhatSLMua(final String idAgric, int soLuongMuaCu, final int soLuongConLai) {
 
-        final int soLuongMua;
         String arr[] = {"Gam", "Kg"};
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
@@ -177,8 +179,11 @@ public class Fragment3 extends Fragment {
         dialogBuilder.setView(dialogView);
 
         final EditText mEdtSoluongMua = (EditText) dialogView.findViewById(R.id.edt_soLuong_mua);
-        mEdtSoluongMua.setText(soLuongMuaCu);
-        Spinner spin = (Spinner) dialogView.findViewById(R.id.spinner_donvi_tinh);
+        mEdtSoluongMua.setText(soLuongMuaCu + "");
+
+        Button btnOK = (Button) dialogView.findViewById(R.id.btn_ok);
+        Button btnHuy = (Button) dialogView.findViewById(R.id.btn_huy);
+        final Spinner spin = (Spinner) dialogView.findViewById(R.id.spinner_donvi_tinh);
         //Gán Data source (arr) vào Adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, arr);
         //phải gọi lệnh này để hiển thị danh sách cho Spinner
@@ -187,39 +192,42 @@ public class Fragment3 extends Fragment {
         spin.setAdapter(adapter);
         spin.setSelection(0);
 
-        //Chuyển đổi đơn vị tính theo Gam
-        if (spin.getSelectedItemPosition() == 1) {
-            soLuongMua = Integer.parseInt(mEdtSoluongMua.getText().toString() + "000");
-        } else {
-            soLuongMua = Integer.parseInt(mEdtSoluongMua.getText().toString());
-
-        }
 
         //Kiểm tra số lượng mua cao hơn số lượng hàng tồn kho hay không
 
-
         dialogBuilder.setTitle("Nhập vào số lượng cần mua");
-        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
 
+        //Sự kiện các nút trên Dialog
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Chuyển đổi đơn vị tính theo Gam
+                if (spin.getSelectedItemPosition() == 1) {
+                    soLuongMua = Integer.parseInt(mEdtSoluongMua.getText().toString() + "000");
+                } else {
+                    soLuongMua = Integer.parseInt(mEdtSoluongMua.getText().toString());
+                }
+                //Kiểm tra số lượng mua cao hơn số lượng hàng tồn kho hay không
                 if (soLuongMua > soLuongConLai)
                     mEdtSoluongMua.setError("Mặt hàng không đủ số lượng để bán");
                 else {
                     mEdtSoluongMua.setError(null);
-
-                    //cập nhật vào CSDL
                     dbaseHelper.updateNumOfAgric(idAgric, String.valueOf(soLuongMua));
-                    Toast.makeText(getActivity(), "Đã cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Đã cập nhật số lượng", Toast.LENGTH_SHORT).show();
+
+                    b.dismiss();
                 }
-
-
             }
         });
 
-
-        dialogBuilder.setNegativeButton("Cancel", null);
-        AlertDialog b = dialogBuilder.create();
-        b.show();
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+            }
+        });
 
     }
 
@@ -242,6 +250,7 @@ public class Fragment3 extends Fragment {
                         orderItemObjects.get(position).getSoLuongMua(),
                         orderItemObjects.get(position).getSoLuongConLai_AGRI());
 
+
                 loadData();
 
             }
@@ -251,32 +260,79 @@ public class Fragment3 extends Fragment {
                 Log.e(TAG, "onDeleteClick: " + orderItemObjects.get(position).getID_AGRI());
                 dbaseHelper.deleteAgricOnOrder(String.valueOf(orderItemObjects.get(position).getID_AGRI()));
 
-                //Nếu không còn sản phẩm nào trong giỏ hàng thì sẽ xóa bỏ tất cả dữ liệu
-                if (null == dbaseHelper.getAgricOnOrder()) {
-                    dbaseHelper.deleteAllOrder();
-                    mToolbar.setSubtitle("Chưa có sản phẩm đặt hàng");
-                    mTvTongTienHD.setText("Tổng cộng: " + 0 + " VND");
-                }
+//                //Nếu không còn sản phẩm nào trong giỏ hàng thì sẽ xóa bỏ tất cả dữ liệu
+//                if (null == dbaseHelper.getAgricOnOrder()) {
+//                    dbaseHelper.deleteAllOrder();
+//                    mToolbar.setSubtitle("Chưa có sản phẩm đặt hàng");
+//                    mTvTongTienHD.setText("Tổng cộng: " + 0 + " VND");
+//                }
+
 
                 loadData();
             }
         });
 
-        mTvTongTienHD.setOnClickListener(new View.OnClickListener() {
+        mBtnDatHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 upLoadOrder();
-
             }
         });
     }
 
     private void upLoadOrder() {
 
+        //Khởi tạo Retrofit 2
+        retrofit = new Retrofit.Builder()
+                .baseUrl(Api.BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
 
+        //Chuyển dữ liệu thành JSON
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < orderItemObjects.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("ID_AGRI", orderItemObjects.get(i).getID_AGRI());
+                jsonObject.put("NUM_OF_AGRI", orderItemObjects.get(i).getSoLuongMua());
+                jsonObject.put("CURRENT_PRICE", orderItemObjects.get(i).getPRICE_AGRI());
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            jsonArray.put(jsonObject);
+        }
 
+        JSONObject paramObject = new JSONObject();
+        try {
+            paramObject.put("ID_ORDER", dbOrderObject.getID_ORDER());
+            paramObject.put("USERNAME_CUS", mUsername);
+            paramObject.put("TOTAL_ORDER", recyOrderAdapter.tongGioHang());
+            paramObject.put("AGRI_ORDER", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //Upload lên CSDL
+        Call<String> call = api.uploadOrder(paramObject.toString());
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.e(TAG, "onResponse_JSONObject: \n  " + response.body());
+
+                if (response.body().equals("true")){
+                    Toast.makeText(getActivity(), "Đã dặt hàng thành công", Toast.LENGTH_SHORT).show();
+                    dbaseHelper.deleteAllOrder();
+                    loadData();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
 
     }
 

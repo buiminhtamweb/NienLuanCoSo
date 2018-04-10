@@ -37,14 +37,23 @@ public class RecyOrderProcessAdapter extends RecyclerView.Adapter<RecyOrderProce
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mMaHoaDon.setText(mOrderProcessList.get(position).getIDORDER());
-        holder.mNgayDatHang.setText(mOrderProcessList.get(position).getDATEORDER());
-        holder.mTongTien.setText(mOrderProcessList.get(position).getTOTALORDER());
+        holder.mMaHoaDon.setText("Mã số hóa đơn: " + mOrderProcessList.get(position).getIDORDER());
+        holder.mNgayDatHang.setText("Ngày đặt hàng: " + mOrderProcessList.get(position).getDATEORDER());
+        holder.mTongTien.setText("Tổng cộng: " + mOrderProcessList.get(position).getTOTALORDER());
     }
 
     @Override
     public int getItemCount() {
         return mOrderProcessList.size();
+    }
+
+    public void setOnItemClickListener(RecyOrderProcessAdapter.onClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+
+    public interface onClickListener {
+        void onItemClick(List<AgriOrderObject> agriOrderList);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -55,7 +64,7 @@ public class RecyOrderProcessAdapter extends RecyclerView.Adapter<RecyOrderProce
             super(view);
             mMaHoaDon = (TextView) view.findViewById(R.id.tv_ms_hoadon);
             mNgayDatHang = (TextView) view.findViewById(R.id.tv_ngay_dathang);
-            mTongTien = (TextView) view.findViewById(R.id.tv_tongtien);
+            mTongTien = (TextView) view.findViewById(R.id.tv_tongtien_hd);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,14 +73,5 @@ public class RecyOrderProcessAdapter extends RecyclerView.Adapter<RecyOrderProce
                 }
             });
         }
-    }
-
-
-    public interface onClickListener {
-        void onItemClick(List<AgriOrderObject> agriOrderList);
-    }
-
-    public void setOnItemClickListener(RecyOrderProcessAdapter.onClickListener onClickListener) {
-        this.onClickListener = onClickListener;
     }
 }

@@ -10,7 +10,7 @@ import mycompany.com.nienluancoso.R;
  * Created by Admin on 3/28/2018.
  */
 
-public class HuongDanSDActivity extends AppCompatActivity {
+public class PoliciesAndTermsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
