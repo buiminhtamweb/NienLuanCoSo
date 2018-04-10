@@ -1,5 +1,7 @@
 package mycompany.com.nienluancoso.User;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import mycompany.com.nienluancoso.Constant;
 import mycompany.com.nienluancoso.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by buimi on 1/29/2018.
@@ -39,6 +44,16 @@ public class Fragment4 extends Fragment {
         mBtnPhanHoi = (Button) view.findViewById(R.id.btn_phanhoi_ungdung);
 
 
+        mBtnLichSuDatHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),BillActivity.class));
+            }
+        });
+
+
+        kiemTraDangNhap();
+
 
 
         return view;
@@ -46,10 +61,12 @@ public class Fragment4 extends Fragment {
 
 
     private void kiemTraDangNhap(){
-
-        linearLayout.setVisibility(View.GONE);
-
-    }
+        SharedPreferences mSPre;
+        mSPre = getActivity().getSharedPreferences(Constant.SPRE_NAME, MODE_PRIVATE);
+        if (mSPre.getString(Constant.USERNAME_CUS, "").equals("")){
+            linearLayout.setVisibility(View.GONE);
+        }
+     }
 
 
 

@@ -52,6 +52,14 @@ public class RecyItemAgriAdapter extends RecyclerView.Adapter<RecyItemAgriAdapte
         Picasso.get().load(Constant.IMAGE_SOURCE + mAgriItemObjectList.get(position).getIMG_URL_AGRI()).fit().centerCrop().into(holder.mImageView);
 
         holder.mNameAgri.setText(mAgriItemObjectList.get(position).getNAME_AGRI());
+        holder.mNameAgri.setText(mAgriItemObjectList.get(position).getNAME_AGRI());
+
+        //Hiện giá cũ lên nếu có giá cũ
+        if (null != mAgriItemObjectList.get(position).getoLDPRICE()){
+            String gachNgang = "<strike>"+mAgriItemObjectList.get(position).getoLDPRICE()+"  VND</strike>";
+            holder.mOldPrice.setText(android.text.Html.fromHtml(gachNgang));
+        }else holder.mOldPrice.setVisibility(View.GONE);
+
         holder.mPrice.setText(mAgriItemObjectList.get(position).getPRICE_AGRI() + " VND");
 
     }
@@ -67,12 +75,14 @@ public class RecyItemAgriAdapter extends RecyclerView.Adapter<RecyItemAgriAdapte
 
         public ImageView mImageView;
         public TextView mNameAgri;
+        public TextView mOldPrice;
         public TextView mPrice;
 
         public ViewHolder(View view) {
             super(view);
             mImageView = (ImageView) view.findViewById(R.id.image_view);
             mNameAgri = (TextView) view.findViewById(R.id.tv_name_agri);
+            mOldPrice = (TextView) view.findViewById(R.id.tv_old_price_agri);
             mPrice = (TextView) view.findViewById(R.id.tv_price_agri);
 
             view.setOnClickListener(new View.OnClickListener() {

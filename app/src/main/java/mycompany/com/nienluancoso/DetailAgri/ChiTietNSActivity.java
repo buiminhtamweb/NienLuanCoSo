@@ -230,7 +230,6 @@ public class ChiTietNSActivity extends AppCompatActivity {
                 else {
                     mEdtSoluongMua.setError(null);
                     themVaoGioHang(String.valueOf(soLuongMua));
-                    Toast.makeText(ChiTietNSActivity.this, "Đã thêm thành công", Toast.LENGTH_SHORT).show();
                     b.dismiss();
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     intent.putExtra(Constant.MAIN_POSITION, 2);
@@ -254,9 +253,13 @@ public class ChiTietNSActivity extends AppCompatActivity {
 
            Date currentTime = Calendar.getInstance().getTime();
            dbaseHelper.insertOrder(currentTime.getTime()+"");
+           Toast.makeText(ChiTietNSActivity.this, "Đã thêm thành công", Toast.LENGTH_SHORT).show();
        }
         Log.e(TAG, "themVaoGioHang: "+ mIdAgric );
-       dbaseHelper.insertAgriOnOrder(mIdAgric,soLuongMua);
+       if (dbaseHelper.insertAgriOnOrder(mIdAgric,soLuongMua)== -1 ){
+           dbaseHelper.updateNumOfAgric(mIdAgric,soLuongMua);
+           Toast.makeText(this, "Số lượng đã được cập nhật", Toast.LENGTH_SHORT).show();
+        };
 
     }
 

@@ -53,6 +53,7 @@ public class GridViewAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.mImageView = (ImageView) view.findViewById(R.id.image_view);
             viewHolder.mNameAgri = (TextView) view.findViewById(R.id.tv_name_agri);
+            viewHolder.mOldPrice = (TextView) view.findViewById(R.id.tv_old_price_agri);
             viewHolder.mPrice = (TextView) view.findViewById(R.id.tv_price_agri);
 
             view.setTag(viewHolder);
@@ -63,6 +64,13 @@ public class GridViewAdapter extends BaseAdapter {
         Picasso.get().load(Constant.IMAGE_SOURCE + mAgriItemObjectList.get(i).getIMG_URL_AGRI()).into(viewHolder.mImageView);
 
         viewHolder.mNameAgri.setText(mAgriItemObjectList.get(i).getNAME_AGRI());
+
+        //Hiện giá cũ lên nếu có giá cũ
+        if (null != mAgriItemObjectList.get(i).getoLDPRICE()){
+            String gachNgang = "<strike>"+mAgriItemObjectList.get(i).getoLDPRICE()+"  VND</strike>";
+            viewHolder.mOldPrice.setText(android.text.Html.fromHtml(gachNgang));
+        }else viewHolder.mOldPrice.setVisibility(View.GONE);
+
         viewHolder.mPrice.setText(mAgriItemObjectList.get(i).getPRICE_AGRI() + " VND");
 
 
@@ -72,6 +80,6 @@ public class GridViewAdapter extends BaseAdapter {
     private class ViewHolder {
         private ImageView mImageView;
         private TextView mNameAgri;
-        private TextView mPrice;
+        private TextView mPrice, mOldPrice;
     }
 }

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            app:title="Danh sách yêu thích"
+            app:title="Danh sách đơn hàng đang xử lý"
             app:titleTextColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
@@ -20,7 +20,7 @@
 
     <android.support.v7.widget.RecyclerView
 
-        android:id="@+id/recycler_view_yeuthich"
+        android:id="@+id/recycler_view_dh_dangxuly"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

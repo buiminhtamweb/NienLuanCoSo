@@ -5,6 +5,8 @@ import java.util.List;
 import mycompany.com.nienluancoso.Constant;
 import mycompany.com.nienluancoso.Data.Local.AgricLiteObject;
 import mycompany.com.nienluancoso.DetailAgri.AgriDetailObject;
+import mycompany.com.nienluancoso.Order.BillObject;
+import mycompany.com.nienluancoso.Order.OrderObject;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -47,6 +49,7 @@ public interface Api {
     @FormUrlEncoded
     Call<AgricLiteObject> getArgiLite(@Field("ID_AGRI") String idAgric);
 
+    //Đăng nhập
     @POST("signin_dangnhap.php")
     @FormUrlEncoded
     Call<String> login(@Field("USERNAME_CUS") String user,
@@ -66,5 +69,15 @@ public interface Api {
                                 @Field("IMG_URL_CUS") String imgUrl,
                                 @Field("TEL_CUS") String tel,
                                 @Field("ADDRESS_CUS") String address);
+
+
+    //Đặt hàng
+    @POST("order_viewBillList.php")
+    @FormUrlEncoded
+    Call<List<BillObject>> getBillList(@Field("USERNAME_CUS") String user);
+
+    @POST("order_viewOrderList.php")
+    @FormUrlEncoded
+    Call<List<OrderObject>> getOrderProcessing(@Field("USERNAME_CUS") String user);
 
 }

@@ -132,7 +132,7 @@ public class Fragment3 extends Fragment {
                             orderItemObjects.add(orderItemObject);
                             recyOrderAdapter.notifyDataSetChanged();
 
-                            mTvTongTienHD.setText("Tổng cộng: " + tongHoaDon() + " VND");
+                            mTvTongTienHD.setText("Tổng cộng: " + recyOrderAdapter.tongGioHang() + " VND");
                         }
 
                     }
@@ -148,13 +148,13 @@ public class Fragment3 extends Fragment {
 
     }
 
-    private float tongHoaDon() {
-        float tongHD = 0;
-        for (int i = 0; i < orderItemObjects.size(); i++) {
-            tongHD += orderItemObjects.get(i).getTongGiaMua();
-        }
-        return tongHD;
-    }
+//    private float tongHoaDon() {
+//        float tongHD = 0;
+//        for (int i = 0; i < orderItemObjects.size(); i++) {
+//            tongHD += orderItemObjects.get(i).getTongGiaMua();
+//        }
+//        return tongHD;
+//    }
 
     private void initRetrofit() {
         retrofit = new Retrofit.Builder()

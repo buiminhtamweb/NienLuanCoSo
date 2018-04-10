@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     // Database Name
     private static final String DATABASE_NAME = "Order_List";
-    private static final String TAG = "DatabaseHelper" ;
+    private static final String TAG = "DatabaseHelper";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return row;
     }
 
-    public long insertAgriOnOrder(String idAgri,String numOfAgri) {
+    public long insertAgriOnOrder(String idAgri, String numOfAgri) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -73,6 +73,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return row;
     }
 
+    public long updateAgriOnOrder(String idAgri, String numOfAgri) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        // `id` and `timestamp` will be inserted automatically.
+        // no need to add them
+//        values.put(DBAgricOrderObject.COLUMN_ID_AGRI, idAgri);
+        values.put(DBAgricOrderObject.COLUMN_NUM_OF_AGRI, numOfAgri);
+        // insert row
+        long row = db.update(DBAgricOrderObject.TABLE_NAME, values,
+                DBAgricOrderObject.COLUMN_ID_AGRI + " = ?", new String[]{idAgri});
+
+        // close db connection
+        db.close();
+
+        // return newly inserted row id
+        return row;
+    }
+
+
     public DBOrderObject getOrder() {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
@@ -84,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //                ,null,null,null,"1" );
 
 
-        if (cursor.getCount()>0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             // prepare note object
             DBOrderObject orderObject = new DBOrderObject(
@@ -108,9 +128,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.getCount()>0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            for (int i = 1; i <= cursor.getCount() ; i++) {
+            for (int i = 1; i <= cursor.getCount(); i++) {
                 // prepare note object
                 DBAgricOrderObject agricOrderObject = new DBAgricOrderObject(
                         cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_ID_AGRI)),
@@ -118,7 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 // close the db connection
 
 
-                Log.e(TAG, "getAgricOnOrder: "+ cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_ID_AGRI)) );
+                Log.e(TAG, "getAgricOnOrder: " + cursor.getString(cursor.getColumnIndex(DBAgricOrderObject.COLUMN_ID_AGRI)));
                 agricOrderObjectList.add(agricOrderObject);
                 cursor.moveToNext();
             }
@@ -133,8 +153,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteAllOrder() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from "+ DBOrderObject.TABLE_NAME);
-        db.execSQL("delete from "+ DBAgricOrderObject.TABLE_NAME);
+        db.execSQL("delete from " + DBOrderObject.TABLE_NAME);
+        db.execSQL("delete from " + DBAgricOrderObject.TABLE_NAME);
         db.close();
     }
 
@@ -155,7 +175,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.update(DBAgricOrderObject.TABLE_NAME, values, DBAgricOrderObject.COLUMN_ID_AGRI + " = ?",
                 new String[]{String.valueOf(idAgric)});
     }
-
 
 
 }

@@ -35,7 +35,7 @@
 
         </activity>
 
-        <activity android:name=".User.YeuThichActivity"
+        <activity android:name=".User.DonHangDangXuLyActivity"
             android:parentActivityName=".MainActivity">
 
         </activity>
@@ -58,7 +58,7 @@
 
         </activity>
 
-        <activity android:name=".User.LichSuDHActivity"
+        <activity android:name=".User.BillActivity"
             android:label="Lịch sử đặt hàng"
             android:parentActivityName=".MainActivity">
 

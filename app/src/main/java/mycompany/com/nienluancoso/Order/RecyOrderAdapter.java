@@ -52,7 +52,7 @@ public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.View
         holder.mPrice.setText("Đơn giá: " + orderObjectList.get(position).getPRICE_AGRI() + " VND");
         holder.mSoLuongMua.setText("Số lượng mua: " + convertGamView(orderObjectList.get(position).getSoLuongMua()));
         holder.mThanhTien.setText("Thành tiền: " + thanhTien(orderObjectList.get(position).getSoLuongMua(),
-                                                            orderObjectList.get(position).getPRICE_AGRI()));
+                orderObjectList.get(position).getPRICE_AGRI()));
 
     }
 
@@ -118,6 +118,16 @@ public class RecyOrderAdapter extends RecyclerView.Adapter<RecyOrderAdapter.View
             });
 
         }
+    }
+
+    public float tongGioHang(){
+        float tongGioHang = 0;
+        for (int i = 0;i< orderObjectList.size(); i++){
+            thanhTien(orderObjectList.get(i).getSoLuongMua(),
+                   tongGioHang += orderObjectList.get(i).getPRICE_AGRI());
+        }
+        return tongGioHang;
+
     }
 
 

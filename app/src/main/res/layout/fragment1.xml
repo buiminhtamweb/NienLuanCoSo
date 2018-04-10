@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="8dp"
-                android:text="Sản phẩm mới"
+                android:text="Top nông sản giả rẻ"
                 android:textColor="@color/primaryColor"
                 android:textSize="20sp" />
 
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:paddingStart="8dp"
-                android:text="Sản phẩm hot"
+                android:text="Top nông sản mua nhiều"
                 android:textColor="@color/primaryColor"
                 android:textSize="20sp" />
 
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:paddingStart="8dp"
-                android:text="Sản phẩm đang giảm giá"
+                android:text="Nông sản đang giảm giá"
                 android:textColor="@color/primaryColor"
                 android:textSize="20sp" />
 

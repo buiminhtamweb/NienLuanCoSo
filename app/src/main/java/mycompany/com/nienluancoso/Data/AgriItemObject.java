@@ -1,17 +1,37 @@
 package mycompany.com.nienluancoso.Data;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by buimi on 3/13/2018.
  */
 
 public class AgriItemObject {
 
-
+    @SerializedName("ID_AGRI")
+    @Expose
     private int ID_AGRI;
+
+    @SerializedName("ID_KIND")
+    @Expose
     private int ID_KIND;
+
+    @SerializedName("NAME_AGRI")
+    @Expose
     private String NAME_AGRI;
+
+    @SerializedName("IMG_URL_AGRI")
+    @Expose
     private String IMG_URL_AGRI;
+
+    @SerializedName("PRICE_AGRI")
+    @Expose
     private float PRICE_AGRI;
+
+    @SerializedName("OLD_PRICE")
+    @Expose
+    private String oLDPRICE;
 
     public AgriItemObject(int ID_AGRI, int ID_KIND, String NAME_AGRI, String IMG_URL_AGRI, float PRICE_AGRI) {
         this.ID_AGRI = ID_AGRI;
@@ -63,5 +83,13 @@ public class AgriItemObject {
 
     public void setPRICE_AGRI(float PRICE_AGRI) {
         this.PRICE_AGRI = PRICE_AGRI;
+    }
+
+    public String getoLDPRICE() {
+        return oLDPRICE;
+    }
+
+    public void setoLDPRICE(String oLDPRICE) {
+        this.oLDPRICE = oLDPRICE;
     }
 }

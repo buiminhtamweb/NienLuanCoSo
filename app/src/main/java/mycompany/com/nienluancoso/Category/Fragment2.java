@@ -1,5 +1,6 @@
 package mycompany.com.nienluancoso.Category;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import java.util.List;
 import mycompany.com.nienluancoso.Data.AgriItemObject;
 import mycompany.com.nienluancoso.Data.Api;
 import mycompany.com.nienluancoso.Data.KindObject;
+import mycompany.com.nienluancoso.DetailAgri.ChiTietNSActivity;
 import mycompany.com.nienluancoso.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +41,7 @@ public class Fragment2 extends Fragment {
     private LvKindAdapter mLvKindAdapter;
     private Api api;
     private Retrofit retrofit;
+    private Intent mIntent;
 
     @Nullable
     @Override
@@ -50,6 +53,7 @@ public class Fragment2 extends Fragment {
         mKindList.setSelector(R.drawable.selector_listview);
 
 
+        mIntent = new Intent(getActivity(), ChiTietNSActivity.class);
         //Danh sách nông sản theo loại
         mAgriList = (GridView) view.findViewById(R.id.gridview_ds_sp);
         mGridViewAdapter = new GridViewAdapter(getContext(), mAgriItemObjectList);
@@ -57,7 +61,9 @@ public class Fragment2 extends Fragment {
         mAgriList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e(TAG, "onClick: ID_AGRI =  " + l);
+                mIntent.putExtra("ID_AGRI",l+"");
+                startActivity(mIntent);
+                getActivity().finish();
             }
         });
 
@@ -71,15 +77,11 @@ public class Fragment2 extends Fragment {
         mKindList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e(TAG, "onClick: ID_KIND =  " + id);
-
                 if (id == 0){
                     getAllArgi();
                 }else {
                     getArgiWithKind(id + "");
                 }
-
-
             }
         });
 
