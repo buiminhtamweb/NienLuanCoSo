@@ -1,7 +1,4 @@
 package mycompany.com.nienluancoso.Data;
-
-import org.json.JSONObject;
-
 import java.util.List;
 
 import mycompany.com.nienluancoso.Constant;
@@ -81,14 +78,14 @@ public interface Api {
 
     @POST("user_changePassWd.php")
     @FormUrlEncoded
-    Call<UserCusObject> getUpdateUser(@Field("USERNAME_CUS") String userName,
+    Call<String> getChangePassUser(@Field("USERNAME_CUS") String userName,
                                       @Field("OLD_PASSWORD") String oldPass,
                                       @Field("NEW_PASSWORD") String newPassWd);
 
     @POST("user_updateUser.php")
     @FormUrlEncoded
-    Call<UserCusObject> getChangePassUser(@Field("USERNAME_CUS") String userName,
-                                          @Field("TYPE") String type,
+    Call<String> updateUser(@Field("USERNAME_CUS") String userName,
+                                          @Field("TYPE") int type,
                                           @Field("DATA") String data);
 
 
@@ -103,6 +100,6 @@ public interface Api {
 
     @POST("order_addNewOrder.php")
     @FormUrlEncoded
-    Call<String> uploadOrder(@Field("DON_HANG")String json);
+    Call<String> uploadOrder(@Field("DON_HANG") String json);
 
 }

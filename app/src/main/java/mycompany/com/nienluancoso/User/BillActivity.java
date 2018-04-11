@@ -21,7 +21,6 @@ import mycompany.com.nienluancoso.Constant;
 import mycompany.com.nienluancoso.Data.Api;
 import mycompany.com.nienluancoso.Data.Local.AgricLiteObject;
 import mycompany.com.nienluancoso.DetailAgri.ChiTietNSActivity;
-import mycompany.com.nienluancoso.MainActivity;
 import mycompany.com.nienluancoso.Order.AgriOrderObject;
 import mycompany.com.nienluancoso.Order.BillObject;
 import mycompany.com.nienluancoso.R;
@@ -55,7 +54,7 @@ public class BillActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lichsu_dhang);
+        setContentView(R.layout.activity_bill);
 
 
 
