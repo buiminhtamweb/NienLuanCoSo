@@ -112,7 +112,7 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         prgDialog = new ProgressDialog(this);
         prgDialog.setMessage("Loading...");
         // Set Cancelable as False
-        prgDialog.setCancelable(false);
+//        prgDialog.setCancelable(false);
 
         intent = new Intent(this, MainActivity.class);
 
@@ -289,6 +289,16 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
             protected void onPostExecute(String msg) {
                 Log.e(TAG, "onPostExecute: Calling Upload ");
                 // Put converted Image string into Async Http Post param
+
+//                upLoadToDB(userName,
+//                                passWD,
+//                                mEdtHoTen.getText().toString(),
+//                                mSpinGioiTinh.getSelectedItem().toString(),
+//                                mBtnNamSinh.getText().toString(),
+//                                fileName,
+//                                mEdtSDT.getText().toString(),
+//                                mEdtDiaChi.getText().toString());
+
                 params.put("image", encodedString);
                 // Trigger Image upload
                 triggerImageUpload();

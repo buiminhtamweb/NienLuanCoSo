@@ -25,7 +25,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/backround"/>
+        android:src="@color/white"/>
 
     <TextView
         android:layout_margin="8dp"
@@ -73,12 +73,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
-                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:gravity="left|center_vertical"
-                android:paddingRight="20dp"
+                android:paddingEnd="20dp"
                 android:paddingStart="20dp"
                 android:text="Thay đổi mật khẩu"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                tools:ignore="RtlHardcoded" />
 
             <TextView
                 android:layout_marginTop="12dp"
@@ -92,8 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
-                android:paddingRight="20dp"
-                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:paddingEnd="20dp"
+                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:gravity="left|center_vertical"
                 android:paddingStart="20dp"
                 android:text="1995-09-29"
@@ -111,8 +112,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
-                android:paddingRight="20dp"
-                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:paddingEnd="20dp"
+                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:gravity="left|center_vertical"
                 android:paddingStart="20dp"
                 android:text="Không rõ"
@@ -130,8 +131,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
-                android:paddingRight="20dp"
-                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:paddingEnd="20dp"
+                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:gravity="left|center_vertical"
                 android:paddingStart="20dp"
                 android:text="09090900909"
@@ -149,8 +150,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
-                android:paddingRight="20dp"
-                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:paddingEnd="20dp"
+                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:gravity="left|center_vertical"
                 android:paddingStart="20dp"
                 android:text="Cần Thơ"

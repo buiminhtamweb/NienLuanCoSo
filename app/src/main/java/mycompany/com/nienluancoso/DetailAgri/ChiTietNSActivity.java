@@ -58,7 +58,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
     private String mIdAgric;
     private int soLuongMua;
     private int soLuongConLai;
-    Intent intent;
+    Intent intent, intentBackMain;
     private DatabaseHelper dbaseHelper;
     private ProgressDialog mProcessDialog;
 
@@ -73,6 +73,9 @@ public class ChiTietNSActivity extends AppCompatActivity {
         mProcessDialog.setMessage("Loading...");
 
         intent = new Intent(this, ChiTietNSActivity.class);
+        intentBackMain = new Intent(this, MainActivity.class);
+
+
         //Lấy dự liệu Intent từ Tạo TK
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -103,6 +106,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
+                    startActivity(intentBackMain);
                     finish();
                 }
             });
@@ -290,5 +294,10 @@ public class ChiTietNSActivity extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(intentBackMain);
+        finish();
+    }
 }

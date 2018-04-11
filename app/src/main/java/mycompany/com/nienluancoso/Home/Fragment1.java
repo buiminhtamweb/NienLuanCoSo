@@ -247,7 +247,7 @@ public class Fragment1 extends Fragment {
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), SearchActivity.class));
+                startActivity(new Intent(getActivity(), SearchActivity.class));
                 getActivity().finish();
             }
         });

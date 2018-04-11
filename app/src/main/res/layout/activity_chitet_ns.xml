@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +14,9 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            app:title="Chi tiết nông sản"
+            app:titleTextColor="@color/white">
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -49,7 +52,6 @@
                     android:id="@+id/tv_ten_ns"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ten nong san"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
@@ -57,22 +59,19 @@
                     android:id="@+id/tv_loai_ns"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Loại: Gạo thơm" />
+                    android:layout_marginTop="8dp" />
 
                 <TextView
                     android:id="@+id/tv_sl_conlai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Số lượng tồn kho: 1" />
+                    android:layout_marginTop="8dp" />
 
                 <TextView
                     android:id="@+id/tv_gia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Giá: 2000 VND"
                     android:textColor="@color/red"
                     android:textSize="18sp" />
 
@@ -96,8 +95,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-
-                    android:text="Chưa có nội dung"
                     android:textColor="@color/black" />
             </LinearLayout>
 

@@ -22,15 +22,10 @@ import mycompany.com.nienluancoso.R;
 
 public class SearchActivity extends AppCompatActivity{
 
-    private TextView mTenNS, mLoaiNS, mGia, mChitiet;
-    private RecyclerView mRecyViewNSMuaNhieu;
-    private RecyItemAgriAdapter recyItemAgriAdapter;
-    private List<AgriItemObject> agriItemObjects = new ArrayList<>();
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chitet_ns);
+        setContentView(R.layout.activity_search);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -44,16 +39,6 @@ public class SearchActivity extends AppCompatActivity{
             });
         }
 
-        mTenNS = (TextView) findViewById(R.id.tv_ten_ns);
-        mLoaiNS = (TextView) findViewById(R.id.tv_loai_ns);
-        mGia = (TextView) findViewById(R.id.tv_gia);
-        mChitiet = (TextView) findViewById(R.id.tv_nd_chitiet_ns);
-        mRecyViewNSMuaNhieu = (RecyclerView) findViewById(R.id.recycler_view_hot);
-
-        //Nong san mua nhieu
-        mRecyViewNSMuaNhieu.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        recyItemAgriAdapter = new RecyItemAgriAdapter(this, agriItemObjects);
-        mRecyViewNSMuaNhieu.setAdapter(recyItemAgriAdapter);
 
     }
 }

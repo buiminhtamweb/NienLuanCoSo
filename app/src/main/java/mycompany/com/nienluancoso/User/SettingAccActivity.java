@@ -149,7 +149,6 @@ public class SettingAccActivity extends AppCompatActivity {
             }
         });
 
-
         dialogBuilder.setNegativeButton("Cancel", null);
         AlertDialog b = dialogBuilder.create();
         b.show();
@@ -212,7 +211,7 @@ public class SettingAccActivity extends AppCompatActivity {
         LayoutInflater inflater = this.getLayoutInflater();
 
         //Tham chieu layout
-        final View dialogView = inflater.inflate(R.layout.dialog_datepicker, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_doi_gioitinh, null);
         dialogBuilder.setView(dialogView);
 
         String sex[] = {
@@ -233,7 +232,7 @@ public class SettingAccActivity extends AppCompatActivity {
         dialogBuilder.setTitle("Giới tính");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                updateUser(TEL_CUS, spinGioiTinh.getSelectedItem().toString());
+                updateUser(SEX, spinGioiTinh.getSelectedItem().toString());
             }
         });
         dialogBuilder.setNegativeButton("Cancel", null);
