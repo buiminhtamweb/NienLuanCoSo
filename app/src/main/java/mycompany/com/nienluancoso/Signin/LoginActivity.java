@@ -154,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                     mSP_Edit.commit();
 
 
+                    //Set thời gian chờ xử lý 2s
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {

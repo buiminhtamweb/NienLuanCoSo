@@ -66,15 +66,16 @@
                 android:text="Mật khẩu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/btn_td_matkhau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
-                android:paddingRight="20dp"
                 android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:gravity="left|center_vertical"
+                android:paddingRight="20dp"
                 android:paddingStart="20dp"
                 android:text="Thay đổi mật khẩu"
                 android:textAllCaps="false" />
@@ -95,7 +96,26 @@
                 android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:gravity="left|center_vertical"
                 android:paddingStart="20dp"
-                android:text="29/09/1995"
+                android:text="1995-09-29"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giới tính"/>
+
+            <Button
+                android:id="@+id/btn_td_gioitinh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingRight="20dp"
+                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:gravity="left|center_vertical"
+                android:paddingStart="20dp"
+                android:text="Không rõ"
                 android:textAllCaps="false" />
 
             <TextView
@@ -134,7 +154,8 @@
                 android:gravity="left|center_vertical"
                 android:paddingStart="20dp"
                 android:text="Cần Thơ"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
     </ScrollView>

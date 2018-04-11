@@ -1,5 +1,6 @@
 package mycompany.com.nienluancoso.Order;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import mycompany.com.nienluancoso.Data.Local.DatabaseHelper;
 import mycompany.com.nienluancoso.Data.OrderItemObject;
 import mycompany.com.nienluancoso.DetailAgri.ChiTietNSActivity;
 import mycompany.com.nienluancoso.R;
+import mycompany.com.nienluancoso.User.OrderProcessingActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -75,6 +77,8 @@ public class Fragment3 extends Fragment {
 
     private Button mBtnDatHang;
 
+    private ProgressDialog mProcessDialog;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,6 +88,8 @@ public class Fragment3 extends Fragment {
         mSPre = getActivity().getSharedPreferences(Constant.SPRE_NAME, MODE_PRIVATE);
 
         //initView
+        mProcessDialog = new ProgressDialog(getActivity());
+        mProcessDialog.setMessage("Đang xử lý...");
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mTvTongTienHD = (TextView) view.findViewById(R.id.tv_tongtien_hd);
         mBtnDatHang = (Button) view.findViewById(R.id.btn_dat_hang);
@@ -282,6 +288,7 @@ public class Fragment3 extends Fragment {
 
     private void upLoadOrder() {
 
+        mProcessDialog.show();
         //Khởi tạo Retrofit 2
         retrofit = new Retrofit.Builder()
                 .baseUrl(Api.BASE_URL)
@@ -325,6 +332,19 @@ public class Fragment3 extends Fragment {
                     Toast.makeText(getActivity(), "Đã dặt hàng thành công", Toast.LENGTH_SHORT).show();
                     dbaseHelper.deleteAllOrder();
                     loadData();
+
+                    //Set thời gian chờ xử lý 2s
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+
+                    }
+
+                    mProcessDialog.dismiss();
+
+                    //Chuyển sang Đơn hàng dag được xử lý
+                    startActivity(new Intent(getActivity(), OrderProcessingActivity.class));
                 }
             }
 

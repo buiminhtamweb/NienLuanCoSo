@@ -49,7 +49,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_ds_dondathangdagcho"
+            android:id="@+id/btn_order_processing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -63,7 +63,7 @@
             tools:ignore="RtlSymmetry" />
 
         <Button
-            android:id="@+id/btn_lichsudathang"
+            android:id="@+id/btn_bill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -78,7 +78,7 @@
 
 
         <Button
-            android:id="@+id/btn_caidat_tk"
+            android:id="@+id/btn_setting_acc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -116,7 +116,7 @@
         <!--tools:ignore="RtlSymmetry" />-->
 
         <Button
-            android:id="@+id/btn_huongdan_sudung"
+            android:id="@+id/btn_policies_terms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -130,7 +130,7 @@
             tools:ignore="RtlSymmetry" />
 
         <Button
-            android:id="@+id/btn_phanhoi_ungdung"
+            android:id="@+id/btn_feed_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

@@ -35,12 +35,12 @@ public class Fragment4 extends Fragment {
         View view = inflater.inflate(R.layout.fragment4, container, false);
 
         linearLayout = (LinearLayout) view.findViewById(R.id.linearlayout_tk);
-        mBtnBill = (Button) view.findViewById(R.id.btn_lichsudathang);
-        mBtnOrderProcessing = (Button) view.findViewById(R.id.btn_ds_dondathangdagcho);
-        mBtnSettingAcc = (Button) view.findViewById(R.id.btn_caidat_tk);
+        mBtnBill = (Button) view.findViewById(R.id.btn_bill);
+        mBtnOrderProcessing = (Button) view.findViewById(R.id.btn_order_processing);
+        mBtnSettingAcc = (Button) view.findViewById(R.id.btn_setting_acc);
 //        mBtnCaiDat = (Button) view.findViewById(R.id.btn_caidat_app);
-        mBtnPoliciesAndTerms = (Button) view.findViewById(R.id.btn_huongdan_sudung);
-        mBtnFeedback = (Button) view.findViewById(R.id.btn_phanhoi_ungdung);
+        mBtnPoliciesAndTerms = (Button) view.findViewById(R.id.btn_policies_terms);
+        mBtnFeedback = (Button) view.findViewById(R.id.btn_feed_back);
 
 
         //Sự kiện click
@@ -55,6 +55,13 @@ public class Fragment4 extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), OrderProcessingActivity.class));
+            }
+        });
+
+        mBtnSettingAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SettingAccActivity.class));
             }
         });
 

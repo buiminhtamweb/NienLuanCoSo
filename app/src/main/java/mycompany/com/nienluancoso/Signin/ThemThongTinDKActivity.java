@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -23,10 +24,12 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -71,7 +74,9 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     private CircleImageView mImgAnhDaiDien;
     private EditText mEdtHoTen, mEdtSDT, mEdtDiaChi;
     private CheckBox mCheckNam, mCheckNu;
-    private Button mBtnNamSinh;
+    private EditText mBtnNamSinh;
+    private Spinner mSpinGioiTinh;
+
     private Retrofit retrofit;
     private Api api;
 
@@ -87,10 +92,22 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
         mEdtSDT = (EditText) findViewById(R.id.edt_sdt);
         mEdtDiaChi = (EditText) findViewById(R.id.edt_diachi);
 
-        mCheckNam = (CheckBox) findViewById(R.id.checkbox_nam);
-        mCheckNu = (CheckBox) findViewById(R.id.checkbox_nu);
+//        mCheckNam = (CheckBox) findViewById(R.id.checkbox_nam);
+//        mCheckNu = (CheckBox) findViewById(R.id.checkbox_nu);
 
-        mBtnNamSinh = (Button) findViewById(R.id.btn_namsinh);
+        //Giới tính
+        String sex[]={
+                "Chọn giới tính",
+                "Nam",
+                "Nữ",
+                "Khác"};
+        mSpinGioiTinh=(Spinner) findViewById(R.id.spinner_gioitinh);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, sex);
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        mSpinGioiTinh.setAdapter(adapter);
+        mSpinGioiTinh.setSelection(0);
+
+        mBtnNamSinh = (EditText) findViewById(R.id.btn_namsinh);
 
         prgDialog = new ProgressDialog(this);
         prgDialog.setMessage("Loading...");
@@ -150,14 +167,14 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     //Sự kiện của nút Đăng ký
     public void btnDangKy(View view) {
 
-        if (mEdtHoTen.getText().toString().equals("") || mBtnNamSinh.getText().toString().equals("01/01/1970") || (!mCheckNam.isChecked() || !mCheckNu.isChecked()) || mEdtSDT.getText().toString().equals("") || mEdtDiaChi.getText().toString().equals("")) {
+        if (mEdtHoTen.getText().toString().equals("") || mBtnNamSinh.getText().toString().equals("") || mSpinGioiTinh.getSelectedItemPosition()==0 || mEdtSDT.getText().toString().equals("") || mEdtDiaChi.getText().toString().equals("")) {
             if (mEdtHoTen.getText().toString().equals("")) mEdtHoTen.setError("Bạn chưa nhập tên");
             else mBtnNamSinh.setError(null);
             if (mBtnNamSinh.getText().toString().equals("01/01/1970"))
                 mBtnNamSinh.setError("Bạn chưa chọn năm sinh");
             else mBtnNamSinh.setError(null);
-            if (!mCheckNam.isChecked() || !mCheckNu.isChecked())
-                mCheckNu.setError("Bạn chưa chọn giới tính");
+            if ( mSpinGioiTinh.getSelectedItemPosition()==0)
+                Snackbar.make(mSpinGioiTinh, "Bạn chưa chọn giới tính", Snackbar.LENGTH_LONG ).show();
             else mBtnNamSinh.setError(null);
             if (mEdtSDT.getText().toString().equals(""))
                 mEdtSDT.setError("Bạn chưa nhập số điện thoại");
@@ -301,14 +318,14 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         Log.e(TAG, "onSuccess: Đã up thành công");
 
-                        String gioiTinh = "";
-                        if (mCheckNam.isChecked()) gioiTinh = "Nam";
-                        else if (mCheckNu.isChecked()) gioiTinh = "Nữ";
+//                        String gioiTinh = "";
+//                        if (mCheckNam.isChecked()) gioiTinh = "Nam";
+//                        else if (mCheckNu.isChecked()) gioiTinh = "Nữ";
 
                         upLoadToDB(userName,
                                 passWD,
                                 mEdtHoTen.getText().toString(),
-                                gioiTinh,
+                                mSpinGioiTinh.getSelectedItem().toString(),
                                 mBtnNamSinh.getText().toString(),
                                 fileName,
                                 mEdtSDT.getText().toString(),
@@ -450,8 +467,14 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
     private void toolbarView(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setHomeButtonEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    finish();
+                }
+            });
         }
     }
 

@@ -9,6 +9,7 @@ import mycompany.com.nienluancoso.Data.Local.AgricLiteObject;
 import mycompany.com.nienluancoso.DetailAgri.AgriDetailObject;
 import mycompany.com.nienluancoso.Order.BillObject;
 import mycompany.com.nienluancoso.Order.OrderObject;
+import mycompany.com.nienluancoso.User.UserCusObject;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -73,6 +74,24 @@ public interface Api {
                                 @Field("ADDRESS_CUS") String address);
 
 
+    //Thông tin người dùng
+    @POST("user_getInfo.php")
+    @FormUrlEncoded
+    Call<UserCusObject> getInfoUser(@Field("USERNAME_CUS") String userName);
+
+    @POST("user_changePassWd.php")
+    @FormUrlEncoded
+    Call<UserCusObject> getUpdateUser(@Field("USERNAME_CUS") String userName,
+                                      @Field("OLD_PASSWORD") String oldPass,
+                                      @Field("NEW_PASSWORD") String newPassWd);
+
+    @POST("user_updateUser.php")
+    @FormUrlEncoded
+    Call<UserCusObject> getChangePassUser(@Field("USERNAME_CUS") String userName,
+                                          @Field("TYPE") String type,
+                                          @Field("DATA") String data);
+
+
     //Đặt hàng
     @POST("order_viewBillList.php")
     @FormUrlEncoded
@@ -82,7 +101,7 @@ public interface Api {
     @FormUrlEncoded
     Call<List<OrderObject>> getOrderProcessing(@Field("USERNAME_CUS") String user);
 
-    @POST("\torder_addNewOrder.php")
+    @POST("order_addNewOrder.php")
     @FormUrlEncoded
     Call<String> uploadOrder(@Field("DON_HANG")String json);
 
