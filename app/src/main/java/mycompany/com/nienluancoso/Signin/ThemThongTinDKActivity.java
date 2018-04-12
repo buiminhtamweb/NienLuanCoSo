@@ -376,12 +376,12 @@ public class ThemThongTinDKActivity extends AppCompatActivity {
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.e(TAG, "onResponse: " + response.body());
                 if (response.body().equals("true")) {
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-
-                    }
+//                    try {
+//                        Thread.sleep(3000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//
+//                    }
                     taoTKThanhCong();
 
                 }

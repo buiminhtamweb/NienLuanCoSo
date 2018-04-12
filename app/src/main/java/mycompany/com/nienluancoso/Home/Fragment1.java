@@ -55,7 +55,6 @@ public class Fragment1 extends Fragment {
     private ViewPager mBannerSlider;
     private Intent mIntent;
 
-    private Snackbar mSnackbar;
 
     private BannerSliderAdapter mBannerSliderAdapter;
 
@@ -72,10 +71,6 @@ public class Fragment1 extends Fragment {
         recyclerViewHot = (RecyclerView) view.findViewById(R.id.recycler_view_hot);
         recyclerViewSale = (RecyclerView) view.findViewById(R.id.recycler_view_sale);
         mBtnSearch = (Button) view.findViewById(R.id.btn_search);
-
-        mSnackbar = Snackbar
-                .make(mBtnSearch, "Lỗi ! Không thể truy cập đến server", Snackbar.LENGTH_LONG);
-
 
 
         mIntent = new Intent(getActivity(), ChiTietNSActivity.class);
@@ -135,7 +130,6 @@ public class Fragment1 extends Fragment {
             @Override
             public void onFailure(Call<List<AgriItemObject>> call, Throwable t) {
 
-                mSnackbar.show();
 
             }
         });

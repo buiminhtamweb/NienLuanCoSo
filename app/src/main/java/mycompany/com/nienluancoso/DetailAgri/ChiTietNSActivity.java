@@ -1,7 +1,6 @@
 package mycompany.com.nienluancoso.DetailAgri;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,21 +43,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ChiTietNSActivity extends AppCompatActivity {
 
     private static final String TAG = "Detail_Agric";
+    Intent intent, intentBackMain;
     private ImageView mImgHinh;
     private TextView mTvTenNS, mTvLoaiNS, mTvSLConLai, mTvGia, mTvChiTiet;
     private Button mBtnThemGioHang;
-
     private RecyclerView mRecyHot;
     private RecyItemAgriAdapter mRecyItemAgriAdapterHot;
     private List<AgriItemObject> mAgriItemObjectListHot = new ArrayList<>();
-
     private Api api;
     private Retrofit retrofit;
     private AgriDetailObject agriDetailObject;
     private String mIdAgric;
     private int soLuongMua;
     private int soLuongConLai;
-    Intent intent, intentBackMain;
     private DatabaseHelper dbaseHelper;
     private ProgressDialog mProcessDialog;
 
@@ -66,7 +63,6 @@ public class ChiTietNSActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitet_ns);
-
 
 
         mProcessDialog = new ProgressDialog(this);
@@ -80,7 +76,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mIdAgric = extras.getString("ID_AGRI");
-            Log.e(TAG, "onCreate: "+ mIdAgric );
+            Log.e(TAG, "onCreate: " + mIdAgric);
         }
 
         initView();
@@ -103,9 +99,9 @@ public class ChiTietNSActivity extends AppCompatActivity {
         if (toolbar != null) {
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
             setSupportActionBar(toolbar);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view){
+                public void onClick(View view) {
 //                    startActivity(intentBackMain);
                     finish();
                 }
@@ -143,7 +139,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AgriDetailObject> call, Response<AgriDetailObject> response) {
 
-                if (!response.body().equals("")) {
+                if (response.body() != null) {
 
                     agriDetailObject = response.body();
                     Log.e(TAG, agriDetailObject.getNAMEAGRI());
@@ -153,7 +149,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
 
                     //Set số lượng còn lại vào "soLuongConLai"
                     soLuongConLai = Integer.parseInt(agriDetailObject.getAMOUNTAGRI());
-                    mTvSLConLai.setText("Số lượng còn lại: " + soLuongConLai );
+                    mTvSLConLai.setText("Số lượng còn lại: " + soLuongConLai);
                     mTvGia.setText("Giá: " + agriDetailObject.getPRICEAGRI());
                     mTvChiTiet.setText(agriDetailObject.getDETAILAGRI());
 
@@ -185,7 +181,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
         mRecyItemAgriAdapterHot.setOnClickListener(new RecyItemAgriAdapter.onClickListener() {
             @Override
             public void onItemClick(int position, int idAgri) {
-                intent.putExtra("ID_AGRI",idAgri+"");
+                intent.putExtra("ID_AGRI", idAgri + "");
                 startActivity(intent);
                 finish();
             }
@@ -258,21 +254,22 @@ public class ChiTietNSActivity extends AppCompatActivity {
     }
 
     private void themVaoGioHang(String soLuongMua) {
-       if (null == dbaseHelper.getOrder()){
+        if (null == dbaseHelper.getOrder()) {
 
-           Date currentTime = Calendar.getInstance().getTime();
-           dbaseHelper.insertOrder(currentTime.getTime()+"");
-           Toast.makeText(ChiTietNSActivity.this, "Đã thêm thành công", Toast.LENGTH_SHORT).show();
-       }
-        Log.e(TAG, "themVaoGioHang: "+ mIdAgric );
-       if (dbaseHelper.insertAgriOnOrder(mIdAgric,soLuongMua)== -1 ){
-           dbaseHelper.updateNumOfAgric(mIdAgric,soLuongMua);
-           Toast.makeText(this, "Số lượng đã được cập nhật", Toast.LENGTH_SHORT).show();
-        };
+            Date currentTime = Calendar.getInstance().getTime();
+            dbaseHelper.insertOrder(currentTime.getTime() + "");
+            Toast.makeText(ChiTietNSActivity.this, "Đã thêm thành công", Toast.LENGTH_SHORT).show();
+        }
+        Log.e(TAG, "themVaoGioHang: " + mIdAgric);
+        if (dbaseHelper.insertAgriOnOrder(mIdAgric, soLuongMua) == -1) {
+            dbaseHelper.updateNumOfAgric(mIdAgric, soLuongMua);
+            Toast.makeText(this, "Số lượng đã được cập nhật", Toast.LENGTH_SHORT).show();
+        }
+        ;
 
     }
 
-    private void getHotAgri(){
+    private void getHotAgri() {
         //Load Nông sản hot
         Call<List<AgriItemObject>> callHot = api.getHotAgri();
         callHot.enqueue(new Callback<List<AgriItemObject>>() {
@@ -289,7 +286,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<AgriItemObject>> call, Throwable t) {
-                Toast.makeText(getBaseContext(),"Lỗi ! Không thể truy cập đến server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Lỗi ! Không thể truy cập đến server", Toast.LENGTH_SHORT).show();
             }
         });
     }

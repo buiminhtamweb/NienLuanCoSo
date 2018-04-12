@@ -346,6 +346,7 @@ public class SettingAccActivity extends AppCompatActivity {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     Snackbar.make(mBtnDiaChi, "Đã cập nhật thành công", Snackbar.LENGTH_LONG).show();
+                    loadData();
                 } else Snackbar.make(mBtnDiaChi, "Chưa cập nhật được", Snackbar.LENGTH_LONG).show();
             }
 
