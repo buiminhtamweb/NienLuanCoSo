@@ -39,7 +39,7 @@ public class RecyOrderProcessAdapter extends RecyclerView.Adapter<RecyOrderProce
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.mMaHoaDon.setText("Mã số hóa đơn: " + mOrderProcessList.get(position).getIDORDER());
         holder.mNgayDatHang.setText("Ngày đặt hàng: " + mOrderProcessList.get(position).getDATEORDER());
-        holder.mTongTien.setText("Tổng cộng: " + mOrderProcessList.get(position).getTOTALORDER());
+        holder.mTongTien.setText("Tổng cộng: " + mOrderProcessList.get(position).getTOTALORDER()+" VND");
     }
 
     @Override

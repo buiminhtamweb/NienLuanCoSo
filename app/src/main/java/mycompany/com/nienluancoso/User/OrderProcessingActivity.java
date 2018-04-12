@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -64,6 +65,14 @@ public class OrderProcessingActivity extends AppCompatActivity {
                     finish();
                 }
             });
+        }
+
+        //Lấy dự liệu Intent từ Tạo TK
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            if (extras.getBoolean("isSucess")){
+                Snackbar.make(toolbar,"Đã đặt hàng thành công", Snackbar.LENGTH_LONG).show();
+            }
         }
 
         //Lấy ID người dùng

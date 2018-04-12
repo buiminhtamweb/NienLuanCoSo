@@ -1,8 +1,10 @@
 package mycompany.com.nienluancoso.Order;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -78,12 +80,17 @@ public class Fragment3 extends Fragment {
     private Button mBtnDatHang;
 
     private ProgressDialog mProcessDialog;
+    private AlertDialog.Builder mBuilderDialog;
+    private AlertDialog mAlertDialog;
+
+    private Intent intentToOrderProcess;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment3, container, false);
 
+        intentToOrderProcess = new Intent(getActivity(), OrderProcessingActivity.class);
         dbaseHelper = new DatabaseHelper(getContext());
         mSPre = getActivity().getSharedPreferences(Constant.SPRE_NAME, MODE_PRIVATE);
 
@@ -101,6 +108,8 @@ public class Fragment3 extends Fragment {
         recyOrderAdapter = new RecyOrderAdapter(getContext(), orderItemObjects);
         mRecyOrder.setAdapter(recyOrderAdapter);
 
+        initDialog();
+
 
         initRetrofit();
         loadData();
@@ -111,9 +120,7 @@ public class Fragment3 extends Fragment {
     }
 
     private void loadData() {
-
         orderItemObjects.clear();
-
         dbOrderObject = dbaseHelper.getOrder();
 
         if (null == dbaseHelper.getAgricOnOrder()) {
@@ -121,9 +128,7 @@ public class Fragment3 extends Fragment {
             mToolbar.setSubtitle("Chưa có sản phẩm đặt hàng");
             mTvTongTienHD.setText("Tổng cộng: " + 0 + " VND");
         }
-
         mUsername = mSPre.getString(Constant.USERNAME_CUS, "");
-
         dbAgricOrderObjects = dbaseHelper.getAgricOnOrder();
 
         if (null != dbAgricOrderObjects) {
@@ -161,9 +166,7 @@ public class Fragment3 extends Fragment {
         }
         recyOrderAdapter.notifyDataSetChanged();
 
-
     }
-
 
     private void initRetrofit() {
         retrofit = new Retrofit.Builder()
@@ -255,10 +258,7 @@ public class Fragment3 extends Fragment {
                 capNhatSLMua(String.valueOf(orderItemObjects.get(position).getID_AGRI()),
                         orderItemObjects.get(position).getSoLuongMua(),
                         orderItemObjects.get(position).getSoLuongConLai_AGRI());
-
-
                 loadData();
-
             }
 
             @Override
@@ -334,27 +334,49 @@ public class Fragment3 extends Fragment {
                     loadData();
 
                     //Set thời gian chờ xử lý 2s
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-
-                    }
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//
+//                    }
 
                     mProcessDialog.dismiss();
 
                     //Chuyển sang Đơn hàng dag được xử lý
-                    startActivity(new Intent(getActivity(), OrderProcessingActivity.class));
+                    intentToOrderProcess.putExtra("isSucess", true);
+                    startActivity(intentToOrderProcess);
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-
+                mAlertDialog.show();
             }
         });
 
     }
 
+    private void initDialog() {
 
+        mBuilderDialog = new AlertDialog.Builder(getActivity());
+        mBuilderDialog.setTitle("Cảnh báo!");
+        mBuilderDialog.setCancelable(false);
+        mBuilderDialog.setMessage("Bạn phải đăng nhập mới sử dụng được ứng dụng này!");
+        mBuilderDialog.setPositiveButton("Thử lại", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
+            }
+        });
+        mBuilderDialog.setNegativeButton("Hủy", null);
+        mAlertDialog = mBuilderDialog.create();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyOrderAdapter.notifyDataSetChanged();
+
+    }
 }

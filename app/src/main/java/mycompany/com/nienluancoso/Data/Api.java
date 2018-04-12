@@ -105,10 +105,10 @@ public interface Api {
 
     @POST("searchAgric.php")
     @FormUrlEncoded
-    Call<String> searchAgric(@Field("KEYWORD") String keyword);
+    Call<List<AgriItemObject>> searchAgric(@Field("KEYWORD") String keyword);
 
     @POST("searchHintAgric.php")
     @FormUrlEncoded
-    Call<String> searchHintAgric(@Field("KEYWORD") String keyword);
+    Call<List<String>> searchHintAgric(@Field("KEYWORD") String keyword);
 
 }

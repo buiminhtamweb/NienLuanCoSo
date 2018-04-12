@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ public class Fragment4 extends Fragment {
 
     private ImageView mImageViewHeader, mImgAnhDaiDien;
 
-    private TextView mTvFullNameUser;
+    private TextView mTvFullNameUser, mTvSDT;
 
     private DatabaseHelper mDBaseHelper;
 
@@ -51,8 +50,6 @@ public class Fragment4 extends Fragment {
 
     private Retrofit mRetrofitGetData;
     private Api mApiGetData;
-
-    private UserCusObject userCusObject = new UserCusObject();
 
     public Fragment4() {
     }
@@ -64,6 +61,7 @@ public class Fragment4 extends Fragment {
 
         mImgAnhDaiDien = (CircleImageView) view.findViewById(R.id.img_anhdaidien);
         mTvFullNameUser = (TextView) view.findViewById(R.id.tv_hoten_user);
+        mTvSDT = (TextView) view.findViewById(R.id.tv_sdt);
         mBtnBill = (Button) view.findViewById(R.id.btn_bill);
         mBtnOrderProcessing = (Button) view.findViewById(R.id.btn_order_processing);
         mBtnSettingAcc = (Button) view.findViewById(R.id.btn_setting_acc);
@@ -72,7 +70,7 @@ public class Fragment4 extends Fragment {
         mBtnDangXuat = (Button) view.findViewById(R.id.btn_login);
 
         mImageViewHeader = (ImageView) view.findViewById(R.id.img_nav_header);
-        Picasso.get().load(R.drawable.backround).fit().centerCrop().into(mImageViewHeader);
+        Picasso.get().load(R.drawable.backround_green).fit().centerCrop().into(mImageViewHeader);
 
         mDBaseHelper = new DatabaseHelper(getActivity());
         mSPre = getActivity().getSharedPreferences(Constant.SPRE_NAME, MODE_PRIVATE);
@@ -150,11 +148,10 @@ public class Fragment4 extends Fragment {
 
                 if (response.isSuccessful()) {
 
-                    Log.e("USER", "onResponse: " + Constant.IMAGE_SOURCE + response.body().getIMGURLCUS());
                     Picasso.get().load(Constant.IMAGE_SOURCE + response.body().getIMGURLCUS()).fit().centerCrop().into(mImgAnhDaiDien);
                     mTvFullNameUser.setText("Xin chào " + response.body().getFULLNAMECUS() + " !");
+                    mTvSDT.setText(response.body().getTELCUS());
                 }
-
 
             }
 
@@ -199,7 +196,6 @@ public class Fragment4 extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mApiGetData = mRetrofitGetData.create(Api.class);
-
 
     }
 

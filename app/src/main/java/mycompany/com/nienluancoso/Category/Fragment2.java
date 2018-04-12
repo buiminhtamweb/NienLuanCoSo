@@ -63,7 +63,6 @@ public class Fragment2 extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mIntent.putExtra("ID_AGRI",l+"");
                 startActivity(mIntent);
-                getActivity().finish();
             }
         });
 

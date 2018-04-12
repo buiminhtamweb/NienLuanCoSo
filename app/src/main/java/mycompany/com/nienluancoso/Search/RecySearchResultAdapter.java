@@ -1,4 +1,4 @@
-package mycompany.com.nienluancoso.Home;
+package mycompany.com.nienluancoso.Search;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -21,14 +21,14 @@ import mycompany.com.nienluancoso.R;
  * Created by Admin on 3/21/2018.
  */
 
-public class RecyItemAgriAdapter extends RecyclerView.Adapter<RecyItemAgriAdapter.ViewHolder> {
+public class RecySearchResultAdapter extends RecyclerView.Adapter<RecySearchResultAdapter.ViewHolder> {
 
 
     private Context mContext;
     private List<AgriItemObject> mAgriItemObjectList;
     private onClickListener onClickListener;
 
-    public RecyItemAgriAdapter(Context mContext, List<AgriItemObject> mAgriItemObjectList) {
+    public RecySearchResultAdapter(Context mContext, List<AgriItemObject> mAgriItemObjectList) {
         this.mContext = mContext;
         this.mAgriItemObjectList = mAgriItemObjectList;
     }
@@ -37,17 +37,16 @@ public class RecyItemAgriAdapter extends RecyclerView.Adapter<RecyItemAgriAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_agri, parent, false);
+                .inflate(R.layout.item_agri_search_result, parent, false);
 
         return new ViewHolder(itemView);
+
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Picasso.get().load(Constant.IMAGE_SOURCE + mAgriItemObjectList.get(position).getIMG_URL_AGRI()).fit().centerCrop().into(holder.mImageView);
-
         holder.mNameAgri.setText(mAgriItemObjectList.get(position).getNAME_AGRI());
 
         //Hiện giá cũ lên nếu có giá cũ
@@ -93,7 +92,7 @@ public class RecyItemAgriAdapter extends RecyclerView.Adapter<RecyItemAgriAdapte
     public interface onClickListener {
         void onItemClick(int position, int idAgri);
     }
-    public void setOnClickListener(RecyItemAgriAdapter.onClickListener onClickListener) {
+    public void setOnClickListener(RecySearchResultAdapter.onClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 }

@@ -73,6 +73,10 @@
 
         </activity>
 
+        <activity android:name=".User.PoliciesAndTermsActivity">
+
+        </activity>
+
 
     </application>
 

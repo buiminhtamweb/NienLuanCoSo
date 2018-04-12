@@ -106,7 +106,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    startActivity(intentBackMain);
+//                    startActivity(intentBackMain);
                     finish();
                 }
             });
@@ -297,7 +297,7 @@ public class ChiTietNSActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(intentBackMain);
+//        startActivity(intentBackMain);
         finish();
     }
 }

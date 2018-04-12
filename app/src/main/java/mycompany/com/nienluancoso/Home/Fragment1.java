@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,6 +55,8 @@ public class Fragment1 extends Fragment {
     private ViewPager mBannerSlider;
     private Intent mIntent;
 
+    private Snackbar mSnackbar;
+
     private BannerSliderAdapter mBannerSliderAdapter;
 
     public Fragment1() {
@@ -69,6 +72,9 @@ public class Fragment1 extends Fragment {
         recyclerViewHot = (RecyclerView) view.findViewById(R.id.recycler_view_hot);
         recyclerViewSale = (RecyclerView) view.findViewById(R.id.recycler_view_sale);
         mBtnSearch = (Button) view.findViewById(R.id.btn_search);
+
+        mSnackbar = Snackbar
+                .make(mBtnSearch, "Lỗi ! Không thể truy cập đến server", Snackbar.LENGTH_LONG);
 
 
 
@@ -128,10 +134,9 @@ public class Fragment1 extends Fragment {
 
             @Override
             public void onFailure(Call<List<AgriItemObject>> call, Throwable t) {
-//                Snackbar snackbar = Snackbar
-//                        .make(mBtnSearch, "Lỗi ! Không thể truy cập đến server", Snackbar.LENGTH_LONG);
-//                snackbar.show();
-                Toast.makeText(getContext(), "Lỗi ! Không thể truy cập đến server", Toast.LENGTH_SHORT).show();
+
+                mSnackbar.show();
+
             }
         });
 
@@ -248,7 +253,6 @@ public class Fragment1 extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), SearchActivity.class));
-                getActivity().finish();
             }
         });
         recyItemAgriAdapterCheap.setOnClickListener(new RecyItemAgriAdapter.onClickListener() {
@@ -256,7 +260,6 @@ public class Fragment1 extends Fragment {
             public void onItemClick(int position, int idAgri) {
                 mIntent.putExtra("ID_AGRI",idAgri+"");
                 startActivity(mIntent);
-                getActivity().finish();
             }
         });
 
@@ -265,7 +268,7 @@ public class Fragment1 extends Fragment {
             public void onItemClick(int position, int idAgri) {
                 mIntent.putExtra("ID_AGRI",idAgri+"");
                 startActivity(mIntent);
-                getActivity().finish();
+
             }
         });
 
@@ -274,7 +277,6 @@ public class Fragment1 extends Fragment {
             public void onItemClick(int position, int idAgri) {
                 mIntent.putExtra("ID_AGRI",idAgri+"");
                 startActivity(mIntent);
-                getActivity().finish();
             }
         });
 

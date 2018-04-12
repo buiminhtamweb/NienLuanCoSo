@@ -218,7 +218,7 @@ public class SettingAccActivity extends AppCompatActivity {
                 "Nam",
                 "Nữ",
                 "Khác"};
-        final Spinner spinGioiTinh = (Spinner) findViewById(R.id.spinner_gioitinh);
+        final Spinner spinGioiTinh = (Spinner) dialogView.findViewById(R.id.spinner_gioitinh);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sex);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinGioiTinh.setAdapter(adapter);
