@@ -329,7 +329,7 @@ public class Fragment3 extends Fragment {
                 Log.e(TAG, "onResponse_JSONObject: \n  " + response.body());
 
                 if (response.body().equals("true")){
-                    Toast.makeText(getActivity(), "Đã dặt hàng thành công", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "Đã dặt hàng thành công", Toast.LENGTH_SHORT).show();
                     dbaseHelper.deleteAllOrder();
                     loadData();
 

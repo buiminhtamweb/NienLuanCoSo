@@ -19,7 +19,7 @@ import retrofit2.http.POST;
 
 public interface Api {
 
-    String BASE_URL = Constant.HOST;
+    String BASE_URL = Constant.HOST_ONLINE;
 
     @GET("getKind.php")
     Call<List<KindObject>> getKind();
@@ -101,5 +101,14 @@ public interface Api {
     @POST("order_addNewOrder.php")
     @FormUrlEncoded
     Call<String> uploadOrder(@Field("DON_HANG") String json);
+
+
+    @POST("searchAgric.php")
+    @FormUrlEncoded
+    Call<String> searchAgric(@Field("KEYWORD") String keyword);
+
+    @POST("searchHintAgric.php")
+    @FormUrlEncoded
+    Call<String> searchHintAgric(@Field("KEYWORD") String keyword);
 
 }

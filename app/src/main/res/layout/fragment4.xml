@@ -20,17 +20,14 @@
             android:src="@color/primaryLightColor" />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_anhdaidien"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_above="@+id/img_anhdaidien"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="8dp"
-            android:src="@color/backround_grey"
-            tools:ignore="UnknownIdInLayout" />
+            android:src="@color/backround_grey" />
 
         <TextView
-            android:textStyle="bold"
-            android:textColor="@color/white"
             android:id="@+id/tv_hoten_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +36,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:text="Tên người dùng"
-            android:textSize="20sp" />
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_login"

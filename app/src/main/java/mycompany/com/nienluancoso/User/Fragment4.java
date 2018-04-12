@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import mycompany.com.nienluancoso.Constant;
 import mycompany.com.nienluancoso.Data.Api;
 import mycompany.com.nienluancoso.Data.Local.DatabaseHelper;
@@ -51,6 +52,8 @@ public class Fragment4 extends Fragment {
     private Retrofit mRetrofitGetData;
     private Api mApiGetData;
 
+    private UserCusObject userCusObject = new UserCusObject();
+
     public Fragment4() {
     }
 
@@ -59,7 +62,7 @@ public class Fragment4 extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment4, container, false);
 
-        mImgAnhDaiDien = (ImageView) view.findViewById(R.id.img_anhdaidien);
+        mImgAnhDaiDien = (CircleImageView) view.findViewById(R.id.img_anhdaidien);
         mTvFullNameUser = (TextView) view.findViewById(R.id.tv_hoten_user);
         mBtnBill = (Button) view.findViewById(R.id.btn_bill);
         mBtnOrderProcessing = (Button) view.findViewById(R.id.btn_order_processing);
@@ -113,6 +116,13 @@ public class Fragment4 extends Fragment {
             }
         });
 
+        mBtnPoliciesAndTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), PoliciesAndTermsActivity.class));
+            }
+        });
+
         mBtnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,11 +148,14 @@ public class Fragment4 extends Fragment {
             @Override
             public void onResponse(Call<UserCusObject> call, Response<UserCusObject> response) {
 
-                if (response.body()!= null) {
-                    Log.e("USER", "onResponse: "+ Constant.IMAGE_SOURCE + response.body().getIMGURLCUS() );
+                if (response.isSuccessful()) {
+
+                    Log.e("USER", "onResponse: " + Constant.IMAGE_SOURCE + response.body().getIMGURLCUS());
                     Picasso.get().load(Constant.IMAGE_SOURCE + response.body().getIMGURLCUS()).fit().centerCrop().into(mImgAnhDaiDien);
-                    mTvFullNameUser.setText("Xin chào "+response.body().getFULLNAMECUS() + " !");
+                    mTvFullNameUser.setText("Xin chào " + response.body().getFULLNAMECUS() + " !");
                 }
+
+
             }
 
             @Override
