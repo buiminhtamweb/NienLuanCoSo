@@ -18,6 +18,8 @@ import mycompany.com.nienluancoso.User.Fragment4;
 public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private MenuItem mPrevMenuItem;
+
+    BottomNavigationView navigation;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     mViewPager.setCurrentItem(3,true);
                     break;
             }
-            return false;
+            return true;
         }
     };
 
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView(){
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
